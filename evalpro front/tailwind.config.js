@@ -8,40 +8,42 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Palette Officielle B2B SaaS HR Tech EvalPro
-        bleu: {
-          50: '#eff6ff',   // Light Blue
-          100: '#dbeafe',
-          500: '#3b82f6',  // Secondary Blue
-          600: '#2563eb',  // Primary Blue
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',  // Dark Blue
+        // Palette officielle de la Maquette Figma EvalPro (Dark Theme Premium)
+        obsidian: {
+          900: '#0f172a',
+          950: '#0b0f19',
+          1000: '#030213',
         },
-        fond: {
-          principal: '#f8fafc',   // Slate 50
-          secondaire: '#f1f5f9',  // Slate 100
-          carte: '#ffffff',       // White
+        primary: {
+          50: '#f0f4ff',
+          100: '#e0e7ff',
+          500: '#6366f1',
+          600: '#4f46e5',
+          700: '#4338ca',
+          900: '#1e1b4b',
         },
-        texte: {
-          principal: '#0f172a',  // Slate 900
-          secondaire: '#64748b', // Slate 500
-          muet: '#94a3b8',       // Slate 400
+        slate: {
+          850: '#141e33',
+          950: '#0b0f19',
         },
-        bordure: '#e2e8f0',      // Slate 200
-        statut: {
-          succes: '#16a34a',
-          avertissement: '#d97706',
-          erreur: '#dc2626',
+        emerald: {
+          500: '#10b981',
+          600: '#059669',
+        },
+        amber: {
+          500: '#f59e0b',
+        },
+        purple: {
+          500: '#a855f7',
+          600: '#9333ea',
+        },
+        rose: {
+          500: '#f43f5e',
         }
       },
       fontFamily: {
-        sans: ['Inter', 'Outfit', 'sans-serif'],
+        sans: ['Outfit', 'Inter', 'sans-serif'],
       },
-      boxShadow: {
-        'carte': '0 1px 3px 0 rgba(15, 23, 42, 0.03), 0 1px 2px -1px rgba(15, 23, 42, 0.03)',
-        'subtile': '0 4px 6px -1px rgba(15, 23, 42, 0.04), 0 2px 4px -2px rgba(15, 23, 42, 0.04)',
-      }
     },
   },
   plugins: [],

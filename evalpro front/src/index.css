@@ -2,14 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Styles globaux B2B SaaS HR Tech EvalPro */
+/* Styles globaux Maquette Figma EvalPro (Dark Theme Glassmorphism) */
 @layer base {
   body {
-    @apply bg-fond-principal text-texte-principal font-sans antialiased selection:bg-bleu-600 selection:text-white min-h-screen;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply text-texte-principal font-semibold tracking-tight;
+    @apply bg-slate-950 text-slate-100 font-sans selection:bg-indigo-600 selection:text-white min-h-screen;
   }
 }
 
@@ -26,33 +22,33 @@
   user-select: none;
 }
 
-/* Animations de transition fluides */
+/* Transitions de pages */
 .fondu-entre-enter-active,
 .fondu-entre-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .fondu-entre-enter-from,
 .fondu-entre-leave-to {
   opacity: 0;
-  transform: translateY(4px);
+  transform: translateY(6px);
 }
 
-/* Barre de défilement discrète */
+/* Styles personnalisés de barre de défilement sombre */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #0f172a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #334155;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #475569;
 }

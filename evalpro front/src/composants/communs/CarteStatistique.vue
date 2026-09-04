@@ -1,20 +1,20 @@
 <template>
   <!-- 
-    CarteStatistique.vue / CarteKpi (B2B SaaS HR Tech)
-    Carte d'indicateur RH réutilisable avec métrique principale, tendance et icône.
+    CarteStatistique.vue (Style Maquette Figma Sombre)
+    Carte d'indicateur avec fond sombre, bordure slate-800 et icône d'accentuation.
   -->
-  <div class="bg-white border border-bordure rounded-xl p-5 shadow-carte hover:border-slate-300 transition-all">
+  <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition-all shadow-sm">
     <div class="flex items-center justify-between">
-      <span class="text-xs font-semibold text-texte-secondaire uppercase tracking-wider">{{ titre }}</span>
+      <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">{{ titre }}</span>
       <div :class="['w-9 h-9 rounded-lg flex items-center justify-center', couleurFondIcone]">
         <span class="material-symbols-outlined text-lg" :class="couleurTexteIcone">{{ icone }}</span>
       </div>
     </div>
 
     <div class="mt-3 flex items-baseline justify-between">
-      <div class="text-2xl font-extrabold text-texte-principal tracking-tight font-sans">{{ valeur }}</div>
+      <div class="text-2xl font-extrabold text-white tracking-tight font-sans">{{ valeur }}</div>
       
-      <div v-if="tendance" class="flex items-center text-xs font-semibold" :class="tendancePositive ? 'text-emerald-600' : 'text-rose-600'">
+      <div v-if="tendance" class="flex items-center text-xs font-semibold" :class="tendancePositive ? 'text-emerald-400' : 'text-rose-400'">
         <span class="material-symbols-outlined text-sm mr-0.5">
           {{ tendancePositive ? 'trending_up' : 'trending_down' }}
         </span>
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <p v-if="description" class="mt-2 text-xs text-texte-muet">
+    <p v-if="description" class="mt-2 text-xs text-slate-500">
       {{ description }}
     </p>
   </div>
@@ -36,7 +36,7 @@ defineProps({
   tendance: { type: String, default: null },
   tendancePositive: { type: Boolean, default: true },
   description: { type: String, default: null },
-  couleurFondIcone: { type: String, default: 'bg-bleu-50' },
-  couleurTexteIcone: { type: String, default: 'text-bleu-600' },
+  couleurFondIcone: { type: String, default: 'bg-indigo-500/10' },
+  couleurTexteIcone: { type: String, default: 'text-indigo-400' },
 });
 </script>

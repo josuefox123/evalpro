@@ -1,29 +1,33 @@
 <template>
   <!-- 
-    TableauDeBordEntreprise.vue (Dashboard RH B2B SaaS)
-    Tableau de bord administrateur entreprise avec KPI, campagnes récentes et suivi des recrutements.
+    TableauDeBordEntreprise.vue (Maquette Figma CADashboard Dark)
+    Tableau de bord Administrateur Entreprise avec statistiques, campagnes actives et progression.
   -->
   <div class="space-y-8">
     
-    <!-- En-tête de bienvenue B2B -->
+    <!-- En-tête -->
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-extrabold text-texte-principal tracking-tight">Bonjour, Samira Hadjab</h1>
-        <p class="text-xs text-texte-secondaire mt-1">Voici l'état général de vos activités de recrutement pour <strong class="text-texte-principal">TechCorp Algérie</strong>.</p>
+        <div class="inline-flex items-center space-x-1 text-xs font-semibold px-2.5 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-1">
+          <span class="material-symbols-outlined text-xs">domain</span>
+          <span>TechCorp Algérie</span>
+        </div>
+        <h1 class="text-2xl font-extrabold text-white">Tableau de Bord Recrutement</h1>
+        <p class="text-xs text-slate-400">Gérez vos campagnes d'évaluation, vos candidats et suivez les résultats en direct.</p>
       </div>
 
       <div class="flex items-center space-x-3">
         <button 
           @click="afficherModalImport = true" 
-          class="px-4 py-2 rounded-lg bg-white border border-bordure hover:bg-fond-secondaire text-texte-principal text-xs font-semibold shadow-carte transition-colors cursor-pointer flex items-center space-x-1.5"
+          class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 text-xs font-semibold transition-colors cursor-pointer flex items-center space-x-1.5"
         >
           <span class="material-symbols-outlined text-base">upload_file</span>
-          <span>Importation Massives (CSV/Excel)</span>
+          <span>Import Massif Candidats</span>
         </button>
 
         <router-link 
           to="/campagnes/nouvelle" 
-          class="px-4 py-2 rounded-lg bg-bleu-600 hover:bg-bleu-700 text-white text-xs font-semibold shadow-carte transition-all cursor-pointer flex items-center space-x-1.5"
+          class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-md shadow-indigo-600/20 transition-all cursor-pointer flex items-center space-x-1.5"
         >
           <span class="material-symbols-outlined text-base">add</span>
           <span>Créer une Campagne</span>
@@ -31,161 +35,119 @@
       </div>
     </div>
 
-    <!-- Première Ligne : Cartes KPI RH -->
+    <!-- Cartes Métriques RH (Style Figma Dark) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       <CarteStatistique 
-        titre="Campagnes Actives" 
-        valeur="12" 
-        icone="campaign" 
-        tendance="+3 ce mois" 
-        :tendancePositive="true"
-        couleurFondIcone="bg-bleu-50" 
-        couleurTexteIcone="text-bleu-600" 
-      />
-
-      <CarteStatistique 
-        titre="Candidats Enregistrés" 
-        valeur="1,248" 
-        icone="groups" 
+        titre="Candidats Inscrits" 
+        valeur="1,245" 
+        icone="group" 
         tendance="+120 cette semaine" 
         :tendancePositive="true"
-        couleurFondIcone="bg-emerald-50" 
-        couleurTexteIcone="text-emerald-600" 
+        couleurFondIcone="bg-indigo-500/10" 
+        couleurTexteIcone="text-indigo-400" 
       />
 
       <CarteStatistique 
-        titre="Épreuves & Tests" 
-        valeur="34" 
-        icone="quiz" 
-        tendance="28 publiées" 
+        titre="Invitations Envoyées" 
+        valeur="1,180" 
+        icone="send" 
+        tendance="94.7% transmises" 
         :tendancePositive="true"
-        couleurFondIcone="bg-indigo-50" 
-        couleurTexteIcone="text-indigo-600" 
+        couleurFondIcone="bg-emerald-500/10" 
+        couleurTexteIcone="text-emerald-400" 
       />
 
       <CarteStatistique 
-        titre="Copies à Corriger" 
-        valeur="43" 
+        titre="Compositions Réalisées" 
+        valeur="943" 
         icone="fact_check" 
-        tendance="Évaluation manuelle" 
+        tendance="Taux participation 80%" 
+        :tendancePositive="true"
+        couleurFondIcone="bg-amber-500/10" 
+        couleurTexteIcone="text-amber-400" 
+      />
+
+      <CarteStatistique 
+        titre="Incidents Détectés" 
+        valeur="28" 
+        icone="warning" 
+        tendance="Surveillance active" 
         :tendancePositive="false"
-        couleurFondIcone="bg-amber-50" 
-        couleurTexteIcone="text-amber-600" 
+        couleurFondIcone="bg-rose-500/10" 
+        couleurTexteIcone="text-rose-400" 
       />
     </div>
 
-    <!-- Deuxième Ligne : Graphique Activité & Répartition des Résultats -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-      
-      <div class="lg:col-span-8 bg-white border border-bordure rounded-2xl p-6 shadow-carte space-y-4">
-        <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-sm font-bold text-texte-principal">Activité des Candidatures (Volume Hebdomadaire)</h3>
-            <p class="text-xs text-texte-secondaire">Suivi des inscriptions et passages d'épreuves sur 6 mois</p>
-          </div>
-          <span class="text-xs font-semibold text-bleu-600 bg-bleu-50 border border-bleu-100 px-2.5 py-1 rounded-full">
-            +18.4% de taux de réponse
-          </span>
-        </div>
-
-        <!-- Histogramme d'activité B2B épuré -->
-        <div class="h-48 pt-4 flex items-end justify-between gap-4 border-b border-bordure pb-2">
-          <div v-for="(mois, idx) in activiteHebdo" :key="idx" class="flex-1 flex flex-col items-center gap-2 group">
-            <div class="w-full bg-bleu-100 group-hover:bg-bleu-600 transition-colors rounded-t-md relative" :style="{ height: mois.hauteur + '%' }">
-              <span class="opacity-0 group-hover:opacity-100 absolute -top-7 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] py-0.5 px-1.5 rounded font-mono transition-opacity">
-                {{ mois.valeur }}
-              </span>
-            </div>
-            <span class="text-[11px] font-medium text-texte-secondaire">{{ mois.label }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="lg:col-span-4 bg-white border border-bordure rounded-2xl p-6 shadow-carte space-y-4">
-        <h3 class="text-sm font-bold text-texte-principal">Répartition des Résultats</h3>
-        <p class="text-xs text-texte-secondaire">Taux d'admissibilité globales</p>
-
-        <div class="space-y-3 pt-2">
-          <div class="space-y-1">
-            <div class="flex justify-between text-xs font-semibold">
-              <span class="text-emerald-700">Admissibles</span>
-              <span class="font-mono text-texte-principal">34% (424 candidats)</span>
-            </div>
-            <div class="w-full h-2 bg-fond-secondaire rounded-full overflow-hidden">
-              <div class="h-full bg-emerald-600 rounded-full" style="width: 34%"></div>
-            </div>
-          </div>
-
-          <div class="space-y-1">
-            <div class="flex justify-between text-xs font-semibold">
-              <span class="text-amber-700">Liste d'Attente</span>
-              <span class="font-mono text-texte-principal">18% (225 candidats)</span>
-            </div>
-            <div class="w-full h-2 bg-fond-secondaire rounded-full overflow-hidden">
-              <div class="h-full bg-amber-500 rounded-full" style="width: 18%"></div>
-            </div>
-          </div>
-
-          <div class="space-y-1">
-            <div class="flex justify-between text-xs font-semibold">
-              <span class="text-rose-700">Non Admis</span>
-              <span class="font-mono text-texte-principal">48% (599 candidats)</span>
-            </div>
-            <div class="w-full h-2 bg-fond-secondaire rounded-full overflow-hidden">
-              <div class="h-full bg-rose-500 rounded-full" style="width: 48%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Troisième Ligne : Tableau des Campagnes Récents -->
-    <div class="bg-white border border-bordure rounded-2xl p-6 shadow-carte space-y-4">
+    <!-- Liste des Campagnes Actives (Maquette Figma Style) -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
       <div class="flex items-center justify-between">
-        <h3 class="text-sm font-bold text-texte-principal">Campagnes Récentes</h3>
-        <router-link to="/campagnes" class="text-xs font-semibold text-bleu-600 hover:underline">
-          Voir toutes les campagnes
+        <h3 class="text-base font-bold text-white flex items-center space-x-2">
+          <span class="material-symbols-outlined text-indigo-400">campaign</span>
+          <span>Campagnes de Recrutement en Cours</span>
+        </h3>
+
+        <router-link to="/campagnes" class="text-xs font-semibold text-indigo-400 hover:underline">
+          Voir toutes les campagnes ({{ magasinCampagne.campagnes.length }})
         </router-link>
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs text-texte-principal">
-          <thead class="bg-fond-principal text-texte-secondaire uppercase font-semibold border-y border-bordure">
-            <tr>
-              <th class="p-3">Poste & Intitulé</th>
-              <th class="p-3">Département</th>
-              <th class="p-3">Candidats</th>
-              <th class="p-3">Statut</th>
-              <th class="p-3">Consultant Responsable</th>
-              <th class="p-3 text-right">Action</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-bordure">
-            <tr v-for="campagne in magasinCampagne.campagnes" :key="campagne.id" class="hover:bg-fond-secondaire/50 transition-colors">
-              <td class="p-3 font-semibold text-texte-principal">
-                <div>{{ campagne.titre }}</div>
-                <div class="text-[10px] text-texte-secondaire font-normal">{{ campagne.poste }}</div>
-              </td>
-              <td class="p-3 text-texte-secondaire">{{ campagne.departement }}</td>
-              <td class="p-3 font-mono font-bold text-texte-principal">{{ campagne.candidatsCount }}</td>
-              <td class="p-3">
-                <BadgesStatut :statut="campagne.statut" />
-              </td>
-              <td class="p-3 text-texte-secondaire">{{ campagne.consultantAssigne }}</td>
-              <td class="p-3 text-right">
-                <router-link to="/candidats" class="text-bleu-600 font-semibold hover:underline">
-                  Détails
-                </router-link>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div 
+          v-for="campagne in magasinCampagne.campagnes" 
+          :key="campagne.id"
+          class="bg-slate-950 border border-slate-800 hover:border-slate-700 rounded-xl p-5 space-y-4 transition-all"
+        >
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="text-[10px] font-semibold uppercase text-slate-400 tracking-wider">{{ campagne.departement }}</span>
+              <h4 class="text-base font-bold text-white mt-0.5">{{ campagne.titre }}</h4>
+            </div>
+            <BadgesStatut :statut="campagne.statut" />
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 text-xs text-slate-400 bg-slate-900/60 p-3 rounded-lg border border-slate-800/80">
+            <div>
+              <div class="text-[10px] text-slate-500">Candidats</div>
+              <div class="font-bold text-white font-mono">{{ campagne.candidatsCount }}</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-slate-500">Compositions</div>
+              <div class="font-bold text-emerald-400 font-mono">{{ campagne.compositionsRealisees }}</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-slate-500">Échéance</div>
+              <div class="font-bold text-slate-200">{{ campagne.dateCloture }}</div>
+            </div>
+          </div>
+
+          <!-- Barre de progression -->
+          <div class="space-y-1">
+            <div class="flex items-center justify-between text-[11px] text-slate-400">
+              <span>Taux d'avancement</span>
+              <span class="font-bold text-indigo-400">{{ campagne.progression }}%</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden border border-slate-800">
+              <div class="h-full bg-gradient-to-r from-indigo-500 to-emerald-400 rounded-full" :style="{ width: campagne.progression + '%' }"></div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs">
+            <span class="text-slate-400 flex items-center space-x-1">
+              <span class="material-symbols-outlined text-sm text-slate-500">person</span>
+              <span>{{ campagne.consultantAssigne }}</span>
+            </span>
+
+            <router-link to="/candidats" class="text-indigo-400 font-semibold hover:underline flex items-center space-x-1">
+              <span>Gérer les Candidats</span>
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </router-link>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Modale Importation Massif si activée -->
-    <div v-if="afficherModalImport" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+    <div v-if="afficherModalImport" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
       <div class="max-w-2xl w-full">
         <ImporteurMassif @fermer="afficherModalImport = false" @importe="onImporte" />
       </div>
@@ -203,15 +165,6 @@ import ImporteurMassif from '../../composants/recrutement/ImporteurMassif.vue';
 
 const magasinCampagne = useMagasinCampagne();
 const afficherModalImport = ref(false);
-
-const activiteHebdo = [
-  { label: 'Jan', hauteur: 40, valeur: '124' },
-  { label: 'Fév', hauteur: 65, valeur: '187' },
-  { label: 'Mar', hauteur: 50, valeur: '156' },
-  { label: 'Avr', hauteur: 85, valeur: '234' },
-  { label: 'Mai', hauteur: 95, valeur: '289' },
-  { label: 'Juin', hauteur: 70, valeur: '198' },
-];
 
 function onImporte(nombre) {
   alert(`${nombre} nouveaux candidats importés avec succès !`);
