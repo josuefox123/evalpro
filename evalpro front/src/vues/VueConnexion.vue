@@ -1,48 +1,48 @@
 <template>
   <!-- 
-    VueConnexion : Page d'authentification et de choix d'espace utilisateur.
-    Permet de se connecter avec identifiants ou d'accéder directement par token candidat.
+    VueConnexion.vue (Authentification & Accès JWT B2B SaaS)
+    Formulaire de connexion épuré avec option de démo par rôle ou lien direct candidat.
   -->
-  <div class="min-h-[80vh] flex items-center justify-center px-4 py-12">
-    <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl space-y-6">
+  <div class="min-h-[85vh] flex items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white border border-bordure rounded-2xl p-8 shadow-carte space-y-6">
       
       <div class="text-center space-y-2">
-        <div class="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center mx-auto text-white shadow-lg shadow-indigo-600/30">
-          <span class="material-symbols-outlined text-2xl">lock</span>
+        <div class="w-12 h-12 rounded-xl bg-bleu-600 flex items-center justify-center mx-auto text-white font-extrabold text-xl shadow-carte">
+          E
         </div>
-        <h2 class="text-2xl font-bold text-white">Connexion à EvalPro</h2>
-        <p class="text-xs text-slate-400">Sélectionnez votre profil ou saisissez votre code d'accès candidat</p>
+        <h2 class="text-2xl font-extrabold text-texte-principal tracking-tight">Connexion à EvalPro</h2>
+        <p class="text-xs text-texte-secondaire">Accédez à votre espace B2B ou saisissez votre code invitation candidat</p>
       </div>
 
-      <!-- Onglets : Connexion Compte vs Code Invitation Candidat -->
-      <div class="flex rounded-lg bg-slate-950 p-1 border border-slate-800 text-xs">
+      <!-- Onglets Compte vs Lien Candidat -->
+      <div class="flex rounded-lg bg-fond-principal p-1 border border-bordure text-xs">
         <button 
           @click="modeSelection = 'compte'"
           :class="[
-            'flex-1 py-2 font-medium rounded-md transition-colors cursor-pointer',
-            modeSelection === 'compte' ? 'bg-indigo-600 text-white shadow' : 'text-slate-400 hover:text-white'
+            'flex-1 py-2 font-semibold rounded-md transition-colors cursor-pointer',
+            modeSelection === 'compte' ? 'bg-white text-bleu-600 shadow-carte' : 'text-texte-secondaire hover:text-texte-principal'
           ]"
         >
-          Compte Administrateur / Consultant
+          Administrateur / Évaluateur
         </button>
         <button 
           @click="modeSelection = 'candidat'"
           :class="[
-            'flex-1 py-2 font-medium rounded-md transition-colors cursor-pointer',
-            modeSelection === 'candidat' ? 'bg-amber-600 text-white shadow' : 'text-slate-400 hover:text-white'
+            'flex-1 py-2 font-semibold rounded-md transition-colors cursor-pointer',
+            modeSelection === 'candidat' ? 'bg-white text-bleu-600 shadow-carte' : 'text-texte-secondaire hover:text-texte-principal'
           ]"
         >
           Lien Candidat (JWT)
         </button>
       </div>
 
-      <!-- Formulaire Connexion Administrateur / Consultant -->
+      <!-- Formulaire Connexion Compte -->
       <form v-if="modeSelection === 'compte'" @submit.prevent="connexionCompte" class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Choisir le Rôle de Démonstration</label>
+          <label class="block text-xs font-semibold text-texte-secondaire uppercase tracking-wider mb-1">Rôle de Démonstration</label>
           <select 
             v-model="roleChoisi" 
-            class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+            class="w-full bg-fond-principal border border-bordure rounded-lg px-3.5 py-2.5 text-xs text-texte-principal focus:outline-none focus:border-bleu-600"
           >
             <option value="companyadmin">Administrateur Entreprise (TechCorp Algérie)</option>
             <option value="superadmin">Super Administrateur (EvalPro HQ)</option>
@@ -51,54 +51,54 @@
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Adresse Email</label>
+          <label class="block text-xs font-semibold text-texte-secondaire uppercase tracking-wider mb-1">Adresse Email</label>
           <input 
             type="email" 
             required 
             v-model="emailForm" 
-            placeholder="votre.email@entreprise.dz" 
-            class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+            placeholder="adresse@entreprise.dz" 
+            class="w-full bg-fond-principal border border-bordure rounded-lg px-3.5 py-2.5 text-xs text-texte-principal focus:outline-none focus:border-bleu-600"
           />
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Mot de Passe</label>
+          <label class="block text-xs font-semibold text-texte-secondaire uppercase tracking-wider mb-1">Mot de Passe</label>
           <input 
             type="password" 
             required 
             value="••••••••••••" 
-            class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+            class="w-full bg-fond-principal border border-bordure rounded-lg px-3.5 py-2.5 text-xs text-texte-principal focus:outline-none focus:border-bleu-600"
           />
         </div>
 
         <button 
           type="submit" 
-          class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-lg shadow-indigo-600/20 transition-all cursor-pointer flex items-center justify-center space-x-2"
+          class="w-full py-3 rounded-lg bg-bleu-600 hover:bg-bleu-700 text-white text-xs font-bold shadow-carte transition-colors cursor-pointer flex items-center justify-center space-x-2"
         >
           <span>Se Connecter</span>
           <span class="material-symbols-outlined text-base">login</span>
         </button>
       </form>
 
-      <!-- Formulaire Accès Candidat via Token -->
+      <!-- Formulaire Token Candidat -->
       <form v-else @submit.prevent="connexionCandidat" class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Code d'Invitation Unique (JWT)</label>
+          <label class="block text-xs font-semibold text-texte-secondaire uppercase tracking-wider mb-1">Token Candidat Unique (JWT)</label>
           <input 
             type="text" 
             required 
             v-model="tokenCandidat" 
             placeholder="ex: EVAL-2025-8942-JWT" 
-            class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-amber-400 font-mono focus:outline-none focus:border-amber-500"
+            class="w-full bg-fond-principal border border-bordure rounded-lg px-3.5 py-2.5 text-xs text-bleu-600 font-mono font-bold focus:outline-none focus:border-bleu-600"
           />
-          <p class="text-[11px] text-slate-500 mt-1.5">Inséré automatiquement lorsque le candidat clique sur son lien sécurisé d'invitation.</p>
+          <p class="text-[11px] text-texte-muet mt-1">Fourni via le lien d'invitation sécurisé reçu par email.</p>
         </div>
 
         <button 
           type="submit" 
-          class="w-full py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold shadow-lg shadow-amber-600/20 transition-all cursor-pointer flex items-center justify-center space-x-2"
+          class="w-full py-3 rounded-lg bg-bleu-600 hover:bg-bleu-700 text-white text-xs font-bold shadow-carte transition-colors cursor-pointer flex items-center justify-center space-x-2"
         >
-          <span>Rejoindre l'Épreuve Candidat</span>
+          <span>Accéder à l'Épreuve Candidat</span>
           <span class="material-symbols-outlined text-base">arrow_forward</span>
         </button>
       </form>

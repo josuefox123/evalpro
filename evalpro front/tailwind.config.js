@@ -8,33 +8,40 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Palette EvalPro raffinée
-        primary: {
-          50: '#f0f4ff',
-          100: '#e0e7ff',
-          500: '#4f46e5',
-          600: '#4338ca',
-          700: '#3730a3',
-          900: '#1e1b4b',
+        // Palette Officielle B2B SaaS HR Tech EvalPro
+        bleu: {
+          50: '#eff6ff',   // Light Blue
+          100: '#dbeafe',
+          500: '#3b82f6',  // Secondary Blue
+          600: '#2563eb',  // Primary Blue
+          700: '#1d4ed8',
+          800: '#1e40af',
+          900: '#1e3a8a',  // Dark Blue
         },
-        slate: {
-          850: '#141e33',
-          950: '#0b0f19',
+        fond: {
+          principal: '#f8fafc',   // Slate 50
+          secondaire: '#f1f5f9',  // Slate 100
+          carte: '#ffffff',       // White
         },
-        emerald: {
-          500: '#10b981',
-          600: '#059669',
+        texte: {
+          principal: '#0f172a',  // Slate 900
+          secondaire: '#64748b', // Slate 500
+          muet: '#94a3b8',       // Slate 400
         },
-        amber: {
-          500: '#f59e0b',
-        },
-        rose: {
-          500: '#f43f5e',
+        bordure: '#e2e8f0',      // Slate 200
+        statut: {
+          succes: '#16a34a',
+          avertissement: '#d97706',
+          erreur: '#dc2626',
         }
       },
       fontFamily: {
-        sans: ['Outfit', 'Inter', 'sans-serif'],
+        sans: ['Inter', 'Outfit', 'sans-serif'],
       },
+      boxShadow: {
+        'carte': '0 1px 3px 0 rgba(15, 23, 42, 0.03), 0 1px 2px -1px rgba(15, 23, 42, 0.03)',
+        'subtile': '0 4px 6px -1px rgba(15, 23, 42, 0.04), 0 2px 4px -2px rgba(15, 23, 42, 0.04)',
+      }
     },
   },
   plugins: [],

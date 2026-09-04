@@ -2,14 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Styles globaux et animations pour EvalPro */
+/* Styles globaux B2B SaaS HR Tech EvalPro */
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white;
+    @apply bg-fond-principal text-texte-principal font-sans antialiased selection:bg-bleu-600 selection:text-white min-h-screen;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-texte-principal font-semibold tracking-tight;
   }
 }
 
-/* Alignement des icônes Google Material Symbols */
+/* Material Symbols alignment */
 .material-symbols-outlined {
   font-variation-settings:
     'FILL' 0,
@@ -22,33 +26,33 @@
   user-select: none;
 }
 
-/* Animations de transition */
+/* Animations de transition fluides */
 .fondu-entre-enter-active,
 .fondu-entre-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .fondu-entre-enter-from,
 .fondu-entre-leave-to {
   opacity: 0;
-  transform: translateY(6px);
+  transform: translateY(4px);
 }
 
-/* Styles personnalisés de barre de défilement */
+/* Barre de défilement discrète */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #94a3b8;
 }
