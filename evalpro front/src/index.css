@@ -1,15 +1,95 @@
+/* ================================================================
+   index.css - Feuille de style globale EvalPro
+   Thème clair professionnel, cohérent avec la maquette Figma.
+   Import des directives Tailwind + styles personnalisés.
+   ================================================================ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Styles globaux Maquette Figma EvalPro (Dark Theme Glassmorphism) */
+/* ----------------------------------------------------------------
+   Styles de base (surcharge des défauts du navigateur)
+   ---------------------------------------------------------------- */
 @layer base {
+  /* Corps de la page : fond clair, texte sombre, police Inter */
   body {
-    @apply bg-slate-950 text-slate-100 font-sans selection:bg-indigo-600 selection:text-white min-h-screen;
+    @apply bg-fond-principal text-texte-principal font-sans;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* Titres : police Outfit pour un rendu moderne */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-titre font-bold tracking-tight;
+  }
+
+  /* Focus clavier accessible et cohérent */
+  *:focus-visible {
+    @apply outline-2 outline-offset-2 outline-bleu-500;
   }
 }
 
-/* Material Symbols alignment */
+/* ----------------------------------------------------------------
+   Composants réutilisables (utilitaires personnalisés)
+   ---------------------------------------------------------------- */
+@layer components {
+
+  /* Carte de base (fond blanc, bordure, ombre légère) */
+  .carte {
+    @apply bg-fond-carte border border-bordure rounded-carte shadow-carte;
+  }
+
+  /* Bouton principal (CTA bleu indigo) */
+  .btn-principal {
+    @apply inline-flex items-center justify-center gap-2
+           px-4 py-2.5 rounded-xl text-sm font-semibold
+           bg-bleu-600 text-white
+           hover:bg-bleu-700
+           active:scale-95
+           transition-all duration-150
+           shadow-sm cursor-pointer;
+  }
+
+  /* Bouton secondaire (contour) */
+  .btn-secondaire {
+    @apply inline-flex items-center justify-center gap-2
+           px-4 py-2.5 rounded-xl text-sm font-semibold
+           bg-white text-texte-principal border border-bordure
+           hover:bg-fond-secondaire
+           active:scale-95
+           transition-all duration-150
+           shadow-sm cursor-pointer;
+  }
+
+  /* Champ de formulaire standard */
+  .champ-saisie {
+    @apply w-full bg-fond-principal border border-bordure rounded-xl
+           px-3.5 py-2.5 text-sm text-texte-principal
+           placeholder:text-texte-muet
+           focus:outline-none focus:ring-2 focus:ring-bleu-500/30 focus:border-bleu-500
+           transition-colors;
+  }
+
+  /* Badge de statut générique */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5
+           rounded-full text-xs font-semibold;
+  }
+
+  /* Lien de navigation actif dans la sidebar */
+  .nav-lien-actif {
+    @apply bg-bleu-50 text-bleu-600 border border-bleu-200/60 font-semibold;
+  }
+
+  /* Lien de navigation inactif dans la sidebar */
+  .nav-lien-inactif {
+    @apply text-texte-secondaire hover:bg-fond-secondaire hover:text-texte-principal;
+  }
+}
+
+/* ----------------------------------------------------------------
+   Icônes Google Material Symbols (alignement vertical correct)
+   ---------------------------------------------------------------- */
 .material-symbols-outlined {
   font-variation-settings:
     'FILL' 0,
@@ -22,33 +102,37 @@
   user-select: none;
 }
 
-/* Transitions de pages */
+/* ----------------------------------------------------------------
+   Transitions de navigation entre les pages (Vue Router)
+   ---------------------------------------------------------------- */
 .fondu-entre-enter-active,
 .fondu-entre-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .fondu-entre-enter-from,
 .fondu-entre-leave-to {
   opacity: 0;
-  transform: translateY(6px);
+  transform: translateY(4px);
 }
 
-/* Styles personnalisés de barre de défilement sombre */
+/* ----------------------------------------------------------------
+   Barre de défilement personnalisée (style clair et discret)
+   ---------------------------------------------------------------- */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #94a3b8;
 }
