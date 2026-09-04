@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Styles globaux et animations pour EvalPro */
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white;
+  }
+}
+
+/* Alignement des icônes Google Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  user-select: none;
+}
+
+/* Animations de transition */
+.fondu-entre-enter-active,
+.fondu-entre-leave-active {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.fondu-entre-enter-from,
+.fondu-entre-leave-to {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* Styles personnalisés de barre de défilement */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
