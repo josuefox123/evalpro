@@ -68,20 +68,6 @@
           </EpButton>
         </form>
 
-        <!-- Accès Candidat -->
-        <div class="pt-4 border-t border-slate-100 text-center space-y-1.5">
-          <p class="text-[11px] text-slate-500">
-            Vous êtes candidat et participez à une épreuve ?
-          </p>
-          <router-link
-            to="/acces-candidat"
-            class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline"
-          >
-            <span class="material-symbols-outlined text-sm">badge</span>
-            <span>Accéder avec mon Code Candidat</span>
-          </router-link>
-        </div>
-
       </div>
 
       <!-- Copyright discret bas de page -->

@@ -49,20 +49,6 @@
           </EpButton>
         </form>
 
-        <!-- Redirection Recruteur / Entreprise -->
-        <div class="pt-4 border-t border-slate-100 text-center space-y-1.5">
-          <p class="text-[11px] text-slate-500">
-            Vous êtes un recruteur ou un administrateur ?
-          </p>
-          <router-link
-            to="/connexion"
-            class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline"
-          >
-            <span class="material-symbols-outlined text-sm">domain</span>
-            <span>Connexion Espace Entreprise</span>
-          </router-link>
-        </div>
-
       </div>
 
       <!-- Copyright discret bas de page -->
