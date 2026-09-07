@@ -217,9 +217,9 @@
 
 
             <!-- =================================================
-                 REALISTIC EVALPRO DASHBOARD MOCKUP WITH PRO ANIMATIONS
+                 REALISTIC EVALPRO DASHBOARD MOCKUP (RESPONSIVE MOBILE & DESKTOP)
             ================================================== -->
-            <div class="relative w-full max-w-[680px] mx-auto lg:max-w-none group">
+            <div class="relative w-full max-w-[680px] mx-auto lg:max-w-none group mt-6 lg:mt-0">
 
               <!-- Ambient Breathing Glow -->
               <div
@@ -234,7 +234,7 @@
 
                 <!-- Browser bar -->
                 <div
-                  class="h-9 sm:h-10 border-b border-slate-200 bg-slate-100/90 flex items-center px-3 sm:px-4 justify-between"
+                  class="h-8 sm:h-10 border-b border-slate-200 bg-slate-100/90 flex items-center px-3 sm:px-4 justify-between"
                 >
                   <div class="flex items-center gap-1.5">
                     <span class="w-2.5 h-2.5 rounded-full bg-rose-400/80"></span>
@@ -243,49 +243,70 @@
                   </div>
 
                   <div
-                    class="h-5 sm:h-6 px-3 rounded-md bg-white border border-slate-200/80 flex items-center gap-1.5 text-[10px] text-slate-400 font-mono truncate max-w-[240px] sm:max-w-[320px] shadow-inner"
+                    class="h-5 sm:h-6 px-2.5 sm:px-3 rounded-md bg-white border border-slate-200/80 flex items-center gap-1.5 text-[9px] sm:text-[10px] text-slate-400 font-mono truncate max-w-[200px] sm:max-w-[320px] shadow-inner"
                   >
-                    <span class="material-symbols-outlined text-[12px] text-slate-400">lock</span>
+                    <span class="material-symbols-outlined text-[11px] sm:text-[12px] text-slate-400">lock</span>
                     <span class="truncate">https://evalpro.app/admin/dashboard</span>
                   </div>
 
-                  <div class="w-10"></div>
+                  <div class="w-6 sm:w-10"></div>
                 </div>
 
 
-                <!-- Dashboard Layout: Mini Sidebar + Main App Content -->
-                <div class="grid grid-cols-[56px_1fr] sm:grid-cols-[140px_1fr] min-h-[360px] bg-slate-50/50">
+                <!-- Mobile Topbar Header (< 640px) -->
+                <div class="sm:hidden bg-slate-900 text-white px-3 py-2 flex items-center justify-between border-b border-slate-800">
+                  <div class="flex items-center gap-2">
+                    <div class="w-5 h-5 rounded bg-blue-600 text-white flex items-center justify-center font-bold text-[10px] font-titre shadow-sm">
+                      EP
+                    </div>
+                    <span class="text-xs font-bold font-titre tracking-wider text-slate-100">
+                      EvalPro App
+                    </span>
+                  </div>
 
-                  <!-- Mini Sidebar -->
-                  <div class="bg-slate-900 text-white p-2 sm:p-3 flex flex-col justify-between border-r border-slate-800">
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 text-[9px] font-semibold border border-emerald-500/30">
+                    <span class="relative flex h-1.5 w-1.5">
+                      <span class="animate-ep-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                    </span>
+                    <span>Campagne Active</span>
+                  </span>
+                </div>
+
+
+                <!-- Dashboard Layout: Desktop Sidebar (sm+) & Main App Content (100% width on mobile) -->
+                <div class="grid grid-cols-1 sm:grid-cols-[140px_1fr] min-h-[340px] sm:min-h-[360px] bg-slate-50/50">
+
+                  <!-- Mini Sidebar (Hidden on mobile, visible sm+) -->
+                  <div class="hidden sm:flex bg-slate-900 text-white p-3 flex-col justify-between border-r border-slate-800">
                     <div class="space-y-4">
                       <!-- Logo Mini -->
                       <div class="flex items-center gap-2 px-1">
                         <div class="w-6 h-6 rounded bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 font-titre shadow-sm">
                           EP
                         </div>
-                        <span class="hidden sm:inline text-xs font-bold font-titre tracking-wider text-slate-100">
+                        <span class="text-xs font-bold font-titre tracking-wider text-slate-100">
                           EvalPro
                         </span>
                       </div>
 
                       <!-- Nav Items -->
                       <div class="space-y-1">
-                        <div class="flex items-center gap-2 px-2 py-1.5 rounded-md bg-blue-600 text-white text-[10px] sm:text-xs font-medium cursor-default shadow-sm transition-transform hover:scale-[1.02]">
+                        <div class="flex items-center gap-2 px-2 py-1.5 rounded-md bg-blue-600 text-white text-xs font-medium cursor-default shadow-sm">
                           <span class="material-symbols-outlined text-[16px]">dashboard</span>
-                          <span class="hidden sm:inline">Tableau</span>
+                          <span>Tableau</span>
                         </div>
-                        <div class="flex items-center gap-2 px-2 py-1.5 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 text-[10px] sm:text-xs font-medium cursor-default transition-colors">
+                        <div class="flex items-center gap-2 px-2 py-1.5 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 text-xs font-medium cursor-default transition-colors">
                           <span class="material-symbols-outlined text-[16px]">campaign</span>
-                          <span class="hidden sm:inline">Campagnes</span>
+                          <span>Campagnes</span>
                         </div>
-                        <div class="flex items-center gap-2 px-2 py-1.5 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 text-[10px] sm:text-xs font-medium cursor-default transition-colors">
+                        <div class="flex items-center gap-2 px-2 py-1.5 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 text-xs font-medium cursor-default transition-colors">
                           <span class="material-symbols-outlined text-[16px]">quiz</span>
-                          <span class="hidden sm:inline">Épreuves</span>
+                          <span>Épreuves</span>
                         </div>
-                        <div class="flex items-center gap-2 px-2 py-1.5 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 text-[10px] sm:text-xs font-medium cursor-default transition-colors">
+                        <div class="flex items-center gap-2 px-2 py-1.5 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 text-xs font-medium cursor-default transition-colors">
                           <span class="material-symbols-outlined text-[16px]">group</span>
-                          <span class="hidden sm:inline">Candidats</span>
+                          <span>Candidats</span>
                         </div>
                       </div>
                     </div>
@@ -295,17 +316,17 @@
                       <div class="w-6 h-6 rounded-full bg-slate-700 flex items-center justify-center text-[10px] font-bold text-blue-300">
                         RH
                       </div>
-                      <span class="hidden sm:inline text-[10px] text-slate-300 font-medium truncate">
+                      <span class="text-[10px] text-slate-300 font-medium truncate">
                         Admin HR
                       </span>
                     </div>
                   </div>
 
-                  <!-- Main App Panel -->
-                  <div class="p-3 sm:p-5 overflow-hidden space-y-4 bg-white">
+                  <!-- Main App Panel (Full width on mobile, right panel on sm+) -->
+                  <div class="p-3 sm:p-5 overflow-hidden space-y-3.5 bg-white">
 
                     <!-- Header dashboard -->
-                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
                       <div>
                         <div class="text-[9px] sm:text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
                           Espace Recrutement RH
@@ -315,7 +336,7 @@
                         </div>
                       </div>
 
-                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 text-[9px] sm:text-xs font-semibold border border-emerald-200/60 shadow-xs">
+                      <span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200/60 shadow-xs">
                         <span class="relative flex h-2 w-2">
                           <span class="animate-ep-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                           <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -327,28 +348,28 @@
                     <!-- KPI Grid -->
                     <div class="grid grid-cols-3 gap-2">
                       <div class="rounded-lg border border-slate-200 p-2 sm:p-2.5 bg-slate-50/50 transition-all hover:bg-white hover:shadow-xs">
-                        <div class="text-[8px] sm:text-[10px] font-medium text-slate-500">Candidats</div>
-                        <div class="mt-0.5 text-sm sm:text-lg font-bold text-slate-900 font-titre">148</div>
+                        <div class="text-[9px] sm:text-[10px] font-medium text-slate-500">Candidats</div>
+                        <div class="mt-0.5 text-base sm:text-lg font-bold text-slate-900 font-titre">148</div>
                       </div>
 
                       <div class="rounded-lg border border-slate-200 p-2 sm:p-2.5 bg-slate-50/50 transition-all hover:bg-white hover:shadow-xs">
-                        <div class="text-[8px] sm:text-[10px] font-medium text-slate-500">Évalués</div>
-                        <div class="mt-0.5 text-sm sm:text-lg font-bold text-slate-900 font-titre">96</div>
+                        <div class="text-[9px] sm:text-[10px] font-medium text-slate-500">Évalués</div>
+                        <div class="mt-0.5 text-base sm:text-lg font-bold text-slate-900 font-titre">96</div>
                       </div>
 
                       <div class="rounded-lg border border-blue-100 p-2 sm:p-2.5 bg-blue-50/30 transition-all hover:bg-blue-50/60">
-                        <div class="text-[8px] sm:text-[10px] font-medium text-blue-600">Score Moyen</div>
-                        <div class="mt-0.5 text-sm sm:text-lg font-bold text-blue-600 font-titre">74%</div>
+                        <div class="text-[9px] sm:text-[10px] font-medium text-blue-600">Score Moyen</div>
+                        <div class="mt-0.5 text-base sm:text-lg font-bold text-blue-600 font-titre">74%</div>
                       </div>
                     </div>
 
                     <!-- Chart Mini -->
                     <div class="rounded-lg border border-slate-200 p-2.5 bg-slate-50/30">
-                      <div class="flex justify-between items-center mb-2">
+                      <div class="flex justify-between items-center mb-1.5">
                         <span class="text-[10px] sm:text-xs font-semibold text-slate-800">Progression des évaluations</span>
                         <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">+18.4%</span>
                       </div>
-                      <div class="flex items-end gap-1 sm:gap-1.5 h-16 sm:h-20 pt-2">
+                      <div class="flex items-end gap-1 sm:gap-1.5 h-16 sm:h-20 pt-1.5">
                         <div v-for="(height, index) in chartBars" :key="index" class="flex-1 rounded-t bg-blue-500/80 hover:bg-blue-600 transition-all duration-300 hover:scale-y-110 origin-bottom" :style="{ height: `${height}%` }"></div>
                       </div>
                     </div>
@@ -361,12 +382,12 @@
                       <div class="divide-y divide-slate-100 bg-white">
                         <div v-for="c in candidates" :key="c.name" class="px-3 py-1.5 flex items-center justify-between hover:bg-slate-50/80 transition-colors">
                           <div class="flex items-center gap-2 min-w-0">
-                            <div class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-[9px]">
+                            <div class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-[9px] shrink-0">
                               {{ c.initials }}
                             </div>
-                            <span class="font-medium text-slate-800 truncate">{{ c.name }}</span>
+                            <span class="font-medium text-slate-800 truncate text-[11px] sm:text-xs">{{ c.name }}</span>
                           </div>
-                          <span class="font-bold" :class="c.score >= 70 ? 'text-emerald-600' : 'text-slate-500'">{{ c.score }}%</span>
+                          <span class="font-bold shrink-0 ml-2" :class="c.score >= 70 ? 'text-emerald-600' : 'text-slate-500'">{{ c.score }}%</span>
                         </div>
                       </div>
                     </div>
