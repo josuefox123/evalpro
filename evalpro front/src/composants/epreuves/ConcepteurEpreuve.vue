@@ -28,11 +28,53 @@
       </div>
     </div>
 
-    <!-- Layout 3 Colonnes -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 min-h-[650px]">
+    <!-- Onglets de navigation Mobile / Tablette (< 1024px) -->
+    <div class="lg:hidden flex rounded-xl bg-slate-100 p-1 border border-ep-border">
+      <button
+        type="button"
+        @click="ongletActifMobile = 'outils'"
+        :class="[
+          'flex-1 py-2 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer',
+          ongletActifMobile === 'outils' ? 'bg-white text-ep-primary shadow-sm font-bold' : 'text-ep-muted hover:text-ep-text'
+        ]"
+      >
+        <span class="material-symbols-outlined text-sm">add_circle</span>
+        <span>1. Banque & Types</span>
+      </button>
+      <button
+        type="button"
+        @click="ongletActifMobile = 'structure'"
+        :class="[
+          'flex-1 py-2 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer',
+          ongletActifMobile === 'structure' ? 'bg-white text-ep-primary shadow-sm font-bold' : 'text-ep-muted hover:text-ep-text'
+        ]"
+      >
+        <span class="material-symbols-outlined text-sm">view_list</span>
+        <span>2. Examen ({{ epreuve.questions.length }})</span>
+      </button>
+      <button
+        type="button"
+        @click="ongletActifMobile = 'proprietes'"
+        :class="[
+          'flex-1 py-2 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer',
+          ongletActifMobile === 'proprietes' ? 'bg-white text-ep-primary shadow-sm font-bold' : 'text-ep-muted hover:text-ep-text'
+        ]"
+      >
+        <span class="material-symbols-outlined text-sm">tune</span>
+        <span>3. Propriétés</span>
+      </button>
+    </div>
+
+    <!-- Layout 3 Colonnes (Desktop) / Onglets Réactifs (Mobile) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 min-h-[600px]">
 
       <!-- COLONNE 1 : Types de Questions & Banque (3 cols) -->
-      <div class="lg:col-span-3 bg-white border border-ep-border rounded-xl p-4 space-y-4 shadow-ep-card flex flex-col">
+      <div
+        :class="[
+          'lg:col-span-3 bg-white border border-ep-border rounded-xl p-4 space-y-4 shadow-ep-card flex flex-col',
+          ongletActifMobile === 'outils' ? 'block' : 'hidden lg:flex'
+        ]"
+      >
         <h3 class="text-xs font-bold text-ep-text uppercase tracking-wider pb-2 border-b border-ep-border flex items-center justify-between">
           <span>Types & Banque</span>
           <span class="text-[10px] text-ep-primary font-normal">Cliquer pour ajouter</span>
@@ -81,7 +123,12 @@
       </div>
 
       <!-- COLONNE 2 : Contenu & Séquence (6 cols) -->
-      <div class="lg:col-span-6 bg-white border border-ep-border rounded-xl p-5 space-y-4 shadow-ep-card flex flex-col">
+      <div
+        :class="[
+          'lg:col-span-6 bg-white border border-ep-border rounded-xl p-5 space-y-4 shadow-ep-card flex flex-col',
+          ongletActifMobile === 'structure' ? 'block' : 'hidden lg:flex'
+        ]"
+      >
         <div class="flex items-center justify-between pb-3 border-b border-ep-border">
           <h3 class="text-xs font-bold text-ep-text uppercase tracking-wider">Structure de l'Examen</h3>
           <span class="text-xs text-ep-muted">{{ epreuve.questions.length }} questions configurées</span>
@@ -91,7 +138,7 @@
           <div
             v-for="(q, idx) in epreuve.questions"
             :key="q.id"
-            @click="indexQuestionSelectionnee = idx"
+            @click="selectionnerQuestion(idx)"
             :class="[
               'p-4 rounded-xl border transition-all cursor-pointer space-y-2',
               indexQuestionSelectionnee === idx
@@ -104,7 +151,7 @@
                 <span class="w-6 h-6 rounded-md bg-ep-text text-white text-xs font-bold font-mono flex items-center justify-center">
                   {{ idx + 1 }}
                 </span>
-                <span class="text-xs font-bold text-ep-text">{{ q.titre }}</span>
+                <span class="text-xs font-bold text-ep-text truncate max-w-[150px] sm:max-w-none">{{ q.titre }}</span>
               </div>
 
               <div class="flex items-center gap-2">
@@ -129,7 +176,12 @@
       </div>
 
       <!-- COLONNE 3 : Propriétés (3 cols) -->
-      <div class="lg:col-span-3 bg-white border border-ep-border rounded-xl p-4 space-y-4 shadow-ep-card">
+      <div
+        :class="[
+          'lg:col-span-3 bg-white border border-ep-border rounded-xl p-4 space-y-4 shadow-ep-card',
+          ongletActifMobile === 'proprietes' ? 'block' : 'hidden lg:block'
+        ]"
+      >
         <h3 class="text-xs font-bold text-ep-text uppercase tracking-wider pb-2 border-b border-ep-border">
           Propriétés Question #{{ indexQuestionSelectionnee + 1 }}
         </h3>
@@ -175,6 +227,15 @@ const magasinEpreuve = useMagasinEpreuve();
 const magasinNotif = useMagasinNotification();
 const epreuve = magasinEpreuve.epreuveActive;
 const indexQuestionSelectionnee = ref(0);
+const ongletActifMobile = ref('structure');
+
+function selectionnerQuestion(idx) {
+  indexQuestionSelectionnee.value = idx;
+  // Sur mobile, basculer vers l'onglet propriétés pour modifier directement
+  if (window.innerWidth < 1024) {
+    ongletActifMobile.value = 'proprietes';
+  }
+}
 
 const questionActive = computed(() => epreuve.questions[indexQuestionSelectionnee.value]);
 const pointsTotaux = computed(() => epreuve.questions.reduce((sum, q) => sum + q.points, 0));

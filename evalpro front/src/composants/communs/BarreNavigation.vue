@@ -16,12 +16,12 @@
       </button>
 
       <!-- Titre Espace / Entreprise -->
-      <div class="flex items-center gap-2">
-        <h2 class="text-sm font-bold text-ep-text flex items-center gap-2">
-          <span>Espace {{ magasinAuth.detailsRoleActif.libelle }}</span>
+      <div class="flex items-center gap-2 max-w-[180px] xs:max-w-[240px] sm:max-w-none">
+        <h2 class="text-xs sm:text-sm font-bold text-ep-text flex items-center gap-2 truncate">
+          <span class="truncate">Espace {{ magasinAuth.detailsRoleActif.libelle }}</span>
         </h2>
         <span class="text-slate-300 text-xs hidden sm:inline">|</span>
-        <span class="text-xs font-semibold text-ep-primary bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100 hidden sm:inline">
+        <span class="text-xs font-semibold text-ep-primary bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100 hidden sm:inline truncate">
           {{ magasinAuth.utilisateurConnecte.entreprise || 'EvalPro' }}
         </span>
       </div>

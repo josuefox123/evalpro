@@ -5,8 +5,8 @@
   <div class="bg-white border border-ep-border rounded-xl p-6 sm:p-8 shadow-ep-card space-y-6">
 
     <!-- En-tête de la Question -->
-    <div class="flex items-center justify-between pb-4 border-b border-ep-border">
-      <div class="flex items-center gap-3">
+    <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-ep-border">
+      <div class="flex flex-wrap items-center gap-2">
         <span class="px-3 py-1 rounded-full bg-blue-50 text-ep-primary border border-blue-100 text-xs font-bold font-mono">
           QUESTION {{ indexQuestion + 1 }} / {{ nombreTotal }}
         </span>

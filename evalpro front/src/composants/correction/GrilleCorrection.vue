@@ -2,10 +2,54 @@
   <!--
     GrilleCorrection.vue - Interface 3 colonnes de correction EvalPro SaaS
   -->
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 min-h-[650px]">
+  <div class="space-y-4">
+    <!-- Onglets de navigation Mobile / Tablette (< 1024px) -->
+    <div class="lg:hidden flex rounded-xl bg-slate-100 p-1 border border-ep-border">
+      <button
+        type="button"
+        @click="ongletCorrectionMobile = 'copies'"
+        :class="[
+          'flex-1 py-2 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1 cursor-pointer',
+          ongletCorrectionMobile === 'copies' ? 'bg-white text-ep-primary shadow-sm font-bold' : 'text-ep-muted hover:text-ep-text'
+        ]"
+      >
+        <span class="material-symbols-outlined text-sm">groups</span>
+        <span>1. Copies</span>
+      </button>
+      <button
+        type="button"
+        @click="ongletCorrectionMobile = 'lecture'"
+        :class="[
+          'flex-1 py-2 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1 cursor-pointer',
+          ongletCorrectionMobile === 'lecture' ? 'bg-white text-ep-primary shadow-sm font-bold' : 'text-ep-muted hover:text-ep-text'
+        ]"
+      >
+        <span class="material-symbols-outlined text-sm">article</span>
+        <span>2. Copie Candidat</span>
+      </button>
+      <button
+        type="button"
+        @click="ongletCorrectionMobile = 'bareme'"
+        :class="[
+          'flex-1 py-2 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1 cursor-pointer',
+          ongletCorrectionMobile === 'bareme' ? 'bg-white text-ep-primary shadow-sm font-bold' : 'text-ep-muted hover:text-ep-text'
+        ]"
+      >
+        <span class="material-symbols-outlined text-sm">grade</span>
+        <span>3. Barème</span>
+      </button>
+    </div>
 
-    <!-- GAUCHE : Liste des Candidats à corriger (3 cols) -->
-    <div class="lg:col-span-3 bg-white border border-ep-border rounded-xl p-4 space-y-4 shadow-ep-card">
+    <!-- Layout 3 Colonnes (Desktop) / Onglets Réactifs (Mobile) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 min-h-[600px]">
+
+      <!-- GAUCHE : Liste des Candidats à corriger (3 cols) -->
+      <div
+        :class="[
+          'lg:col-span-3 bg-white border border-ep-border rounded-xl p-4 space-y-4 shadow-ep-card',
+          ongletCorrectionMobile === 'copies' ? 'block' : 'hidden lg:block'
+        ]"
+      >
       <div class="flex items-center justify-between pb-3 border-b border-ep-border">
         <h3 class="text-xs font-bold text-ep-text uppercase tracking-wider">Copies Soumises</h3>
         <span class="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60">
@@ -35,15 +79,20 @@
     </div>
 
     <!-- CENTRE : Copie du Candidat (6 cols) -->
-    <div class="lg:col-span-6 bg-white border border-ep-border rounded-xl p-5 space-y-5 shadow-ep-card">
+    <div
+      :class="[
+        'lg:col-span-6 bg-white border border-ep-border rounded-xl p-5 space-y-5 shadow-ep-card',
+        ongletCorrectionMobile === 'lecture' ? 'block' : 'hidden lg:block'
+      ]"
+    >
       <div class="flex items-center justify-between pb-3 border-b border-ep-border">
         <div>
           <span class="text-[10px] font-bold text-ep-muted uppercase tracking-wider">Épreuve Pratique</span>
-          <h3 class="text-base font-bold text-ep-text">Copie de {{ candidatActif.prenom }} {{ candidatActif.nom }}</h3>
+          <h3 class="text-base font-bold text-ep-text truncate max-w-[200px] sm:max-w-none">Copie de {{ candidatActif.prenom }} {{ candidatActif.nom }}</h3>
         </div>
         <div class="text-right">
           <span class="text-xs text-ep-muted block">Score temporaire</span>
-          <span class="text-xl font-extrabold text-emerald-600 font-mono">{{ noteAttribueeTotale }} / {{ totalBareme }} Pts</span>
+          <span class="text-lg sm:text-xl font-extrabold text-emerald-600 font-mono">{{ noteAttribueeTotale }} / {{ totalBareme }} Pts</span>
         </div>
       </div>
 
@@ -63,7 +112,7 @@
             <p class="text-xs text-slate-600 mt-1 leading-relaxed">{{ q.enonce }}</p>
           </div>
 
-          <div class="bg-white border border-ep-border rounded-lg p-3 text-xs font-mono text-slate-800 whitespace-pre-line shadow-ep-subtle">
+          <div class="bg-white border border-ep-border rounded-lg p-3 text-xs font-mono text-slate-800 whitespace-pre-line shadow-ep-subtle overflow-x-auto">
             {{ q.reponseCandidat || 'Une closure en JavaScript est une fonction qui se souvient des variables de son environnement lexical lors de sa création...' }}
           </div>
         </div>
@@ -71,7 +120,12 @@
     </div>
 
     <!-- DROITE : Notation & Commentaires (3 cols) -->
-    <div class="lg:col-span-3 bg-white border border-ep-border rounded-xl p-5 space-y-5 shadow-ep-card flex flex-col justify-between">
+    <div
+      :class="[
+        'lg:col-span-3 bg-white border border-ep-border rounded-xl p-5 space-y-5 shadow-ep-card flex flex-col justify-between',
+        ongletCorrectionMobile === 'bareme' ? 'flex' : 'hidden lg:flex'
+      ]"
+    >
       <div class="space-y-4">
         <h3 class="text-xs font-bold text-ep-text uppercase tracking-wider pb-3 border-b border-ep-border">
           Barème & Appréciation
@@ -87,7 +141,7 @@
                 min="0"
                 :max="q.points"
                 step="0.5"
-                class="w-20 bg-white border border-ep-border rounded-lg px-2.5 py-1.5 text-xs font-mono font-bold text-ep-text focus:outline-none focus:border-ep-primary"
+                class="w-20 bg-white border border-ep-border rounded-lg px-2.5 py-1.5 text-xs font-mono font-bold text-ep-text focus:outline-none focus:border-ep-primary min-h-[38px]"
               />
               <span class="text-xs text-ep-muted">/ {{ q.points }} pts</span>
             </div>
@@ -115,6 +169,7 @@
     </div>
 
   </div>
+  </div>
 </template>
 
 <script setup>
@@ -127,6 +182,8 @@ const props = defineProps({
 });
 
 defineEmits(['validerCorrection', 'sauvegarderBrouillon']);
+
+const ongletCorrectionMobile = ref('lecture');
 
 const listeCandidats = ref([
   props.candidat,
