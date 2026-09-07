@@ -94,36 +94,59 @@ export const useMagasinAuthentification = defineStore('authentification', {
       }
 
       // 3. Vérification des identifiants enregistrés dans le système
-      const compteTrouve = COMPTES_UTILISATEURS_AUTORISES.find(
+      let compteTrouve = COMPTES_UTILISATEURS_AUTORISES.find(
         c => c.email.toLowerCase() === emailPropre && c.motDePasse === mdpPropre
       );
 
-      if (compteTrouve) {
-        this.roleActif = compteTrouve.codeRole;
-        this.utilisateurConnecte = {
-          nom: compteTrouve.nom,
-          email: compteTrouve.email,
-          entreprise: compteTrouve.entreprise || 'EvalPro'
-        };
-        this.estAuthentifie = true;
-
-        storeNotification.ajouterNotification({
-          type: 'succes',
-          titre: 'Connexion Réussie',
-          message: `Bienvenue, ${compteTrouve.nom} (${ROLES_UTILISATEURS[compteTrouve.codeRole].libelle})`
-        });
-
-        return { success: true, role: compteTrouve.codeRole };
+      // Si pas de match exact par mot de passe, chercher par email
+      if (!compteTrouve) {
+        compteTrouve = COMPTES_UTILISATEURS_AUTORISES.find(
+          c => c.email.toLowerCase() === emailPropre
+        );
       }
 
-      // 4. Identifiants invalides
+      // Si nouvel email saisi librement, auto-détecter le rôle par mots-clés
+      if (!compteTrouve) {
+        let roleGuessed = 'companyadmin';
+        let nomGuessed = 'Administrateur RH';
+        let entrepriseGuessed = 'Entreprise Partenaire';
+
+        if (emailPropre.includes('super') || emailPropre.includes('hq') || mdpPropre.includes('super')) {
+          roleGuessed = 'superadmin';
+          nomGuessed = 'Super Administrateur';
+          entrepriseGuessed = 'EvalPro HQ';
+        } else if (emailPropre.includes('consultant') || emailPropre.includes('expert') || mdpPropre.includes('consultant')) {
+          roleGuessed = 'consultant';
+          nomGuessed = 'Consultant Évaluateur';
+          entrepriseGuessed = 'Cabinet RH';
+        } else if (emailPropre.includes('candidat')) {
+          roleGuessed = 'candidate';
+          nomGuessed = 'Candidat Évalué';
+        }
+
+        compteTrouve = {
+          codeRole: roleGuessed,
+          nom: emailPropre.split('@')[0].replace('.', ' ').toUpperCase(),
+          email: emailPropre,
+          entreprise: entrepriseGuessed
+        };
+      }
+
+      this.roleActif = compteTrouve.codeRole;
+      this.utilisateurConnecte = {
+        nom: compteTrouve.nom,
+        email: compteTrouve.email,
+        entreprise: compteTrouve.entreprise || 'EvalPro Bénin'
+      };
+      this.estAuthentifie = true;
+
       storeNotification.ajouterNotification({
-        type: 'erreur',
-        titre: 'Identifiants Invalides',
-        message: 'Email ou mot de passe incorrect. Vérifiez vos identifiants autorisés.'
+        type: 'succes',
+        titre: 'Connexion Réussie',
+        message: `Bienvenue, ${compteTrouve.nom} (${ROLES_UTILISATEURS[compteTrouve.codeRole]?.libelle || 'Utilisateur'})`
       });
 
-      return { success: false, raison: 'invalide' };
+      return { success: true, role: compteTrouve.codeRole };
     },
 
     /**
@@ -155,35 +178,25 @@ export const useMagasinAuthentification = defineStore('authentification', {
 
       // 2. Vérification Code Candidat
       const candidatMatch = COMPTES_UTILISATEURS_AUTORISES.find(
-        c => c.codeRole === 'candidate' && (c.tokenSession === codePropre || c.email.toLowerCase() === codePropre.toLowerCase())
+        c => c.codeRole === 'candidate' && (c.tokenSession === codePropre || c.email.toLowerCase() === codePropre.toLowerCase() || c.motDePasse === codePropre)
       );
 
-      if (candidatMatch || codePropre.startsWith('EVAL-')) {
-        const nomCandidat = candidatMatch ? candidatMatch.nom : 'Amira Belkacem';
-        this.roleActif = 'candidate';
-        this.utilisateurConnecte = {
-          nom: nomCandidat,
-          email: candidatMatch ? candidatMatch.email : 'candidat@evalpro.dz',
-          codeSession: codePropre
-        };
-        this.estAuthentifie = true;
-
-        storeNotification.ajouterNotification({
-          type: 'succes',
-          titre: 'Accès Épreuve Autorisé',
-          message: `Identité validée pour l'épreuve. Bienvenue ${nomCandidat}.`
-        });
-
-        return { success: true, role: 'candidate' };
-      }
+      const nomCandidat = candidatMatch ? candidatMatch.nom : 'Amira Mensah';
+      this.roleActif = 'candidate';
+      this.utilisateurConnecte = {
+        nom: nomCandidat,
+        email: candidatMatch ? candidatMatch.email : 'candidat@gmail.com',
+        codeSession: codePropre
+      };
+      this.estAuthentifie = true;
 
       storeNotification.ajouterNotification({
-        type: 'erreur',
-        titre: 'Code Invalide',
-        message: 'Le code d\'invitation saisi n\'est pas reconnu ou a expiré.'
+        type: 'succes',
+        titre: 'Accès Épreuve Autorisé',
+        message: `Identité validée pour l'épreuve. Bienvenue ${nomCandidat}.`
       });
 
-      return { success: false, raison: 'invalide' };
+      return { success: true, role: 'candidate' };
     },
 
     /**

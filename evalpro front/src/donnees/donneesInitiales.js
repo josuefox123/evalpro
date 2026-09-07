@@ -10,12 +10,12 @@ export const ROLES_UTILISATEURS = {
   superadmin: {
     code: 'superadmin',
     libelle: 'Super Administrateur',
-    description: 'Gestionnaire principal du SaaS, abonnements et sécurité globale',
+    description: 'Gestionnaire principal de la plateforme, abonnements et sécurité globale',
     icone: 'admin_panel_settings',
     couleur: 'bg-purple-600',
     utilisateurDefaut: {
       nom: 'Kamel Meziane',
-      email: 'kamel.meziane@evalpro.dz',
+      email: 'admin@evalpro.bj',
       entreprise: 'EvalPro HQ',
     }
   },
@@ -26,9 +26,9 @@ export const ROLES_UTILISATEURS = {
     icone: 'domain',
     couleur: 'bg-indigo-600',
     utilisateurDefaut: {
-      nom: 'Samira Hadjab',
-      email: 's.hadjab@techcorp.dz',
-      entreprise: 'TechCorp Algérie',
+      nom: 'Serge Dossou',
+      email: 'admin@techcorp.bj',
+      entreprise: 'TechCorp Bénin',
     }
   },
   consultant: {
@@ -39,7 +39,7 @@ export const ROLES_UTILISATEURS = {
     couleur: 'bg-emerald-600',
     utilisateurDefaut: {
       nom: 'Dr. Karim Benali',
-      email: 'k.benali@evalpro.dz',
+      email: 'consultant@evalpro.bj',
       entreprise: 'Cabinet Expert RH',
     }
   },
@@ -50,8 +50,8 @@ export const ROLES_UTILISATEURS = {
     icone: 'person_outline',
     couleur: 'bg-amber-600',
     utilisateurDefaut: {
-      nom: 'Amira Belkacem',
-      email: 'amira.b@gmail.com',
+      nom: 'Amira Mensah',
+      email: 'candidat@gmail.com',
       codeSession: 'EVAL-2025-8942',
     }
   }
@@ -61,23 +61,47 @@ export const ROLES_UTILISATEURS = {
 export const COMPTES_UTILISATEURS_AUTORISES = [
   {
     role: 'superadmin',
-    email: 'kamel.meziane@evalpro.dz',
-    motDePasse: 'SuperAdmin2025!',
+    email: 'admin@evalpro.bj',
+    motDePasse: 'super123',
+    nom: 'Kamel Meziane',
+    entreprise: 'EvalPro HQ',
+    codeRole: 'superadmin'
+  },
+  {
+    role: 'superadmin',
+    email: 'kamel@evalpro.bj',
+    motDePasse: 'Super2025!',
     nom: 'Kamel Meziane',
     entreprise: 'EvalPro HQ',
     codeRole: 'superadmin'
   },
   {
     role: 'companyadmin',
-    email: 's.hadjab@techcorp.dz',
-    motDePasse: 'AdminTech2025!',
-    nom: 'Samira Hadjab',
-    entreprise: 'TechCorp Algérie',
+    email: 'admin@techcorp.bj',
+    motDePasse: 'admin123',
+    nom: 'Serge Dossou',
+    entreprise: 'TechCorp Bénin',
+    codeRole: 'companyadmin'
+  },
+  {
+    role: 'companyadmin',
+    email: 's.dossou@techcorp.bj',
+    motDePasse: 'Admin2025!',
+    nom: 'Serge Dossou',
+    entreprise: 'TechCorp Bénin',
     codeRole: 'companyadmin'
   },
   {
     role: 'consultant',
-    email: 'k.benali@evalpro.dz',
+    email: 'consultant@evalpro.bj',
+    motDePasse: 'consultant123',
+    nom: 'Dr. Karim Benali',
+    entreprise: 'Cabinet Expert RH',
+    codeRole: 'consultant'
+  },
+  {
+    role: 'consultant',
+    email: 'karim@evalpro.bj',
     motDePasse: 'Consultant2025!',
     nom: 'Dr. Karim Benali',
     entreprise: 'Cabinet Expert RH',
@@ -85,10 +109,10 @@ export const COMPTES_UTILISATEURS_AUTORISES = [
   },
   {
     role: 'candidate',
-    email: 'amira.b@gmail.com',
-    motDePasse: 'Candidat2025!',
+    email: 'candidat@gmail.com',
+    motDePasse: 'candidat123',
     tokenSession: 'EVAL-2025-8942',
-    nom: 'Amira Belkacem',
+    nom: 'Amira Mensah',
     entreprise: 'Postulant TechCorp',
     codeRole: 'candidate'
   }
@@ -96,7 +120,7 @@ export const COMPTES_UTILISATEURS_AUTORISES = [
 
 // Liste des entreprises souscrites pour la vue Super Administrateur
 export const ENTREPRISES_INITIALES = [
-  { id: 1, nom: 'TechCorp Algérie', sigle: 'TC', plan: 'Enterprise', utilisateurs: 45, campagnes: 12, candidats: 384, statut: 'actif', mrr: 4500, dateInscription: '15 Jan 2024' },
+  { id: 1, nom: 'TechCorp Bénin', sigle: 'TC', plan: 'Enterprise', utilisateurs: 45, campagnes: 12, candidats: 384, statut: 'actif', mrr: 4500, dateInscription: '15 Jan 2024' },
   { id: 2, nom: 'Banque Nationale', sigle: 'BN', plan: 'Professionnel', utilisateurs: 28, campagnes: 8, candidats: 212, statut: 'actif', mrr: 2800, dateInscription: '22 Mar 2024' },
   { id: 3, nom: 'Sonatrach RH', sigle: 'SN', plan: 'Enterprise', utilisateurs: 67, campagnes: 19, candidats: 891, statut: 'actif', mrr: 6700, dateInscription: '10 Fév 2023' },
   { id: 4, nom: 'Air Algérie', sigle: 'AA', plan: 'Professionnel', utilisateurs: 34, campagnes: 6, candidats: 178, statut: 'suspendu', mrr: 3400, dateInscription: '05 Avr 2024' },
