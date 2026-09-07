@@ -114,7 +114,7 @@
             <!-- =================================================
                  HERO TEXT
             ================================================== -->
-            <div class="max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
+            <div class="max-w-2xl mx-auto lg:mx-0 text-center lg:text-left reveal-on-scroll">
 
               <div
                 class="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-blue-700 mb-4 sm:mb-6 px-3 py-1 rounded-full bg-blue-50/80 border border-blue-100"
@@ -219,7 +219,7 @@
             <!-- =================================================
                  REALISTIC EVALPRO DASHBOARD MOCKUP (RESPONSIVE MOBILE & DESKTOP)
             ================================================== -->
-            <div class="relative w-full max-w-[680px] mx-auto lg:max-w-none group mt-6 lg:mt-0">
+            <div class="relative w-full max-w-[680px] mx-auto lg:max-w-none group mt-6 lg:mt-0 reveal-on-scroll">
 
               <!-- Ambient Breathing Glow -->
               <div
@@ -417,7 +417,7 @@
         >
 
           <div
-            class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 sm:gap-5"
+            class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 sm:gap-5 reveal-on-scroll"
           >
 
             <p
@@ -454,7 +454,7 @@
       >
 
         <div
-          class="max-w-2xl mb-10 sm:mb-14"
+          class="max-w-2xl mb-10 sm:mb-14 reveal-on-scroll"
         >
 
           <div
@@ -484,7 +484,7 @@
 
         <!-- FEATURES -->
         <div
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 reveal-stagger"
         >
 
           <div
@@ -539,7 +539,7 @@
         >
 
           <div
-            class="max-w-2xl mb-10 sm:mb-14"
+            class="max-w-2xl mb-10 sm:mb-14 reveal-on-scroll"
           >
 
             <div
@@ -559,7 +559,7 @@
 
 
           <div
-            class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10"
+            class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 reveal-stagger"
           >
 
             <div
@@ -606,7 +606,7 @@
       >
 
         <div
-          class="rounded-2xl sm:rounded-3xl bg-slate-950 overflow-hidden"
+          class="rounded-2xl sm:rounded-3xl bg-slate-950 overflow-hidden reveal-on-scroll"
         >
 
           <div
@@ -643,7 +643,7 @@
 
             <!-- SECURITY CARDS -->
             <div
-              class="grid grid-cols-1 sm:grid-cols-2 gap-3"
+              class="grid grid-cols-1 sm:grid-cols-2 gap-3 reveal-stagger"
             >
 
               <div
@@ -691,7 +691,7 @@
       >
 
         <div
-          class="max-w-5xl mx-auto text-center"
+          class="max-w-5xl mx-auto text-center reveal-on-scroll"
         >
 
           <h2
@@ -971,13 +971,37 @@ function gererDefilement() {
   estDefile.value = window.scrollY > 20;
 }
 
+let observerReveal = null;
+
 onMounted(() => {
   window.addEventListener('scroll', gererDefilement, { passive: true });
   gererDefilement();
+
+  // Scroll reveal animation avec IntersectionObserver
+  const elements = document.querySelectorAll('.reveal-on-scroll, .reveal-stagger');
+  observerReveal = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          observerReveal.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px',
+    }
+  );
+
+  elements.forEach((el) => observerReveal.observe(el));
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', gererDefilement);
+  if (observerReveal) {
+    observerReveal.disconnect();
+  }
 });
 
 /* =========================================================
@@ -1178,3 +1202,42 @@ const candidates = [
   },
 ];
 </script>
+
+<style scoped>
+/* Animations d'apparition fluides au scroll - Pro & Épuré */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-stagger.is-revealed > *:nth-child(1) { transition-delay: 0.05s; opacity: 1; transform: translateY(0); }
+.reveal-stagger.is-revealed > *:nth-child(2) { transition-delay: 0.15s; opacity: 1; transform: translateY(0); }
+.reveal-stagger.is-revealed > *:nth-child(3) { transition-delay: 0.25s; opacity: 1; transform: translateY(0); }
+.reveal-stagger.is-revealed > *:nth-child(4) { transition-delay: 0.35s; opacity: 1; transform: translateY(0); }
+.reveal-stagger.is-revealed > *:nth-child(5) { transition-delay: 0.45s; opacity: 1; transform: translateY(0); }
+.reveal-stagger.is-revealed > *:nth-child(6) { transition-delay: 0.55s; opacity: 1; transform: translateY(0); }
+
+/* Accessibilité pour les utilisateurs préférant la réduction de mouvement */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+</style>
