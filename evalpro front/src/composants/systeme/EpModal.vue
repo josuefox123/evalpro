@@ -8,7 +8,7 @@
         <!-- Fenêtre modale -->
         <div
           :class="[
-            'relative bg-white border border-ep-border rounded-2xl shadow-ep-lg w-full z-10 my-8 overflow-hidden transform transition-all',
+            'relative bg-white border border-ep-border rounded-2xl shadow-ep-lg w-full z-10 my-4 sm:my-8 overflow-hidden transform transition-all max-h-[95vh] flex flex-col',
             tailleClasses[size] || tailleClasses.md,
           ]"
         >
@@ -27,7 +27,7 @@
           </div>
 
           <!-- Corps -->
-          <div class="p-6 max-h-[75vh] overflow-y-auto">
+          <div class="p-6 flex-1 overflow-y-auto">
             <slot />
           </div>
 

@@ -21,7 +21,7 @@
     </div>
 
     <!-- Barre de Recherche et Filtres -->
-    <div class="bg-white border border-ep-border rounded-xl p-4 grid grid-cols-1 sm:grid-cols-4 gap-3 shadow-ep-card">
+    <div class="bg-white border border-ep-border rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 shadow-ep-card">
       <EpInput
         v-model="magasinEpreuve.rechercheQuestionTexte"
         placeholder="Mots-clés..."

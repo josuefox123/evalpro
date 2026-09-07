@@ -5,8 +5,8 @@
         <!-- Arrière plan semi-transparent -->
         <div class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm transition-opacity" @click="$emit('update:modelValue', false)"></div>
 
-        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
-          <div :class="['w-screen bg-white shadow-ep-lg border-l border-ep-border flex flex-col', widthClasses[width] || widthClasses.md]">
+        <div class="fixed inset-y-0 right-0 max-w-full flex sm:pl-10">
+          <div :class="['w-screen bg-white shadow-ep-lg border-l border-ep-border flex flex-col max-w-[92vw] sm:max-w-none', widthClasses[width] || widthClasses.md]">
 
             <!-- Header du Drawer -->
             <div class="px-6 py-4 border-b border-ep-border flex items-center justify-between bg-slate-50/50">

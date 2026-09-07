@@ -71,40 +71,42 @@
         </div>
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs text-ep-text">
+      <div class="overflow-x-auto -mx-2 sm:mx-0">
+        <table class="w-full text-left text-xs text-ep-text min-w-[600px]">
           <thead class="bg-slate-50 text-ep-muted uppercase font-semibold border-y border-ep-border">
             <tr>
               <th class="p-3">Entreprise</th>
-              <th class="p-3">Plan Abonnement</th>
-              <th class="p-3">Utilisateurs</th>
-              <th class="p-3">Campagnes</th>
-              <th class="p-3">Candidats</th>
+              <th class="p-3">Plan</th>
+              <th class="p-3 hidden md:table-cell">Utilisateurs</th>
+              <th class="p-3 hidden md:table-cell">Campagnes</th>
+              <th class="p-3 hidden lg:table-cell">Candidats</th>
               <th class="p-3">Statut</th>
-              <th class="p-3">MRR Généré</th>
+              <th class="p-3 hidden sm:table-cell">MRR Généré</th>
               <th class="p-3 text-right">Actions</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-ep-border">
             <tr v-for="ent in entreprises" :key="ent.id" class="hover:bg-slate-50/60 transition-colors">
-              <td class="p-3 font-semibold text-ep-text flex items-center gap-2.5">
-                <div class="w-7 h-7 rounded bg-blue-50 border border-blue-100 flex items-center justify-center font-bold text-ep-primary text-xs">
-                  {{ ent.sigle }}
+              <td class="p-3 font-semibold text-ep-text">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded bg-blue-50 border border-blue-100 flex items-center justify-center font-bold text-ep-primary text-xs shrink-0">
+                    {{ ent.sigle }}
+                  </div>
+                  <span class="truncate max-w-[120px] sm:max-w-none">{{ ent.nom }}</span>
                 </div>
-                <span>{{ ent.nom }}</span>
               </td>
               <td class="p-3">
                 <span class="px-2 py-0.5 rounded bg-purple-50 text-ep-secondary border border-purple-200/60 font-semibold text-[11px]">
                   {{ ent.plan }}
                 </span>
               </td>
-              <td class="p-3 font-mono">{{ ent.utilisateurs }}</td>
-              <td class="p-3 font-mono">{{ ent.campagnes }}</td>
-              <td class="p-3 font-mono">{{ ent.candidats }}</td>
+              <td class="p-3 font-mono hidden md:table-cell">{{ ent.utilisateurs }}</td>
+              <td class="p-3 font-mono hidden md:table-cell">{{ ent.campagnes }}</td>
+              <td class="p-3 font-mono hidden lg:table-cell">{{ ent.candidats }}</td>
               <td class="p-3">
                 <BadgesStatut :statut="ent.statut" />
               </td>
-              <td class="p-3 font-mono font-bold text-emerald-600">{{ ent.mrr }} € / mois</td>
+              <td class="p-3 font-mono font-bold text-emerald-600 hidden sm:table-cell">{{ ent.mrr }} € / mois</td>
               <td class="p-3 text-right">
                 <button class="p-1 text-ep-muted hover:text-ep-text rounded transition-colors" title="Paramètres">
                   <span class="material-symbols-outlined text-base">settings</span>
@@ -129,21 +131,21 @@
       </div>
 
       <div class="space-y-2 font-mono text-xs">
-        <div v-for="log in logs" :key="log.id" class="bg-slate-50 p-3 rounded-lg border border-ep-border flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <span class="text-ep-muted text-[11px]">{{ log.horodatage }}</span>
+        <div v-for="log in logs" :key="log.id" class="bg-slate-50 p-3 rounded-lg border border-ep-border flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div class="flex flex-wrap items-center gap-2 sm:gap-3 min-w-0">
+            <span class="text-ep-muted text-[11px] shrink-0">{{ log.horodatage }}</span>
             <span :class="[
-              'px-2 py-0.5 rounded text-[10px] uppercase font-bold',
+              'px-2 py-0.5 rounded text-[10px] uppercase font-bold shrink-0',
               log.type === 'securite' ? 'bg-blue-50 text-ep-primary' :
               log.type === 'surveillance' ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700'
             ]">
               {{ log.type }}
             </span>
-            <span class="text-ep-text font-medium">{{ log.evenement }}</span>
+            <span class="text-ep-text font-medium truncate min-w-0">{{ log.evenement }}</span>
           </div>
-          <div class="text-ep-muted text-[11px]">
+          <div class="text-ep-muted text-[11px] shrink-0 sm:text-right flex gap-2 sm:flex-col sm:gap-0">
             <span>IP: {{ log.adresseIp }}</span>
-            <span class="ml-2">({{ log.utilisateur }})</span>
+            <span>({{ log.utilisateur }})</span>
           </div>
         </div>
       </div>

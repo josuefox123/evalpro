@@ -51,16 +51,16 @@
         <span class="text-xs text-ep-muted">Tri par score décroissant</span>
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs text-ep-text">
+      <div class="overflow-x-auto -mx-2 sm:mx-0">
+        <table class="w-full text-left text-xs text-ep-text min-w-[400px]">
           <thead class="bg-slate-50 text-ep-muted uppercase font-semibold border-y border-ep-border">
             <tr>
               <th class="p-3">Rang</th>
               <th class="p-3">Candidat</th>
-              <th class="p-3">Email & Ville</th>
+              <th class="p-3 hidden sm:table-cell">Email & Ville</th>
               <th class="p-3">Score Final</th>
-              <th class="p-3">Temps de Passage</th>
-              <th class="p-3 text-right">Décision / Statut</th>
+              <th class="p-3 hidden md:table-cell">Temps de Passage</th>
+              <th class="p-3 text-right">Décision</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-ep-border">
@@ -72,9 +72,9 @@
                 <span v-else class="text-ep-muted">#{{ cand.rank }}</span>
               </td>
               <td class="p-3 font-bold text-ep-text">{{ cand.name }}</td>
-              <td class="p-3 text-ep-muted font-mono text-[11px]">{{ cand.city }}</td>
+              <td class="p-3 text-ep-muted font-mono text-[11px] hidden sm:table-cell">{{ cand.city }}</td>
               <td class="p-3 font-mono font-extrabold text-emerald-600 text-sm">{{ cand.score }} / 100</td>
-              <td class="p-3 font-mono text-ep-muted">{{ cand.time }}</td>
+              <td class="p-3 font-mono text-ep-muted hidden md:table-cell">{{ cand.time }}</td>
               <td class="p-3 text-right">
                 <BadgesStatut :statut="cand.status" />
               </td>

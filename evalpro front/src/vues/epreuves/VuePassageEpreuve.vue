@@ -72,7 +72,7 @@
       </div>
 
       <!-- Navigation Grille & Proctoring (4 cols) -->
-      <div class="lg:col-span-4 space-y-6">
+      <div class="lg:col-span-4 space-y-6 lg:sticky lg:top-20 lg:self-start">
         <IndicateurSurveillance />
 
         <!-- Grille de progression des questions -->

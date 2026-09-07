@@ -37,16 +37,16 @@
 
     <!-- Tableau des Candidats -->
     <div v-if="magasinCandidat.candidatsFiltres.length > 0" class="bg-white border border-ep-border rounded-xl p-6 shadow-ep-card space-y-4">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs text-ep-text">
+      <div class="overflow-x-auto -mx-2 sm:mx-0">
+        <table class="w-full text-left text-xs text-ep-text min-w-[500px]">
           <thead class="bg-slate-50 text-ep-muted uppercase font-semibold border-y border-ep-border">
             <tr>
               <th class="p-3">Candidat</th>
-              <th class="p-3">Email & Téléphone</th>
-              <th class="p-3">Poste Visé</th>
+              <th class="p-3 hidden sm:table-cell">Email & Téléphone</th>
+              <th class="p-3 hidden lg:table-cell">Poste Visé</th>
               <th class="p-3">Invitation</th>
-              <th class="p-3">Statut Examen</th>
-              <th class="p-3">Note Globale</th>
+              <th class="p-3 hidden md:table-cell">Statut Examen</th>
+              <th class="p-3 hidden md:table-cell">Note Globale</th>
               <th class="p-3 text-right">Action</th>
             </tr>
           </thead>
@@ -57,24 +57,26 @@
               class="hover:bg-slate-50/60 transition-colors cursor-pointer"
               @click="ouvrirFicheCandidat(cand)"
             >
-              <td class="p-3 font-semibold text-ep-text flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center font-bold text-ep-primary text-xs">
-                  {{ cand.prenom[0] }}{{ cand.nom[0] }}
-                </div>
-                <span>{{ cand.prenom }} {{ cand.nom }}</span>
-              </td>
               <td class="p-3">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center font-bold text-ep-primary text-xs shrink-0">
+                    {{ cand.prenom[0] }}{{ cand.nom[0] }}
+                  </div>
+                  <span class="font-semibold text-ep-text truncate max-w-[100px] sm:max-w-none">{{ cand.prenom }} {{ cand.nom }}</span>
+                </div>
+              </td>
+              <td class="p-3 hidden sm:table-cell">
                 <div class="text-ep-text font-mono text-[11px]">{{ cand.email }}</div>
                 <div class="text-ep-muted text-[10px]">{{ cand.telephone }}</div>
               </td>
-              <td class="p-3 text-ep-muted font-medium">{{ cand.poste }}</td>
+              <td class="p-3 text-ep-muted font-medium hidden lg:table-cell">{{ cand.poste }}</td>
               <td class="p-3">
                 <BadgesStatut :statut="cand.statutInvitation" />
               </td>
-              <td class="p-3">
+              <td class="p-3 hidden md:table-cell">
                 <BadgesStatut :statut="cand.statutComposition" />
               </td>
-              <td class="p-3 font-mono font-bold">
+              <td class="p-3 font-mono font-bold hidden md:table-cell">
                 <span v-if="cand.noteGlobale !== null" class="text-emerald-600">{{ cand.noteGlobale }} / 100</span>
                 <span v-else class="text-ep-muted">—</span>
               </td>
@@ -88,7 +90,7 @@
                 >
                   Inviter
                 </EpButton>
-                <span v-else class="text-ep-muted text-[11px]">Invitation envoyée</span>
+                <span v-else class="text-ep-muted text-[11px]">Envoyée</span>
               </td>
             </tr>
           </tbody>
