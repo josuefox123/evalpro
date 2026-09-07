@@ -1,9 +1,7 @@
-node_modules/
-dist/
+node_modules
+dist
+*.docx
+~$*.docx
+*.doc
 .DS_Store
-*.local
 .env
-.agents/
-EvalPro UI_UX Design/
-"evalpro front/node_modules/"
-"evalpro front/dist/"
