@@ -21,7 +21,7 @@ export const useMagasinAuthentification = defineStore('authentification', {
     // Informations sur l'utilisateur connecté
     utilisateurConnecte: ROLES_UTILISATEURS.companyadmin.utilisateurDefaut,
     // Indique si l'utilisateur est authentifié
-    estAuthentifie: true,
+    estAuthentifie: false,
     // Mode sombre ou clair
     modeSombre: false,
   }),
