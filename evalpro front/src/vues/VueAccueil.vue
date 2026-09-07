@@ -1,15 +1,17 @@
 <template>
-  <div class="min-h-screen bg-[#f8fafc] text-[#0f172a] font-sans">
+  <div class="min-h-screen bg-[#f8fafc] text-[#0f172a] font-sans overflow-x-hidden">
 
-    <!-- HEADER -->
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
     <header
       class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 backdrop-blur"
     >
       <div
-        class="max-w-7xl mx-auto h-[72px] px-5 sm:px-8 lg:px-10 flex items-center justify-between"
+        class="max-w-7xl mx-auto h-16 sm:h-[72px] px-4 sm:px-6 lg:px-10 flex items-center justify-between"
       >
 
-        <!-- Logo -->
+        <!-- LOGO -->
         <router-link
           to="/"
           class="flex items-center shrink-0"
@@ -18,12 +20,14 @@
           <img
             src="/logo.png"
             alt="EvalPro"
-            class="h-10 sm:h-11 w-auto object-contain"
+            class="h-9 sm:h-11 w-auto object-contain"
           />
         </router-link>
 
-        <!-- Navigation -->
-        <nav class="hidden md:flex items-center gap-8 ml-10">
+
+        <!-- NAV DESKTOP -->
+        <nav class="hidden md:flex items-center gap-7 lg:gap-9 ml-auto mr-8">
+
           <a
             href="#fonctionnalites"
             class="text-sm font-medium text-slate-600 hover:text-slate-950 transition-colors"
@@ -44,305 +48,316 @@
           >
             Fonctionnement
           </a>
+
         </nav>
 
+
         <!-- CTA -->
-        <div class="flex items-center">
-          <EpButton
-            variant="primary"
-            size="sm"
-            @click="ouvrirDemande"
-          >
+        <EpButton
+          variant="primary"
+          size="sm"
+          @click="ouvrirDemande"
+          class="shrink-0"
+        >
+          <span class="hidden sm:inline">
             Demander une démonstration
-          </EpButton>
-        </div>
+          </span>
+
+          <span class="sm:hidden">
+            Démonstration
+          </span>
+        </EpButton>
+
       </div>
     </header>
 
 
-    <!-- HERO -->
+    <!-- =========================================================
+         MAIN
+    ========================================================== -->
     <main>
 
+
+      <!-- =======================================================
+           HERO
+      ======================================================== -->
       <section class="relative overflow-hidden">
 
-        <!-- Background discret -->
+        <!-- Background -->
         <div
           class="absolute inset-0 pointer-events-none"
           aria-hidden="true"
         >
           <div
-            class="absolute -top-40 -right-40 w-[520px] h-[520px] rounded-full bg-blue-100/40 blur-3xl"
+            class="absolute -top-32 -right-32 sm:-top-40 sm:-right-40 w-[300px] sm:w-[520px] h-[300px] sm:h-[520px] rounded-full bg-blue-100/40 blur-3xl"
           ></div>
 
           <div
-            class="absolute top-80 -left-60 w-[420px] h-[420px] rounded-full bg-slate-200/50 blur-3xl"
+            class="absolute top-[450px] sm:top-80 -left-40 sm:-left-60 w-[280px] sm:w-[420px] h-[280px] sm:h-[420px] rounded-full bg-slate-200/40 blur-3xl"
           ></div>
         </div>
 
+
         <div
-          class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-20"
+          class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-16 lg:pt-20 pb-14 sm:pb-20"
         >
 
-          <div class="grid lg:grid-cols-[1fr_0.95fr] gap-12 lg:gap-16 items-center">
+          <div
+            class="grid lg:grid-cols-[1fr_1.05fr] gap-10 lg:gap-16 items-center"
+          >
 
-            <!-- Texte -->
-            <div class="max-w-2xl">
+            <!-- =================================================
+                 HERO TEXT
+            ================================================== -->
+            <div class="max-w-2xl mx-auto lg:mx-0 text-center lg:text-left">
 
               <div
-                class="inline-flex items-center gap-2 text-sm font-medium text-blue-700 mb-6"
+                class="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-blue-700 mb-4 sm:mb-6 px-3 py-1 rounded-full bg-blue-50/80 border border-blue-100"
               >
-                <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                <span
+                  class="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0"
+                ></span>
+
                 Évaluation et recrutement en ligne
               </div>
 
+
               <h1
-                class="text-[36px] sm:text-5xl lg:text-[56px] leading-[1.08] tracking-[-0.035em] font-bold text-slate-950 font-titre"
+                class="text-[34px] leading-[1.08] tracking-[-0.035em] sm:text-5xl lg:text-[56px] font-bold text-slate-950 font-titre"
               >
                 Évaluez les bons profils.
+
                 <span class="block text-blue-600 mt-1">
                   Prenez de meilleures décisions.
                 </span>
               </h1>
 
+
               <p
-                class="mt-6 text-base sm:text-lg leading-relaxed text-slate-600 max-w-xl"
+                class="mt-4 sm:mt-6 text-sm sm:text-base lg:text-lg leading-relaxed text-slate-600 max-w-xl mx-auto lg:mx-0"
               >
-                EvalPro centralise vos campagnes d’évaluation, vos épreuves
-                et vos résultats dans un environnement conçu pour les
-                équipes RH et les recruteurs.
+                EvalPro centralise vos campagnes d’évaluation,
+                vos épreuves et vos résultats dans un environnement
+                conçu pour les équipes RH et les recruteurs.
               </p>
 
-              <div class="mt-8 flex flex-col sm:flex-row gap-3">
+
+              <!-- BUTTONS -->
+              <div
+                class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-3"
+              >
 
                 <EpButton
                   variant="primary"
                   size="lg"
                   @click="ouvrirDemande"
+                  class="w-full sm:w-auto"
                 >
                   Demander une démonstration
                 </EpButton>
+
 
                 <EpButton
                   variant="outline"
                   size="lg"
                   @click="scrollToFonctionnalites"
+                  class="w-full sm:w-auto"
                 >
                   Découvrir la plateforme
                 </EpButton>
 
               </div>
 
+
+              <!-- BENEFITS -->
               <div
-                class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-slate-500"
+                class="mt-7 sm:mt-8 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3 sm:gap-5 lg:gap-6 text-xs sm:text-sm text-slate-500"
               >
+
                 <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-[18px] text-emerald-600">
+                  <span
+                    class="material-symbols-outlined text-[17px] text-emerald-600"
+                  >
                     check
                   </span>
+
                   Campagnes personnalisées
                 </div>
 
+
                 <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-[18px] text-emerald-600">
+                  <span
+                    class="material-symbols-outlined text-[17px] text-emerald-600"
+                  >
                     check
                   </span>
+
                   Résultats centralisés
                 </div>
 
+
                 <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-[18px] text-emerald-600">
+                  <span
+                    class="material-symbols-outlined text-[17px] text-emerald-600"
+                  >
                     check
                   </span>
+
                   Environnement sécurisé
                 </div>
+
               </div>
 
             </div>
 
 
-            <!-- MOCKUP DASHBOARD -->
-            <div class="relative">
+            <!-- =================================================
+                 REALISTIC EVALPRO DASHBOARD MOCKUP
+            ================================================== -->
+            <div class="relative w-full max-w-[680px] mx-auto lg:max-w-none">
 
+              <!-- Glow -->
               <div
-                class="absolute -inset-4 rounded-[28px] bg-blue-100/40 blur-2xl"
+                class="absolute -inset-3 sm:-inset-5 rounded-[25px] bg-blue-100/50 blur-2xl"
               ></div>
 
+
               <div
-                class="relative rounded-2xl border border-slate-200 bg-white shadow-[0_25px_70px_-30px_rgba(15,23,42,0.35)] overflow-hidden"
+                class="relative rounded-xl sm:rounded-2xl border border-slate-200 bg-white shadow-[0_20px_60px_-25px_rgba(15,23,42,0.30)] overflow-hidden"
               >
 
-                <!-- Browser header -->
+                <!-- Browser bar -->
                 <div
-                  class="h-11 border-b border-slate-200 bg-slate-50 flex items-center px-4 gap-1.5"
+                  class="h-9 sm:h-10 border-b border-slate-200 bg-slate-100/80 flex items-center px-3 sm:px-4 justify-between"
                 >
-                  <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span>
+                  </div>
 
                   <div
-                    class="ml-4 h-6 flex-1 max-w-xs rounded-md bg-white border border-slate-200 px-3 flex items-center text-[10px] text-slate-400 truncate"
+                    class="h-5 sm:h-6 px-3 rounded-md bg-white border border-slate-200/80 flex items-center text-[10px] text-slate-400 font-mono truncate max-w-[240px] sm:max-w-[320px]"
                   >
-                    https://evalpro.app/campagnes/développeur-fullstack
+                    https://evalpro.app/admin/dashboard
                   </div>
+
+                  <div class="w-10"></div>
                 </div>
 
 
-                <!-- Dashboard -->
-                <div class="p-5 sm:p-6 space-y-5">
+                <!-- Dashboard Layout: Mini Sidebar + Main App Content -->
+                <div class="grid grid-cols-[56px_1fr] sm:grid-cols-[140px_1fr] min-h-[360px] bg-slate-50/50">
 
-                  <div class="flex items-center justify-between">
-
-                    <div>
-                      <div class="text-[11px] font-semibold tracking-wider text-slate-400 uppercase mb-1">
-                        CAMPAGNE ACTIVE
-                      </div>
-
-                      <div class="font-bold text-slate-900 text-base font-titre">
-                        Développeur Full Stack
-                      </div>
-                    </div>
-
-                    <span
-                      class="px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 text-xs font-semibold"
-                    >
-                      En cours
-                    </span>
-
-                  </div>
-
-
-                  <!-- KPI -->
-                  <div class="grid grid-cols-3 gap-3">
-
-                    <div
-                      class="rounded-xl border border-slate-200 p-3 bg-slate-50/50"
-                    >
-                      <div class="text-[11px] text-slate-500 font-medium">
-                        Candidats
-                      </div>
-
-                      <div class="mt-1 text-xl font-bold text-slate-900 font-titre">
-                        148
-                      </div>
-                    </div>
-
-                    <div
-                      class="rounded-xl border border-slate-200 p-3 bg-slate-50/50"
-                    >
-                      <div class="text-[11px] text-slate-500 font-medium">
-                        Évalués
-                      </div>
-
-                      <div class="mt-1 text-xl font-bold text-slate-900 font-titre">
-                        96
-                      </div>
-                    </div>
-
-                    <div
-                      class="rounded-xl border border-slate-200 p-3 bg-blue-50/30 border-blue-100"
-                    >
-                      <div class="text-[11px] text-blue-600 font-medium">
-                        Score moyen
-                      </div>
-
-                      <div class="mt-1 text-xl font-bold text-blue-600 font-titre">
-                        74%
-                      </div>
-                    </div>
-
-                  </div>
-
-
-                  <!-- Chart -->
-                  <div
-                    class="rounded-xl border border-slate-200 p-4 bg-white"
-                  >
-
-                    <div class="flex justify-between items-center mb-4">
-
-                      <div>
-                        <div class="text-xs font-bold text-slate-900">
-                          Progression des évaluations
+                  <!-- Mini Sidebar -->
+                  <div class="bg-slate-900 text-white p-2 sm:p-3 flex flex-col justify-between border-r border-slate-800">
+                    <div class="space-y-4">
+                      <!-- Logo Mini -->
+                      <div class="flex items-center gap-2 px-1">
+                        <div class="w-6 h-6 rounded bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 font-titre">
+                          EP
                         </div>
+                        <span class="hidden sm:inline text-xs font-bold font-titre tracking-wider text-slate-100">
+                          EvalPro
+                        </span>
+                      </div>
 
-                        <div class="text-[11px] text-slate-400">
-                          Sessions complétées cette semaine
+                      <!-- Nav Items -->
+                      <div class="space-y-1">
+                        <div class="flex items-center gap-2 px-2 py-1.5 rounded-md bg-blue-600 text-white text-[10px] sm:text-xs font-medium cursor-default">
+                          <span class="material-symbols-outlined text-[16px]">dashboard</span>
+                          <span class="hidden sm:inline">Tableau</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-2 py-1.5 rounded-md text-slate-400 hover:text-white text-[10px] sm:text-xs font-medium cursor-default">
+                          <span class="material-symbols-outlined text-[16px]">campaign</span>
+                          <span class="hidden sm:inline">Campagnes</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-2 py-1.5 rounded-md text-slate-400 hover:text-white text-[10px] sm:text-xs font-medium cursor-default">
+                          <span class="material-symbols-outlined text-[16px]">quiz</span>
+                          <span class="hidden sm:inline">Épreuves</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-2 py-1.5 rounded-md text-slate-400 hover:text-white text-[10px] sm:text-xs font-medium cursor-default">
+                          <span class="material-symbols-outlined text-[16px]">group</span>
+                          <span class="hidden sm:inline">Candidats</span>
                         </div>
                       </div>
+                    </div>
 
-                      <span
-                        class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded"
-                      >
-                        +18.4%
+                    <!-- User Profile Mini -->
+                    <div class="flex items-center gap-2 p-1 pt-2 border-t border-slate-800">
+                      <div class="w-6 h-6 rounded-full bg-slate-700 flex items-center justify-center text-[10px] font-bold text-blue-300">
+                        RH
+                      </div>
+                      <span class="hidden sm:inline text-[10px] text-slate-300 font-medium truncate">
+                        Admin HR
                       </span>
-
                     </div>
-
-
-                    <div class="flex items-end gap-2 h-24">
-
-                      <div
-                        v-for="(height, index) in chartBars"
-                        :key="index"
-                        class="flex-1 rounded-t bg-blue-500/80 hover:bg-blue-600 transition-colors"
-                        :style="{ height: `${height}%` }"
-                      ></div>
-
-                    </div>
-
                   </div>
 
+                  <!-- Main App Panel -->
+                  <div class="p-3 sm:p-5 overflow-hidden space-y-4 bg-white">
 
-                  <!-- Candidate -->
-                  <div
-                    class="rounded-xl border border-slate-200 overflow-hidden bg-white"
-                  >
-
-                    <div
-                      class="px-4 py-2.5 bg-slate-50 border-b border-slate-200 text-[11px] font-semibold text-slate-500 uppercase tracking-wider"
-                    >
-                      Dernières évaluations soumises
-                    </div>
-
-                    <div class="divide-y divide-slate-100">
-
-                      <div
-                        v-for="candidate in candidates"
-                        :key="candidate.name"
-                        class="px-4 py-2.5 flex items-center justify-between"
-                      >
-
-                        <div class="flex items-center gap-3">
-
-                          <div
-                            class="w-7 h-7 rounded-full bg-blue-50 text-blue-600 font-bold flex items-center justify-center text-xs"
-                          >
-                            {{ candidate.initials }}
-                          </div>
-
-                          <div>
-                            <div class="text-xs font-semibold text-slate-800">
-                              {{ candidate.name }}
-                            </div>
-
-                            <div class="text-[10px] text-slate-400">
-                              {{ candidate.status }}
-                            </div>
-                          </div>
-
+                    <!-- Header dashboard -->
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                      <div>
+                        <div class="text-[9px] sm:text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+                          Espace Recrutement RH
                         </div>
-
-                        <div
-                          class="text-xs font-bold font-titre"
-                          :class="candidate.score >= 70
-                            ? 'text-emerald-600'
-                            : 'text-slate-500'"
-                        >
-                          {{ candidate.score }}%
+                        <div class="text-xs sm:text-base font-bold text-slate-900 font-titre">
+                          Développeur Full Stack
                         </div>
-
                       </div>
 
+                      <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-emerald-50 text-emerald-700 text-[9px] sm:text-xs font-semibold">
+                        ● Campagne Active
+                      </span>
+                    </div>
+
+                    <!-- KPI Grid -->
+                    <div class="grid grid-cols-3 gap-2">
+                      <div class="rounded-lg border border-slate-200 p-2 sm:p-2.5 bg-slate-50/50">
+                        <div class="text-[8px] sm:text-[10px] font-medium text-slate-500">Candidats</div>
+                        <div class="mt-0.5 text-sm sm:text-lg font-bold text-slate-900 font-titre">148</div>
+                      </div>
+
+                      <div class="rounded-lg border border-slate-200 p-2 sm:p-2.5 bg-slate-50/50">
+                        <div class="text-[8px] sm:text-[10px] font-medium text-slate-500">Évalués</div>
+                        <div class="mt-0.5 text-sm sm:text-lg font-bold text-slate-900 font-titre">96</div>
+                      </div>
+
+                      <div class="rounded-lg border border-blue-100 p-2 sm:p-2.5 bg-blue-50/30">
+                        <div class="text-[8px] sm:text-[10px] font-medium text-blue-600">Score Moyen</div>
+                        <div class="mt-0.5 text-sm sm:text-lg font-bold text-blue-600 font-titre">74%</div>
+                      </div>
+                    </div>
+
+                    <!-- Chart Mini -->
+                    <div class="rounded-lg border border-slate-200 p-2.5 bg-slate-50/30">
+                      <div class="flex justify-between items-center mb-2">
+                        <span class="text-[10px] sm:text-xs font-semibold text-slate-800">Progression des évaluations</span>
+                        <span class="text-[9px] font-bold text-emerald-600">+18.4%</span>
+                      </div>
+                      <div class="flex items-end gap-1 sm:gap-1.5 h-16 sm:h-20">
+                        <div v-for="(height, index) in chartBars" :key="index" class="flex-1 rounded-t bg-blue-500/80" :style="{ height: `${height}%` }"></div>
+                      </div>
+                    </div>
+
+                    <!-- Candidates List -->
+                    <div class="rounded-lg border border-slate-200 overflow-hidden text-[10px] sm:text-xs">
+                      <div class="px-3 py-1.5 bg-slate-50 border-b border-slate-200 font-semibold text-slate-500 text-[9px] uppercase">
+                        Évaluations récentes
+                      </div>
+                      <div class="divide-y divide-slate-100">
+                        <div v-for="c in candidates" :key="c.name" class="px-3 py-1.5 flex items-center justify-between">
+                          <div class="flex items-center gap-2 min-w-0">
+                            <div class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-[9px]">
+                              {{ c.initials }}
+                            </div>
+                            <span class="font-medium text-slate-800 truncate">{{ c.name }}</span>
+                          </div>
+                          <span class="font-bold" :class="c.score >= 70 ? 'text-emerald-600' : 'text-slate-500'">{{ c.score }}%</span>
+                        </div>
+                      </div>
                     </div>
 
                   </div>
@@ -360,28 +375,35 @@
       </section>
 
 
-      <!-- TRUST STRIP -->
+      <!-- =======================================================
+           TRUST STRIP
+      ======================================================== -->
       <section class="border-y border-slate-200 bg-white">
 
         <div
-          class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-7"
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-6 sm:py-8"
         >
 
           <div
-            class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+            class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 sm:gap-5"
           >
 
-            <p class="text-sm font-semibold text-slate-600">
-              Conçu pour les exigences des processus de sélection professionnels.
+            <p
+              class="text-xs sm:text-sm font-medium text-slate-500 text-center lg:text-left"
+            >
+              Une plateforme pensée pour les processus de sélection exigeants.
             </p>
 
+
             <div
-              class="flex flex-wrap gap-x-8 gap-y-2 text-xs font-semibold text-slate-500 uppercase tracking-wider"
+              class="flex flex-wrap justify-center lg:justify-end gap-x-5 sm:gap-x-8 gap-y-2 text-xs sm:text-sm text-slate-400 font-medium"
             >
-              <span>Recrutement RH</span>
-              <span>Concours d'entrée</span>
+
+              <span>Recrutement</span>
+              <span>Concours</span>
               <span>Évaluations techniques</span>
-              <span>Certifications</span>
+              <span>Formations</span>
+
             </div>
 
           </div>
@@ -391,28 +413,34 @@
       </section>
 
 
-      <!-- FONCTIONNALITÉS -->
+      <!-- =======================================================
+           FONCTIONNALITÉS
+      ======================================================== -->
       <section
         id="fonctionnalites"
-        class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-20 sm:py-24"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-16 sm:py-20 lg:py-24"
       >
 
-        <div class="max-w-2xl mb-14">
+        <div
+          class="max-w-2xl mb-10 sm:mb-14"
+        >
 
           <div
-            class="text-xs font-bold tracking-wider text-blue-600 uppercase mb-3"
+            class="text-xs sm:text-sm font-semibold text-blue-600 mb-2 sm:mb-3"
           >
-            FONCTIONNALITÉS CLÉS
+            LA PLATEFORME
           </div>
 
+
           <h2
-            class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-950 font-titre"
+            class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-950 font-titre"
           >
             Tout ce qu’il faut pour évaluer un candidat de façon fiable.
           </h2>
 
+
           <p
-            class="mt-4 text-base leading-relaxed text-slate-600"
+            class="mt-3 sm:mt-4 text-sm sm:text-base leading-6 sm:leading-7 text-slate-600"
           >
             De la préparation de l’épreuve à l’analyse des résultats,
             EvalPro vous permet de gérer l’ensemble du processus depuis
@@ -422,32 +450,39 @@
         </div>
 
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- FEATURES -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
+        >
 
           <div
             v-for="feature in features"
             :key="feature.title"
-            class="group bg-white border border-slate-200 rounded-2xl p-6 hover:border-slate-300 hover:shadow-lg hover:shadow-slate-200/40 transition-all duration-200"
+            class="group bg-white border border-slate-200 rounded-xl sm:rounded-2xl p-5 sm:p-6 hover:border-slate-300 hover:shadow-lg hover:shadow-slate-200/40 transition-all duration-200"
           >
 
             <div
-              class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center mb-5 group-hover:bg-blue-50 transition-colors"
+              class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-slate-100 flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-blue-50 transition-colors"
             >
+
               <span
-                class="material-symbols-outlined text-[22px] text-slate-600 group-hover:text-blue-600"
+                class="material-symbols-outlined text-[19px] sm:text-[21px] text-slate-600 group-hover:text-blue-600"
               >
                 {{ feature.icon }}
               </span>
+
             </div>
 
+
             <h3
-              class="text-base font-bold text-slate-900 font-titre"
+              class="text-sm sm:text-base font-semibold text-slate-900 font-titre"
             >
               {{ feature.title }}
             </h3>
 
+
             <p
-              class="mt-2 text-xs sm:text-sm leading-relaxed text-slate-500"
+              class="mt-2 text-xs sm:text-sm leading-5 sm:leading-6 text-slate-500"
             >
               {{ feature.description }}
             </p>
@@ -459,55 +494,64 @@
       </section>
 
 
-      <!-- FONCTIONNEMENT -->
+      <!-- =======================================================
+           FONCTIONNEMENT
+      ======================================================== -->
       <section
         id="fonctionnement"
-        class="bg-white border-y border-slate-200 py-20 sm:py-24"
+        class="bg-white border-y border-slate-200"
       >
 
         <div
-          class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10"
+          class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-16 sm:py-20 lg:py-24"
         >
 
-          <div class="max-w-2xl mb-14">
+          <div
+            class="max-w-2xl mb-10 sm:mb-14"
+          >
 
             <div
-              class="text-xs font-bold tracking-wider text-blue-600 uppercase mb-3"
+              class="text-xs sm:text-sm font-semibold text-blue-600 mb-2 sm:mb-3"
             >
-              PROCESSUS DE SÉLECTION
+              COMMENT ÇA MARCHE
             </div>
 
+
             <h2
-              class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-950 font-titre"
+              class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-950 font-titre"
             >
-              Un workflow clair et structuré en 3 étapes.
+              Un processus simple pour vos équipes.
             </h2>
 
           </div>
 
 
-          <div class="grid md:grid-cols-3 gap-10">
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10"
+          >
 
             <div
               v-for="(step, index) in steps"
               :key="step.title"
-              class="relative space-y-3"
+              class="relative"
             >
 
               <div
-                class="text-5xl font-extrabold tracking-tight text-slate-200 font-titre"
+                class="text-4xl sm:text-5xl font-bold tracking-tight text-slate-200 font-titre"
               >
                 0{{ index + 1 }}
               </div>
 
+
               <h3
-                class="text-lg font-bold text-slate-900 font-titre"
+                class="mt-3 sm:mt-4 text-base sm:text-lg font-semibold text-slate-900 font-titre"
               >
                 {{ step.title }}
               </h3>
 
+
               <p
-                class="text-sm leading-relaxed text-slate-500 max-w-sm"
+                class="mt-2 text-xs sm:text-sm leading-5 sm:leading-6 text-slate-500 max-w-sm"
               >
                 {{ step.description }}
               </p>
@@ -521,36 +565,41 @@
       </section>
 
 
-      <!-- SECURITE -->
+      <!-- =======================================================
+           SECURITE
+      ======================================================== -->
       <section
         id="securite"
-        class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-20 sm:py-24"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-16 sm:py-20 lg:py-24"
       >
 
         <div
-          class="rounded-3xl bg-slate-950 overflow-hidden shadow-2xl"
+          class="rounded-2xl sm:rounded-3xl bg-slate-950 overflow-hidden"
         >
 
           <div
-            class="grid lg:grid-cols-2 gap-12 items-center p-8 sm:p-12 lg:p-16"
+            class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center p-6 sm:p-10 lg:p-16"
           >
 
+            <!-- TEXT -->
             <div>
 
               <div
-                class="text-xs font-bold tracking-wider text-blue-400 uppercase mb-4"
+                class="text-xs sm:text-sm font-semibold text-blue-400 mb-3 sm:mb-4"
               >
                 SÉCURITÉ ET INTÉGRITÉ
               </div>
 
+
               <h2
-                class="text-3xl sm:text-4xl font-bold tracking-tight text-white font-titre"
+                class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white font-titre"
               >
                 Des évaluations conçues pour préserver l’intégrité des résultats.
               </h2>
 
+
               <p
-                class="mt-5 text-sm sm:text-base leading-relaxed text-slate-400 max-w-xl"
+                class="mt-4 sm:mt-5 text-sm sm:text-base leading-6 sm:leading-7 text-slate-400 max-w-xl"
               >
                 Contrôles de session, suivi des événements et mécanismes
                 de surveillance permettent à vos équipes de disposer
@@ -560,28 +609,33 @@
             </div>
 
 
-            <div class="grid sm:grid-cols-2 gap-4">
+            <!-- SECURITY CARDS -->
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 gap-3"
+            >
 
               <div
                 v-for="security in securityFeatures"
                 :key="security.title"
-                class="rounded-xl border border-white/10 bg-white/[0.04] p-5"
+                class="rounded-xl border border-white/10 bg-white/[0.04] p-4 sm:p-5"
               >
 
                 <span
-                  class="material-symbols-outlined text-blue-400 text-[24px]"
+                  class="material-symbols-outlined text-blue-400 text-[21px]"
                 >
                   {{ security.icon }}
                 </span>
 
+
                 <h3
-                  class="mt-4 text-sm font-bold text-white font-titre"
+                  class="mt-3 sm:mt-4 text-xs sm:text-sm font-semibold text-white font-titre"
                 >
                   {{ security.title }}
                 </h3>
 
+
                 <p
-                  class="mt-2 text-xs leading-relaxed text-slate-400"
+                  class="mt-2 text-[11px] sm:text-xs leading-5 text-slate-400"
                 >
                   {{ security.description }}
                 </p>
@@ -597,34 +651,43 @@
       </section>
 
 
-      <!-- CTA FINAL -->
-      <section class="px-5 sm:px-8 lg:px-10 pb-20 sm:pb-24">
+      <!-- =======================================================
+           FINAL CTA
+      ======================================================== -->
+      <section
+        class="px-4 sm:px-6 lg:px-10 pb-16 sm:pb-20 lg:pb-24"
+      >
 
         <div
-          class="max-w-4xl mx-auto text-center bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 shadow-lg"
+          class="max-w-5xl mx-auto text-center"
         >
 
           <h2
-            class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-950 font-titre"
+            class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-950 font-titre"
           >
-            Découvrez EvalPro en action
+            Voyez EvalPro en action.
           </h2>
 
+
           <p
-            class="mt-4 text-base leading-relaxed text-slate-600 max-w-xl mx-auto"
+            class="mt-3 sm:mt-4 text-sm sm:text-base leading-6 sm:leading-7 text-slate-600 max-w-xl mx-auto"
           >
             Échangez avec notre équipe et découvrez comment la plateforme
-            peut s’intégrer à votre processus d'évaluation et de recrutement.
+            peut s’intégrer à votre processus de recrutement.
           </p>
 
-          <div class="mt-8 flex justify-center">
+
+          <div class="mt-6 sm:mt-8">
+
             <EpButton
               variant="primary"
               size="lg"
               @click="ouvrirDemande"
+              class="w-full sm:w-auto"
             >
               Demander une démonstration
             </EpButton>
+
           </div>
 
         </div>
@@ -634,7 +697,9 @@
     </main>
 
 
-    <!-- MODALE -->
+    <!-- =========================================================
+         MODAL
+    ========================================================== -->
     <EpModal
       v-model="afficherModalDemande"
       title="Demander une démonstration"
@@ -642,34 +707,38 @@
       size="md"
     >
 
-      <!-- Succès -->
+      <!-- SUCCESS -->
       <div
         v-if="demandeEnvoyee"
-        class="text-center py-8 space-y-4"
+        class="text-center py-6 sm:py-8 px-2"
       >
 
         <div
-          class="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto"
+          class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto"
         >
-          <span class="material-symbols-outlined text-3xl">
-            check_circle
+          <span class="material-symbols-outlined text-2xl">
+            check
           </span>
         </div>
 
+
         <h3
-          class="text-lg font-bold text-slate-900 font-titre"
+          class="mt-4 sm:mt-5 text-base sm:text-lg font-semibold text-slate-900 font-titre"
         >
-          Demande enregistrée
+          Demande envoyée
         </h3>
 
+
         <p
-          class="text-sm leading-relaxed text-slate-500 max-w-sm mx-auto"
+          class="mt-2 text-xs sm:text-sm leading-5 sm:leading-6 text-slate-500 max-w-sm mx-auto"
         >
-          Merci ! Notre équipe administrateur traitera votre demande
-          et vous recontactera sous 24h.
+          Merci. Notre équipe reviendra vers vous prochainement
+          afin de convenir d’un rendez-vous.
         </p>
 
-        <div class="pt-4">
+
+        <div class="mt-5 sm:mt-6">
+
           <EpButton
             variant="primary"
             size="sm"
@@ -677,25 +746,32 @@
           >
             Fermer
           </EpButton>
+
         </div>
 
       </div>
 
 
-      <!-- Formulaire -->
+      <!-- FORM -->
       <form
         v-else
         @submit.prevent="soumettreDemande"
-        class="space-y-4"
+        class="space-y-4 sm:space-y-5"
       >
 
         <div
-          class="pb-3 border-b border-slate-200"
+          class="pb-3 sm:pb-4 border-b border-slate-200"
         >
-          <p class="text-xs text-slate-500 leading-relaxed">
-            Renseignez vos coordonnées professionnelles pour recevoir une présentation personnalisée d'EvalPro.
+
+          <p
+            class="text-xs sm:text-sm text-slate-500 leading-5 sm:leading-6"
+          >
+            Quelques informations suffisent pour nous permettre
+            de comprendre votre besoin.
           </p>
+
         </div>
+
 
         <EpInput
           v-model="formDemande.nomEntreprise"
@@ -705,6 +781,7 @@
           iconLeft="domain"
         />
 
+
         <EpInput
           v-model="formDemande.nomResponsable"
           label="Nom et prénom"
@@ -712,6 +789,7 @@
           placeholder="Votre nom"
           iconLeft="person"
         />
+
 
         <EpInput
           v-model="formDemande.emailPro"
@@ -722,6 +800,7 @@
           iconLeft="mail"
         />
 
+
         <EpInput
           v-model="formDemande.telephone"
           type="tel"
@@ -730,8 +809,9 @@
           iconLeft="phone"
         />
 
+
         <div
-          class="pt-4 border-t border-slate-200 flex justify-end gap-3"
+          class="pt-4 sm:pt-5 border-t border-slate-200 flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3"
         >
 
           <EpButton
@@ -739,14 +819,17 @@
             variant="outline"
             size="md"
             @click="afficherModalDemande = false"
+            class="w-full sm:w-auto"
           >
             Annuler
           </EpButton>
+
 
           <EpButton
             type="submit"
             variant="primary"
             size="md"
+            class="w-full sm:w-auto"
           >
             Envoyer la demande
           </EpButton>
@@ -758,27 +841,33 @@
     </EpModal>
 
 
-    <!-- FOOTER -->
-    <footer class="border-t border-slate-200 bg-white">
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+    <footer
+      class="border-t border-slate-200 bg-white"
+    >
 
       <div
-        class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-10"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-10"
       >
 
         <div
           class="flex flex-col md:flex-row md:items-center md:justify-between gap-6"
         >
 
-          <div>
+          <!-- BRAND -->
+          <div class="text-center md:text-left">
 
             <img
               src="/logo.png"
               alt="EvalPro"
-              class="h-9 w-auto object-contain"
+              class="h-8 sm:h-9 w-auto object-contain mx-auto md:mx-0"
             />
 
+
             <p
-              class="mt-2 text-xs text-slate-500"
+              class="mt-2 sm:mt-3 text-[11px] sm:text-xs text-slate-400"
             >
               Plateforme d’évaluation et de recrutement en ligne.
             </p>
@@ -786,35 +875,31 @@
           </div>
 
 
+          <!-- LINKS -->
           <div
-            class="flex flex-wrap gap-6 text-xs font-semibold text-slate-600"
+            class="flex flex-wrap justify-center md:justify-end gap-x-5 sm:gap-x-6 gap-y-3 text-xs text-slate-500"
           >
 
             <a
               href="#fonctionnalites"
-              class="hover:text-slate-950 transition-colors"
+              class="hover:text-slate-900 transition-colors"
             >
               Fonctionnalités
             </a>
 
+
             <a
               href="#securite"
-              class="hover:text-slate-950 transition-colors"
+              class="hover:text-slate-900 transition-colors"
             >
               Sécurité
             </a>
 
-            <a
-              href="#fonctionnement"
-              class="hover:text-slate-950 transition-colors"
-            >
-              Fonctionnement
-            </a>
 
             <button
               type="button"
               @click="ouvrirDemande"
-              class="hover:text-slate-950 transition-colors"
+              class="hover:text-slate-900 transition-colors"
             >
               Contact
             </button>
@@ -825,10 +910,9 @@
 
 
         <div
-          class="mt-8 pt-6 border-t border-slate-100 text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-4"
+          class="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-100 text-[10px] sm:text-xs text-slate-400 text-center md:text-left"
         >
-          <span>© {{ currentYear }} EvalPro. Tous droits réservés.</span>
-          <span>Version Professionnelle</span>
+          © {{ new Date().getFullYear() }} EvalPro. Tous droits réservés.
         </div>
 
       </div>
@@ -840,22 +924,20 @@
 
 
 <script setup>
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive } from 'vue';
 
 import EpButton from '../composants/systeme/EpButton.vue';
 import EpModal from '../composants/systeme/EpModal.vue';
 import EpInput from '../composants/systeme/EpInput.vue';
 
-const currentYear = computed(() => new Date().getFullYear());
 
-/*
-|--------------------------------------------------------------------------
-| Modal
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   MODAL
+========================================================= */
 
 const afficherModalDemande = ref(false);
 const demandeEnvoyee = ref(false);
+
 
 const formDemande = reactive({
   nomEntreprise: '',
@@ -885,11 +967,9 @@ function soumettreDemande() {
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| Navigation
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 function scrollToFonctionnalites() {
   document
@@ -901,11 +981,9 @@ function scrollToFonctionnalites() {
 }
 
 
-/*
-|--------------------------------------------------------------------------
-| Fonctionnalités
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   FEATURES
+========================================================= */
 
 const features = [
   {
@@ -947,36 +1025,32 @@ const features = [
 ];
 
 
-/*
-|--------------------------------------------------------------------------
-| Fonctionnement en 3 étapes
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   STEPS
+========================================================= */
 
 const steps = [
   {
-    title: 'Création & Épreuves',
+    title: 'Créez votre campagne',
     description:
-      'Configurez vos campagnes de recrutement et préparez vos banques d’épreuves sur-mesure.',
+      'Configurez votre campagne, définissez les épreuves et ajoutez les candidats.',
   },
   {
-    title: 'Passage Sécurisé',
+    title: 'Lancez les évaluations',
     description:
-      'Invitez les candidats à composer dans un environnement minuté et contrôlé.',
+      'Les candidats reçoivent leur accès et réalisent leurs évaluations dans un environnement contrôlé.',
   },
   {
-    title: 'Analyse & Décision',
+    title: 'Analysez les résultats',
     description:
-      'Accédez aux résultats centralisés, classements automatiques et grilles de correction.',
+      'Comparez les performances et identifiez rapidement les profils correspondant à vos critères.',
   },
 ];
 
 
-/*
-|--------------------------------------------------------------------------
-| Sécurité
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   SECURITY
+========================================================= */
 
 const securityFeatures = [
   {
@@ -1006,11 +1080,9 @@ const securityFeatures = [
 ];
 
 
-/*
-|--------------------------------------------------------------------------
-| Dashboard mockup
-|--------------------------------------------------------------------------
-*/
+/* =========================================================
+   DASHBOARD MOCKUP
+========================================================= */
 
 const chartBars = [
   35,
