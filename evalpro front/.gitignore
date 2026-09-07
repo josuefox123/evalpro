@@ -4,6 +4,7 @@ dist
 *.local
 .env
 .agents/
+.agents
 EvalPro UI_UX Design/
 *.docx
 ~$*.docx
