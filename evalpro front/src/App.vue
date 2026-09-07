@@ -1,20 +1,28 @@
 <template>
   <!--
-    App.vue - Composant racine de l'application EvalPro SaaS B2B
+    App.vue - Composant racine de l'application EvalPro
   -->
-  <div class="min-h-screen bg-slate-50 text-slate-800 font-sans">
+  <div class="min-h-screen bg-slate-50 text-slate-800 font-sans" v-cloak>
 
     <!-- Notifications Toast globales -->
     <EpToast />
 
-    <!-- Interface Administrateur B2B (Sidebar + Topbar B2B) -->
+    <!-- Interface Administrateur (Sidebar + Topbar) -->
     <DispositionB2B v-if="estDashboard">
-      <router-view />
+      <router-view v-slot="{ Component }">
+        <transition name="fondu-entre" mode="out-in">
+          <component :is="Component" :key="route.fullPath" />
+        </transition>
+      </router-view>
     </DispositionB2B>
 
     <!-- Interfaces Standalone / Publiques (Accueil, Connexion, Accès Candidat, Examen) -->
     <main v-else class="min-h-screen">
-      <router-view />
+      <router-view v-slot="{ Component }">
+        <transition name="fondu-entre" mode="out-in">
+          <component :is="Component" :key="route.fullPath" />
+        </transition>
+      </router-view>
     </main>
 
   </div>

@@ -9,10 +9,10 @@
       <div>
         <div class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-ep-primary border border-blue-100 mb-2">
           <span class="material-symbols-outlined text-xs">domain</span>
-          <span>{{ magasinAuth.utilisateurConnecte.entreprise || 'TechCorp Algérie' }}</span>
+          <span>{{ magasinAuth.utilisateurConnecte?.entreprise || 'TechCorp Algérie' }}</span>
         </div>
         <h1 class="text-2xl font-extrabold text-ep-text font-titre">
-          Bonjour, {{ magasinAuth.utilisateurConnecte.nom }} 👋
+          Bonjour, {{ magasinAuth.utilisateurConnecte?.nom || 'Administrateur' }} 👋
         </h1>
         <p class="text-xs text-ep-muted mt-1">
           Voici un aperçu de vos activités de recrutement et de la progression de vos campagnes d'évaluation.

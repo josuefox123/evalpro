@@ -12,7 +12,7 @@
             Invitation Officielle d'Évaluation
           </span>
           <h1 class="text-2xl font-extrabold text-ep-text tracking-tight font-titre mt-2">
-            Bienvenue, {{ magasinAuth.utilisateurConnecte.nom }}
+            Bienvenue, {{ magasinAuth.utilisateurConnecte?.nom || 'Candidat' }}
           </h1>
           <p class="text-xs text-ep-muted">
             Poste : <strong class="text-ep-text">Développeur Web Full-Stack Senior</strong> • TechCorp Algérie

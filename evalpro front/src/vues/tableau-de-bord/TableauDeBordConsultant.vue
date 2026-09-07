@@ -9,7 +9,7 @@
       <div>
         <div class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 mb-2">
           <span class="material-symbols-outlined text-xs">edit_note</span>
-          <span>Espace Pédagogique — {{ magasinAuth.utilisateurConnecte.nom }}</span>
+          <span>Espace Pédagogique — {{ magasinAuth.utilisateurConnecte?.nom || 'Consultant' }}</span>
         </div>
         <h1 class="text-2xl font-extrabold text-ep-text font-titre">Tableau de Bord Consultant & Évaluateur</h1>
         <p class="text-xs text-ep-muted mt-1">Conception des banques de questions, création des épreuves et correction manuelle des copies.</p>
