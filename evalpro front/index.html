@@ -15,8 +15,18 @@
     <!-- Icônes officielles Google Fonts Material Symbols -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   </head>
-  <body class="bg-gray-50 text-gray-900 font-sans antialiased min-h-screen">
-    <div id="app"></div>
+  <body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen">
+    <div id="app" v-cloak>
+      <div style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #f8fafc; font-family: system-ui, sans-serif;">
+        <img src="/logo.png" alt="EvalPro" style="height: 48px; width: auto; margin-bottom: 16px; opacity: 0.9;" />
+        <div style="width: 32px; height: 32px; border: 3px solid #e2e8f0; border-top-color: #2563eb; border-radius: 50%; animation: ep-spin 0.8s linear infinite;"></div>
+        <style>
+          @keyframes ep-spin {
+            to { transform: rotate(360deg); }
+          }
+        </style>
+      </div>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

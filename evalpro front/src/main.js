@@ -10,4 +10,7 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 
-app.mount('#app');
+// Attendre que le routeur ait résolu la route initiale pour éviter les flashs de code et d'affichage
+router.isReady().then(() => {
+  app.mount('#app');
+});
