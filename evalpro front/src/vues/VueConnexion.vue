@@ -1,115 +1,100 @@
 <template>
   <!--
-    VueConnexion.vue - Page de connexion officielle EvalPro
-    Authentification réelle par email et mot de passe avec masquage/affichage interactif du mot de passe.
+    VueConnexion.vue - Page de connexion épurée et 100% dédiée EvalPro
   -->
-  <div class="min-h-screen bg-slate-50 flex flex-col justify-between font-sans">
+  <div class="min-h-screen bg-slate-50 flex items-center justify-center p-4 sm:p-6 font-sans">
+    <div class="w-full max-w-md my-auto">
 
-    <!-- Header minimal -->
-    <header class="bg-white border-b border-slate-200 h-16 px-4 sm:px-8 flex items-center justify-between shadow-xs">
-      <router-link to="/" class="flex items-center group">
-        <img src="/logo.png" alt="EvalPro" class="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105" />
-      </router-link>
+      <!-- Carte Principale de Connexion -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
 
-      <router-link to="/" class="text-xs sm:text-sm text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1 font-semibold">
-        <span class="material-symbols-outlined text-base">arrow_back</span>
-        <span>Retour à l'accueil</span>
-      </router-link>
-    </header>
+        <!-- En-tête avec Logo de la Carte -->
+        <div class="text-center space-y-2">
+          <router-link to="/" class="inline-block group mb-1">
+            <img src="/logo.png" alt="EvalPro" class="h-14 sm:h-18 w-auto mx-auto object-contain transition-transform group-hover:scale-105" />
+          </router-link>
+          <h1 class="text-xl sm:text-2xl font-bold text-slate-900 font-titre">Connexion à votre Espace</h1>
+          <p class="text-xs sm:text-sm text-slate-500">
+            Saisissez vos identifiants pour accéder à votre espace
+          </p>
+        </div>
 
-    <!-- Zone centrale de connexion -->
-    <div class="flex-1 flex items-center justify-center p-4 sm:p-6">
-      <div class="w-full max-w-md">
+        <!-- Formulaire de Connexion Réel -->
+        <form @submit.prevent="connexionCompte" class="space-y-4">
+          <EpInput
+            v-model="emailForm"
+            type="email"
+            label="Adresse Email Professionnelle"
+            required
+            placeholder="adresse@entreprise.com"
+            iconLeft="mail"
+            :error="erreurChamps.email"
+          />
 
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-lg space-y-6">
+          <EpInput
+            v-model="motDePasse"
+            :type="afficherMotDePasse ? 'text' : 'password'"
+            label="Mot de Passe"
+            required
+            placeholder="••••••••"
+            iconLeft="key"
+            :iconRight="afficherMotDePasse ? 'visibility_off' : 'visibility'"
+            :hasRightIconClick="true"
+            @click-icon-right="afficherMotDePasse = !afficherMotDePasse"
+            :error="erreurChamps.motDePasse"
+          />
 
-          <!-- En-tête de la carte -->
-          <div class="text-center space-y-2">
-            <img src="/logo.png" alt="EvalPro" class="h-16 sm:h-20 w-auto mx-auto object-contain mb-2 drop-shadow-xs" />
-            <h1 class="text-xl sm:text-2xl font-bold text-slate-900 font-titre">Connexion à votre Espace</h1>
-            <p class="text-xs sm:text-sm text-slate-500">
-              Saisissez vos identifiants autorisés pour accéder à la plateforme
-            </p>
+          <div class="flex items-center justify-between text-xs pt-1">
+            <label class="flex items-center gap-2 cursor-pointer text-slate-600 select-none">
+              <input type="checkbox" v-model="seSouvenirDeMoi" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+              <span>Se souvenir de moi</span>
+            </label>
+
+            <a href="#" @click.prevent="motDePasseOublie" class="text-blue-600 hover:underline font-semibold">
+              Mot de passe oublié ?
+            </a>
           </div>
 
-          <!-- Formulaire de Connexion Réel -->
-          <form @submit.prevent="connexionCompte" class="space-y-4">
-            <EpInput
-              v-model="emailForm"
-              type="email"
-              label="Adresse Email Professionnelle"
-              required
-              placeholder="adresse@entreprise.com"
-              iconLeft="mail"
-              :error="erreurChamps.email"
-            />
+          <EpButton
+            type="submit"
+            variant="primary"
+            size="md"
+            iconRight="login"
+            fullWidth
+            :disabled="chargement"
+            class="font-semibold py-2.5 mt-2"
+          >
+            {{ chargement ? 'Vérification...' : 'Se Connecter' }}
+          </EpButton>
+        </form>
 
-            <EpInput
-              v-model="motDePasse"
-              :type="afficherMotDePasse ? 'text' : 'password'"
-              label="Mot de Passe"
-              required
-              placeholder="••••••••"
-              iconLeft="key"
-              :iconRight="afficherMotDePasse ? 'visibility_off' : 'visibility'"
-              :hasRightIconClick="true"
-              @click-icon-right="afficherMotDePasse = !afficherMotDePasse"
-              :error="erreurChamps.motDePasse"
-            />
-
-            <div class="flex items-center justify-between text-xs pt-1">
-              <label class="flex items-center gap-2 cursor-pointer text-slate-600">
-                <input type="checkbox" v-model="seSouvenirDeMoi" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
-                <span>Se souvenir de moi</span>
-              </label>
-
-              <a href="#" @click.prevent="motDePasseOublie" class="text-blue-600 hover:underline font-semibold">
-                Mot de passe oublié ?
-              </a>
-            </div>
-
-            <EpButton
-              type="submit"
-              variant="primary"
-              size="md"
-              iconRight="login"
-              fullWidth
-              :disabled="chargement"
-              class="font-semibold py-2.5 mt-2"
-            >
-              {{ chargement ? 'Vérification...' : 'Se Connecter' }}
-            </EpButton>
-          </form>
-
-          <!-- Lien spécifique candidat -->
-          <div class="pt-4 border-t border-slate-100 text-center space-y-1.5">
-            <p class="text-[11px] text-slate-500">
-              Vous êtes candidat et participez à une épreuve ?
-            </p>
-            <router-link
-              to="/acces-candidat"
-              class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline"
-            >
-              <span class="material-symbols-outlined text-sm">badge</span>
-              <span>Accéder avec mon Code Candidat</span>
-            </router-link>
-          </div>
-
+        <!-- Accès Candidat -->
+        <div class="pt-4 border-t border-slate-100 text-center space-y-1.5">
+          <p class="text-[11px] text-slate-500">
+            Vous êtes candidat et participez à une épreuve ?
+          </p>
+          <router-link
+            to="/acces-candidat"
+            class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline"
+          >
+            <span class="material-symbols-outlined text-sm">badge</span>
+            <span>Accéder avec mon Code Candidat</span>
+          </router-link>
         </div>
 
       </div>
+
+      <!-- Copyright discret bas de page -->
+      <div class="mt-6 text-center text-xs text-slate-400">
+        © {{ currentYear }} EvalPro. Tous droits réservés.
+      </div>
+
     </div>
-
-    <!-- Footer minimal -->
-    <footer class="py-4 text-center text-[11px] text-slate-400 border-t border-slate-200 bg-white">
-      EvalPro © {{ new Date().getFullYear() }} — Tous droits réservés
-    </footer>
-
   </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMagasinAuthentification } from '../magasins/authentification.store';
 import { useMagasinNotification } from '../magasins/notification.store';
@@ -120,7 +105,9 @@ const router = useRouter();
 const magasinAuth = useMagasinAuthentification();
 const magasinNotif = useMagasinNotification();
 
-// Champs vides par défaut pour un vrai comportement de connexion
+const currentYear = computed(() => new Date().getFullYear());
+
+// Champs vides par défaut pour une saisie 100% réelle
 const emailForm = ref('');
 const motDePasse = ref('');
 const seSouvenirDeMoi = ref(true);
