@@ -1,7 +1,7 @@
 <template>
   <!--
-    VueConnexion.vue - Page de connexion professionnelle EvalPro
-    Authentification basée sur les identifiants utilisateur avec détection automatique du rôle
+    VueConnexion.vue - Page de connexion officielle EvalPro
+    Authentification réelle par email et mot de passe avec masquage/affichage interactif du mot de passe.
   -->
   <div class="min-h-screen bg-slate-50 flex flex-col justify-between font-sans">
 
@@ -28,11 +28,11 @@
             <img src="/logo.png" alt="EvalPro" class="h-16 sm:h-20 w-auto mx-auto object-contain mb-2 drop-shadow-xs" />
             <h1 class="text-xl sm:text-2xl font-bold text-slate-900 font-titre">Connexion à votre Espace</h1>
             <p class="text-xs sm:text-sm text-slate-500">
-              Renseignez vos identifiants pour accéder à votre tableau de bord
+              Saisissez vos identifiants autorisés pour accéder à la plateforme
             </p>
           </div>
 
-          <!-- Formulaire de Connexion Standard par Identifiants -->
+          <!-- Formulaire de Connexion Réel -->
           <form @submit.prevent="connexionCompte" class="space-y-4">
             <EpInput
               v-model="emailForm"
@@ -41,60 +41,48 @@
               required
               placeholder="adresse@entreprise.com"
               iconLeft="mail"
+              :error="erreurChamps.email"
             />
 
             <EpInput
               v-model="motDePasse"
-              type="password"
+              :type="afficherMotDePasse ? 'text' : 'password'"
               label="Mot de Passe"
               required
               placeholder="••••••••"
               iconLeft="key"
+              :iconRight="afficherMotDePasse ? 'visibility_off' : 'visibility'"
+              :hasRightIconClick="true"
+              @click-icon-right="afficherMotDePasse = !afficherMotDePasse"
+              :error="erreurChamps.motDePasse"
             />
 
-            <EpButton type="submit" variant="primary" size="md" iconRight="login" fullWidth class="font-semibold py-2.5">
-              Se Connecter
+            <div class="flex items-center justify-between text-xs pt-1">
+              <label class="flex items-center gap-2 cursor-pointer text-slate-600">
+                <input type="checkbox" v-model="seSouvenirDeMoi" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+                <span>Se souvenir de moi</span>
+              </label>
+
+              <a href="#" @click.prevent="motDePasseOublie" class="text-blue-600 hover:underline font-semibold">
+                Mot de passe oublié ?
+              </a>
+            </div>
+
+            <EpButton
+              type="submit"
+              variant="primary"
+              size="md"
+              iconRight="login"
+              fullWidth
+              :disabled="chargement"
+              class="font-semibold py-2.5 mt-2"
+            >
+              {{ chargement ? 'Vérification...' : 'Se Connecter' }}
             </EpButton>
           </form>
 
-          <!-- Raccourcis de test rapides pour la démonstration -->
-          <div class="pt-4 border-t border-slate-100 space-y-2.5">
-            <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider text-center">
-              Raccourcis de démonstration
-            </div>
-
-            <div class="grid grid-cols-3 gap-1.5 text-[11px]">
-              <button
-                type="button"
-                @click="remplirIdentifiants('companyadmin')"
-                class="px-2 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-200 text-slate-700 font-medium truncate transition-colors text-center"
-                title="Administrateur Entreprise"
-              >
-                Admin RH
-              </button>
-
-              <button
-                type="button"
-                @click="remplirIdentifiants('superadmin')"
-                class="px-2 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-purple-50 hover:border-purple-200 text-slate-700 font-medium truncate transition-colors text-center"
-                title="Super Administrateur HQ"
-              >
-                SuperAdmin
-              </button>
-
-              <button
-                type="button"
-                @click="remplirIdentifiants('consultant')"
-                class="px-2 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 text-slate-700 font-medium truncate transition-colors text-center"
-                title="Consultant Évaluateur"
-              >
-                Consultant
-              </button>
-            </div>
-          </div>
-
           <!-- Lien spécifique candidat -->
-          <div class="pt-3 border-t border-slate-100 text-center space-y-1.5">
+          <div class="pt-4 border-t border-slate-100 text-center space-y-1.5">
             <p class="text-[11px] text-slate-500">
               Vous êtes candidat et participez à une épreuve ?
             </p>
@@ -121,41 +109,62 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMagasinAuthentification } from '../magasins/authentification.store';
+import { useMagasinNotification } from '../magasins/notification.store';
 import EpButton from '../composants/systeme/EpButton.vue';
 import EpInput from '../composants/systeme/EpInput.vue';
 
 const router = useRouter();
 const magasinAuth = useMagasinAuthentification();
+const magasinNotif = useMagasinNotification();
 
-// Identifiants par défaut (Admin RH)
-const emailForm  = ref('s.hadjab@techcorp.dz');
-const motDePasse = ref('AdminTech2025!');
+// Champs vides par défaut pour un vrai comportement de connexion
+const emailForm = ref('');
+const motDePasse = ref('');
+const seSouvenirDeMoi = ref(true);
+const afficherMotDePasse = ref(false);
+const chargement = ref(false);
 
-const identifiantsProfils = {
-  companyadmin: { email: 's.hadjab@techcorp.dz', mdp: 'AdminTech2025!' },
-  superadmin: { email: 'kamel.meziane@evalpro.dz', mdp: 'SuperAdmin2025!' },
-  consultant: { email: 'k.benali@evalpro.dz', mdp: 'Consultant2025!' },
-};
-
-function remplirIdentifiants(codeRole) {
-  const compte = identifiantsProfils[codeRole];
-  if (compte) {
-    emailForm.value = compte.email;
-    motDePasse.value = compte.mdp;
-  }
-}
+const erreurChamps = reactive({
+  email: '',
+  motDePasse: '',
+});
 
 function connexionCompte() {
-  const resultat = magasinAuth.connexionSecuriseeB2B(emailForm.value, motDePasse.value);
-  
-  if (resultat.success) {
-    if (resultat.role === 'superadmin') router.push('/tableau-de-bord/superadmin');
-    else if (resultat.role === 'companyadmin') router.push('/tableau-de-bord/entreprise');
-    else if (resultat.role === 'candidate') router.push('/tableau-de-bord/candidat');
-    else router.push('/tableau-de-bord/consultant');
+  erreurChamps.email = '';
+  erreurChamps.motDePasse = '';
+
+  if (!emailForm.value) {
+    erreurChamps.email = 'Veuillez saisir votre adresse email.';
+    return;
   }
+  if (!motDePasse.value) {
+    erreurChamps.motDePasse = 'Veuillez saisir votre mot de passe.';
+    return;
+  }
+
+  chargement.value = true;
+
+  setTimeout(() => {
+    const resultat = magasinAuth.connexionSecuriseeB2B(emailForm.value, motDePasse.value);
+    chargement.value = false;
+    
+    if (resultat.success) {
+      if (resultat.role === 'superadmin') router.push('/tableau-de-bord/superadmin');
+      else if (resultat.role === 'companyadmin') router.push('/tableau-de-bord/entreprise');
+      else if (resultat.role === 'candidate') router.push('/tableau-de-bord/candidat');
+      else router.push('/tableau-de-bord/consultant');
+    }
+  }, 300);
+}
+
+function motDePasseOublie() {
+  magasinNotif.ajouterNotification({
+    type: 'info',
+    titre: 'Réinitialisation du Mot de Passe',
+    message: 'Pour réinitialiser votre mot de passe, veuillez contacter l\'administrateur de votre entreprise ou le support EvalPro.'
+  });
 }
 </script>

@@ -26,8 +26,13 @@
         @input="$emit('update:modelValue', $event.target.value)"
       />
 
-      <div v-if="iconRight" class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-ep-muted">
-        <span class="material-symbols-outlined text-lg">{{ iconRight }}</span>
+      <div
+        v-if="iconRight"
+        class="absolute inset-y-0 right-0 pr-3 flex items-center text-ep-muted"
+        :class="hasRightIconClick ? 'cursor-pointer hover:text-slate-700' : 'pointer-events-none'"
+        @click="hasRightIconClick && $emit('click-icon-right')"
+      >
+        <span class="material-symbols-outlined text-lg select-none">{{ iconRight }}</span>
       </div>
     </div>
 
@@ -85,7 +90,11 @@ defineProps({
     type: String,
     default: '',
   },
+  hasRightIconClick: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-defineEmits(['update:modelValue']);
+defineEmits(['update:modelValue', 'click-icon-right']);
 </script>
