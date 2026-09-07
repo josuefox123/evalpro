@@ -146,3 +146,50 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+/* ================================================================
+   Animations Professionnelles EvalPro (Mockup, Glow, Floating)
+   ================================================================ */
+@keyframes ep-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes ep-pulse-glow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes ep-ping-slow {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  75%, 100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.animate-ep-float {
+  animation: ep-float 6s ease-in-out infinite;
+}
+
+.animate-ep-glow {
+  animation: ep-pulse-glow 4.5s ease-in-out infinite;
+}
+
+.animate-ep-ping {
+  animation: ep-ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
