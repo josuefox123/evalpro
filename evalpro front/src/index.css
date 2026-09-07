@@ -131,6 +131,10 @@
     'opsz' 24;
   vertical-align: middle;
   user-select: none;
+  /* Anti-flash : limite la largeur/hauteur pour empêcher l'affichage des mots ligatures (mail, key, etc.) */
+  max-width: 1.1em;
+  max-height: 1.1em;
+  overflow: hidden;
 }
 
 .fondu-entre-enter-active,
