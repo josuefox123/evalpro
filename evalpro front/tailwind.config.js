@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Palette Officielle EvalPro B2B SaaS
+        // Palette Officielle EvalPro
         'ep-primary':      '#2563EB',  // Bleu principal
         'ep-primary-dark': '#1D4ED8',  // Bleu sombre hover
         'ep-secondary':    '#7C3AED',  // Violet analytics / secondaire
