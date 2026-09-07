@@ -1,17 +1,16 @@
 <template>
-  <!-- 
-    HorlogeChrono.vue (Timer Examen Candidat B2B)
-    Affiche le temps restant (ex: 42:18) de manière claire et lisible.
+  <!--
+    HorlogeChrono.vue - Timer Examen Candidat EvalPro
   -->
-  <div 
+  <div
     :class="[
-      'flex items-center space-x-2 px-3.5 py-1.5 rounded-lg border text-xs font-mono font-bold transition-colors',
-      tempsCritique 
-        ? 'bg-rose-50 text-rose-700 border-rose-200 animate-pulse' 
-        : 'bg-fond-principal text-texte-principal border-bordure'
+      'flex items-center gap-2 px-3.5 py-1.5 rounded-lg border text-xs font-mono font-bold transition-colors',
+      tempsCritique
+        ? 'bg-rose-50 text-rose-700 border-rose-200 animate-pulse'
+        : 'bg-slate-50 text-ep-text border-ep-border'
     ]"
   >
-    <span class="material-symbols-outlined text-base" :class="tempsCritique ? 'text-rose-600' : 'text-bleu-600'">timer</span>
+    <span class="material-symbols-outlined text-base" :class="tempsCritique ? 'text-rose-600' : 'text-ep-primary'">timer</span>
     <span>TEMPS RESTANT : {{ tempsFormate }}</span>
   </div>
 </template>

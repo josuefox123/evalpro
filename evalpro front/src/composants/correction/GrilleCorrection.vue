@@ -1,91 +1,117 @@
 <template>
-  <!-- 
-    Composant GrilleCorrection : Interface de notation manuelle pour le Consultant / Évaluateur.
-    Permet d'attribuer une note par question ouverte, d'ajouter des commentaires explicatifs 
-    et de valider la copie finale.
+  <!--
+    GrilleCorrection.vue - Interface 3 colonnes de correction EvalPro SaaS
   -->
-  <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-6 shadow-xl">
-    
-    <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-      <div>
-        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Evaluation Manuelle</span>
-        <h3 class="text-lg font-bold text-white mt-0.5">Copie de : {{ candidat.prenom }} {{ candidat.nom }}</h3>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 min-h-[650px]">
+
+    <!-- GAUCHE : Liste des Candidats à corriger (3 cols) -->
+    <div class="lg:col-span-3 bg-white border border-ep-border rounded-xl p-4 space-y-4 shadow-ep-card">
+      <div class="flex items-center justify-between pb-3 border-b border-ep-border">
+        <h3 class="text-xs font-bold text-ep-text uppercase tracking-wider">Copies Soumises</h3>
+        <span class="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60">
+          3 En attente
+        </span>
       </div>
 
-      <div class="text-right">
-        <div class="text-xs text-slate-400">Total Provisoire</div>
-        <div class="text-2xl font-extrabold text-emerald-400 font-mono">{{ noteAttribueeTotale }} / {{ totalBareme }}</div>
+      <div class="space-y-2">
+        <div
+          v-for="(cand, idx) in listeCandidats"
+          :key="cand.id"
+          @click="candidatActifIndex = idx"
+          :class="[
+            'p-3 rounded-lg border transition-all cursor-pointer space-y-1',
+            candidatActifIndex === idx
+              ? 'bg-blue-50/50 border-ep-primary shadow-ep-subtle'
+              : 'bg-slate-50 border-ep-border hover:border-slate-300'
+          ]"
+        >
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-ep-text">{{ cand.prenom }} {{ cand.nom }}</span>
+            <span class="text-[10px] text-ep-muted font-mono">14 Jan</span>
+          </div>
+          <p class="text-[11px] text-ep-muted truncate">{{ cand.poste }}</p>
+        </div>
       </div>
     </div>
 
-    <!-- Questions et Grille de Notation -->
-    <div class="space-y-6">
-      <div 
-        v-for="(q, idx) in questionsEvaluation" 
-        :key="q.id" 
-        class="bg-slate-950 border border-slate-800 rounded-xl p-5 space-y-4"
-      >
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-indigo-400">Question {{ idx + 1 }} ({{ q.type.toUpperCase() }})</span>
-          <span class="text-xs text-slate-400">Barème Max : <strong class="text-white font-mono">{{ q.points }} pts</strong></span>
-        </div>
-
+    <!-- CENTRE : Copie du Candidat (6 cols) -->
+    <div class="lg:col-span-6 bg-white border border-ep-border rounded-xl p-5 space-y-5 shadow-ep-card">
+      <div class="flex items-center justify-between pb-3 border-b border-ep-border">
         <div>
-          <h4 class="text-sm font-semibold text-white">{{ q.titre }}</h4>
-          <p class="text-xs text-slate-400 mt-1">{{ q.enonce }}</p>
+          <span class="text-[10px] font-bold text-ep-muted uppercase tracking-wider">Épreuve Pratique</span>
+          <h3 class="text-base font-bold text-ep-text">Copie de {{ candidatActif.prenom }} {{ candidatActif.nom }}</h3>
         </div>
-
-        <!-- Réponse fournie par le candidat -->
-        <div class="bg-slate-900 border border-slate-800 rounded-lg p-3 text-xs font-mono text-emerald-300 whitespace-pre-line">
-          {{ q.reponseCandidat || 'Aucune réponse fournie.' }}
+        <div class="text-right">
+          <span class="text-xs text-ep-muted block">Score temporaire</span>
+          <span class="text-xl font-extrabold text-emerald-600 font-mono">{{ noteAttribueeTotale }} / {{ totalBareme }} Pts</span>
         </div>
+      </div>
 
-        <!-- Formulaire de notation du correcteur -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 border-t border-slate-800">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Note Attribuée</label>
-            <div class="flex items-center space-x-2">
-              <input 
-                type="number" 
-                v-model.number="q.noteAttribuee" 
-                min="0" 
-                :max="q.points" 
-                step="0.5" 
-                class="w-24 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-sm text-white font-mono focus:outline-none focus:border-indigo-500"
-              />
-              <span class="text-xs text-slate-400">/ {{ q.points }}</span>
-            </div>
+      <div class="space-y-6 overflow-y-auto max-h-[550px] pr-1">
+        <div
+          v-for="(q, idx) in questionsEvaluation"
+          :key="q.id"
+          class="bg-slate-50 border border-ep-border rounded-xl p-4 space-y-3"
+        >
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-ep-primary">Question {{ idx + 1 }} • {{ q.type.toUpperCase() }}</span>
+            <span class="text-xs text-ep-muted">Barème Max : <strong class="text-ep-text font-mono">{{ q.points }} Pts</strong></span>
           </div>
 
-          <div class="md:col-span-2">
-            <label class="block text-xs font-semibold text-slate-300 mb-1">Commentaire de l'Évaluateur</label>
-            <input 
-              type="text" 
-              v-model="q.commentaire" 
-              placeholder="Ex: Excellente logique algorithmique, optimisation possible..." 
-              class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
-            />
+          <div>
+            <h4 class="text-xs font-bold text-ep-text">{{ q.titre }}</h4>
+            <p class="text-xs text-slate-600 mt-1 leading-relaxed">{{ q.enonce }}</p>
+          </div>
+
+          <div class="bg-white border border-ep-border rounded-lg p-3 text-xs font-mono text-slate-800 whitespace-pre-line shadow-ep-subtle">
+            {{ q.reponseCandidat || 'Une closure en JavaScript est une fonction qui se souvient des variables de son environnement lexical lors de sa création...' }}
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Actions de validation de correction -->
-    <div class="pt-4 border-t border-slate-800 flex items-center justify-end space-x-3">
-      <button 
-        @click="$emit('sauvegarderBrouillon')" 
-        class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors cursor-pointer"
-      >
-        Sauvegarder Brouillon
-      </button>
+    <!-- DROITE : Notation & Commentaires (3 cols) -->
+    <div class="lg:col-span-3 bg-white border border-ep-border rounded-xl p-5 space-y-5 shadow-ep-card flex flex-col justify-between">
+      <div class="space-y-4">
+        <h3 class="text-xs font-bold text-ep-text uppercase tracking-wider pb-3 border-b border-ep-border">
+          Barème & Appréciation
+        </h3>
 
-      <button 
-        @click="$emit('validerCorrection', noteAttribueeTotale)" 
-        class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-md shadow-emerald-600/20 transition-all cursor-pointer flex items-center space-x-1.5"
-      >
-        <span class="material-symbols-outlined text-base">verified</span>
-        <span>Valider et Publier la Note</span>
-      </button>
+        <div class="space-y-4 max-h-[450px] overflow-y-auto pr-1">
+          <div v-for="(q, idx) in questionsEvaluation" :key="q.id" class="space-y-2 border-b border-slate-100 pb-3">
+            <label class="block text-xs font-semibold text-ep-text">Note Q{{ idx + 1 }} (Max {{ q.points }} Pts)</label>
+            <div class="flex items-center gap-2">
+              <input
+                type="number"
+                v-model.number="q.noteAttribuee"
+                min="0"
+                :max="q.points"
+                step="0.5"
+                class="w-20 bg-white border border-ep-border rounded-lg px-2.5 py-1.5 text-xs font-mono font-bold text-ep-text focus:outline-none focus:border-ep-primary"
+              />
+              <span class="text-xs text-ep-muted">/ {{ q.points }} pts</span>
+            </div>
+
+            <textarea
+              v-model="q.commentaire"
+              placeholder="Commentaire explicatif..."
+              rows="2"
+              class="w-full bg-slate-50 border border-ep-border rounded-lg p-2 text-xs text-ep-text focus:outline-none focus:border-ep-primary"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-ep-border flex flex-col gap-2">
+        <EpButton variant="outline" size="sm" fullWidth @click="$emit('sauvegarderBrouillon')">
+          Sauvegarder Brouillon
+        </EpButton>
+
+        <EpButton variant="success" size="sm" iconLeft="verified" fullWidth @click="$emit('validerCorrection', noteAttribueeTotale)">
+          Valider et Publier Note
+        </EpButton>
+      </div>
+
     </div>
 
   </div>
@@ -93,6 +119,7 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import EpButton from '../systeme/EpButton.vue';
 
 const props = defineProps({
   candidat: { type: Object, required: true },
@@ -100,6 +127,15 @@ const props = defineProps({
 });
 
 defineEmits(['validerCorrection', 'sauvegarderBrouillon']);
+
+const listeCandidats = ref([
+  props.candidat,
+  { id: 2, nom: 'Ouali', prenom: 'Yacine', poste: 'Analyste Financier' },
+  { id: 3, nom: 'Djaballah', prenom: 'Lina', poste: 'Développeur Web Full-Stack' },
+]);
+
+const candidatActifIndex = ref(0);
+const candidatActif = computed(() => listeCandidats.value[candidatActifIndex.value]);
 
 const questionsEvaluation = ref(
   props.questions.map(q => ({

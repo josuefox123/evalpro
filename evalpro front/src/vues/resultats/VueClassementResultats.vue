@@ -1,82 +1,80 @@
 <template>
-  <!-- 
-    VueClassementResultats : Tableau de classement des candidats et publication des résultats.
-    Présente le classement général, la distribution des notes, les candidats admis et la publication.
+  <!--
+    VueClassementResultats.vue - Palmarès et Classement Officiel EvalPro SaaS
   -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-    
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+  <div class="space-y-8">
+
+    <!-- En-tête de page -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-6 rounded-xl border border-ep-border shadow-ep-card">
       <div>
-        <h1 class="text-2xl font-extrabold text-white">Résultats et Classement Officiel</h1>
-        <p class="text-xs text-slate-400">Palmarès des candidats, statistiques des notes et publication officielle.</p>
+        <div class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-purple-50 text-ep-secondary border border-purple-100 mb-2">
+          <span class="material-symbols-outlined text-xs">leaderboard</span>
+          <span>Résultats & Analytics</span>
+        </div>
+        <h1 class="text-2xl font-extrabold text-ep-text font-titre">Résultats & Classement Officiel</h1>
+        <p class="text-xs text-ep-muted mt-1">Palmarès des candidats, statistiques globales et publication des notes.</p>
       </div>
 
-      <div class="flex items-center space-x-3">
-        <button 
-          @click="publierResultats"
-          class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-md shadow-emerald-600/20 transition-all cursor-pointer flex items-center space-x-1.5"
-        >
-          <span class="material-symbols-outlined text-base">publish</span>
-          <span>Publier les Résultats aux Candidats</span>
-        </button>
-      </div>
+      <EpButton variant="success" size="sm" iconLeft="publish" @click="publierResultats">
+        Publier les Résultats
+      </EpButton>
     </div>
 
-    <!-- Répartition Globale -->
+    <!-- KPI & Distribution des Notes -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
-        <div class="text-xs text-slate-400 font-semibold uppercase">Candidats Admis</div>
-        <div class="text-3xl font-extrabold text-emerald-400 font-mono">3 / 10 Postes</div>
-        <div class="text-[11px] text-slate-500">Seuil minimal requis : 75/100</div>
+      <div class="bg-white border border-ep-border rounded-xl p-5 shadow-ep-card space-y-2">
+        <div class="text-xs text-ep-muted font-semibold uppercase tracking-wider">Candidats Admis</div>
+        <div class="text-3xl font-extrabold text-emerald-600 font-mono">3 / 10 Postes</div>
+        <div class="text-[11px] text-ep-muted">Seuil minimal requis : 75/100</div>
       </div>
 
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
-        <div class="text-xs text-slate-400 font-semibold uppercase">Moyenne Générale</div>
-        <div class="text-3xl font-extrabold text-indigo-400 font-mono">81.4 / 100</div>
-        <div class="text-[11px] text-slate-500">Épreuve Full-Stack Senior</div>
+      <div class="bg-white border border-ep-border rounded-xl p-5 shadow-ep-card space-y-2">
+        <div class="text-xs text-ep-muted font-semibold uppercase tracking-wider">Moyenne Générale</div>
+        <div class="text-3xl font-extrabold text-ep-primary font-mono">81.4 / 100</div>
+        <div class="text-[11px] text-ep-muted">Épreuve Full-Stack Senior</div>
       </div>
 
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
-        <div class="text-xs text-slate-400 font-semibold uppercase">Meilleur Score</div>
-        <div class="text-3xl font-extrabold text-amber-400 font-mono">94.5 / 100</div>
-        <div class="text-[11px] text-slate-500">Référence anonymisée</div>
+      <div class="bg-white border border-ep-border rounded-xl p-5 shadow-ep-card space-y-2">
+        <div class="text-xs text-ep-muted font-semibold uppercase tracking-wider">Meilleur Score</div>
+        <div class="text-3xl font-extrabold text-amber-600 font-mono">94.5 / 100</div>
+        <div class="text-[11px] text-ep-muted">Amira Belkacem</div>
       </div>
     </div>
 
     <!-- Tableau du Classement Officiel -->
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-      <div class="flex items-center justify-between">
-        <h3 class="text-base font-bold text-white flex items-center space-x-2">
-          <span class="material-symbols-outlined text-amber-400">emoji_events</span>
+    <div class="bg-white border border-ep-border rounded-xl p-6 shadow-ep-card space-y-4">
+      <div class="flex items-center justify-between border-b border-ep-border pb-4">
+        <h3 class="text-base font-bold text-ep-text flex items-center gap-2">
+          <span class="material-symbols-outlined text-amber-500">emoji_events</span>
           <span>Classement Général des Candidats</span>
         </h3>
-        <span class="text-xs text-slate-400">Tri par score décroissant</span>
+        <span class="text-xs text-ep-muted">Tri par score décroissant</span>
       </div>
 
       <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs text-slate-300">
-          <thead class="bg-slate-950 text-slate-400 uppercase font-semibold">
+        <table class="w-full text-left text-xs text-ep-text">
+          <thead class="bg-slate-50 text-ep-muted uppercase font-semibold border-y border-ep-border">
             <tr>
               <th class="p-3">Rang</th>
               <th class="p-3">Candidat</th>
-              <th class="p-3">Email</th>
+              <th class="p-3">Email & Ville</th>
               <th class="p-3">Score Final</th>
               <th class="p-3">Temps de Passage</th>
               <th class="p-3 text-right">Décision / Statut</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-800">
-            <tr v-for="cand in classement" :key="cand.rank" class="hover:bg-slate-800/40 transition-colors">
-              <td class="p-3 font-mono font-extrabold text-slate-300">
-                <span v-if="cand.rank === 1" class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">1er</span>
-                <span v-else-if="cand.rank === 2" class="px-2 py-0.5 rounded bg-slate-700 text-slate-200">2ème</span>
-                <span v-else-if="cand.rank === 3" class="px-2 py-0.5 rounded bg-amber-800/20 text-amber-500">3ème</span>
-                <span v-else class="text-slate-400">#{{ cand.rank }}</span>
+          <tbody class="divide-y divide-ep-border">
+            <tr v-for="cand in classement" :key="cand.rank" class="hover:bg-slate-50/60 transition-colors">
+              <td class="p-3 font-mono font-extrabold text-ep-text">
+                <span v-if="cand.rank === 1" class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200/60 font-bold">1er</span>
+                <span v-else-if="cand.rank === 2" class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200 font-bold">2ème</span>
+                <span v-else-if="cand.rank === 3" class="px-2 py-0.5 rounded-md bg-amber-50/60 text-amber-800 font-bold">3ème</span>
+                <span v-else class="text-ep-muted">#{{ cand.rank }}</span>
               </td>
-              <td class="p-3 font-bold text-white">{{ cand.name }}</td>
-              <td class="p-3 text-slate-400 font-mono text-[11px]">{{ cand.city }} • France / DZ</td>
-              <td class="p-3 font-mono font-extrabold text-emerald-400 text-sm">{{ cand.score }} / 100</td>
-              <td class="p-3 font-mono text-slate-300">{{ cand.time }}</td>
+              <td class="p-3 font-bold text-ep-text">{{ cand.name }}</td>
+              <td class="p-3 text-ep-muted font-mono text-[11px]">{{ cand.city }}</td>
+              <td class="p-3 font-mono font-extrabold text-emerald-600 text-sm">{{ cand.score }} / 100</td>
+              <td class="p-3 font-mono text-ep-muted">{{ cand.time }}</td>
               <td class="p-3 text-right">
                 <BadgesStatut :statut="cand.status" />
               </td>
@@ -90,7 +88,11 @@
 </template>
 
 <script setup>
+import { useMagasinNotification } from '../../magasins/notification.store';
 import BadgesStatut from '../../composants/communs/BadgesStatut.vue';
+import EpButton from '../../composants/systeme/EpButton.vue';
+
+const magasinNotif = useMagasinNotification();
 
 const classement = [
   { rank: 1, name: "Amira Belkacem", score: 94.5, time: "00:38:12", status: "admis", city: "Alger" },
@@ -101,6 +103,6 @@ const classement = [
 ];
 
 function publierResultats() {
-  alert('Les résultats officiels ont été publiés ! Les candidats vont recevoir leurs notifications par email.');
+  magasinNotif.succes('Les résultats officiels ont été publiés ! Les candidats vont recevoir leurs notifications.', 'Publication réussie');
 }
 </script>

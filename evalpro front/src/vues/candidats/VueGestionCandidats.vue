@@ -1,72 +1,73 @@
 <template>
-  <!-- 
-    VueGestionCandidats.vue (Gestion des Candidats RH B2B)
+  <!--
+    VueGestionCandidats.vue - Gestion des Candidats RH B2B EvalPro
   -->
   <div class="space-y-6">
-    
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+
+    <!-- En-tête de page -->
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-6 rounded-xl border border-ep-border shadow-ep-card">
       <div>
-        <h1 class="text-2xl font-extrabold text-texte-principal tracking-tight">Gestion des Candidats RH</h1>
-        <p class="text-xs text-texte-secondaire">Consultez la liste des candidats, envoyez des liens d'accès sécurisés ou importez des fichiers CSV/Excel.</p>
+        <div class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-ep-primary border border-blue-100 mb-2">
+          <span class="material-symbols-outlined text-xs">group</span>
+          <span>Gestion des Talents</span>
+        </div>
+        <h1 class="text-2xl font-extrabold text-ep-text font-titre">Gestion des Candidats</h1>
+        <p class="text-xs text-ep-muted mt-1">Consultez la liste des candidats, générez des invitations et suivez les notes d'évaluation.</p>
       </div>
 
-      <div class="flex items-center space-x-3">
-        <button 
-          @click="afficherModalImport = true"
-          class="px-4 py-2 rounded-lg bg-white border border-bordure hover:bg-fond-secondaire text-texte-principal text-xs font-semibold shadow-carte transition-colors cursor-pointer flex items-center space-x-1.5"
-        >
-          <span class="material-symbols-outlined text-base">upload_file</span>
-          <span>Importation Massives (CSV/Excel)</span>
-        </button>
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <EpButton variant="outline" size="sm" iconLeft="upload_file" @click="afficherModalImport = true">
+          Import Massif
+        </EpButton>
 
-        <button 
-          @click="afficherModalNouveau = true"
-          class="px-4 py-2 rounded-lg bg-bleu-600 hover:bg-bleu-700 text-white text-xs font-semibold shadow-carte transition-colors cursor-pointer flex items-center space-x-1.5"
-        >
-          <span class="material-symbols-outlined text-base">person_add</span>
-          <span>Ajouter un Candidat</span>
-        </button>
+        <EpButton variant="primary" size="sm" iconLeft="person_add" @click="afficherModalNouveau = true">
+          Ajouter Candidat
+        </EpButton>
       </div>
     </div>
 
     <!-- Barre de Recherche -->
-    <div class="bg-white border border-bordure rounded-xl p-4 shadow-carte">
-      <input 
+    <div class="bg-white border border-ep-border rounded-xl p-4 shadow-ep-card">
+      <EpInput
         v-model="magasinCandidat.rechercheTexte"
-        type="text" 
-        placeholder="Rechercher un candidat par nom, prénom ou email..." 
-        class="w-full bg-fond-principal border border-bordure rounded-lg px-4 py-2 text-xs text-texte-principal placeholder-texte-muet focus:outline-none focus:border-bleu-600"
+        placeholder="Rechercher un candidat par nom, prénom ou email..."
+        iconLeft="search"
       />
     </div>
 
     <!-- Tableau des Candidats -->
-    <div class="bg-white border border-bordure rounded-2xl p-6 shadow-carte space-y-4">
+    <div v-if="magasinCandidat.candidatsFiltres.length > 0" class="bg-white border border-ep-border rounded-xl p-6 shadow-ep-card space-y-4">
       <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs text-texte-principal">
-          <thead class="bg-fond-principal text-texte-secondaire uppercase font-semibold border-y border-bordure">
+        <table class="w-full text-left text-xs text-ep-text">
+          <thead class="bg-slate-50 text-ep-muted uppercase font-semibold border-y border-ep-border">
             <tr>
               <th class="p-3">Candidat</th>
               <th class="p-3">Email & Téléphone</th>
               <th class="p-3">Poste Visé</th>
-              <th class="p-3">Invitation JWT</th>
+              <th class="p-3">Invitation</th>
               <th class="p-3">Statut Examen</th>
               <th class="p-3">Note Globale</th>
               <th class="p-3 text-right">Action</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-bordure">
-            <tr v-for="cand in magasinCandidat.candidatsFiltres" :key="cand.id" class="hover:bg-fond-secondaire/50 transition-colors">
-              <td class="p-3 font-semibold text-texte-principal flex items-center space-x-2.5">
-                <div class="w-8 h-8 rounded-lg bg-bleu-50 border border-bleu-100 flex items-center justify-center font-bold text-bleu-600 text-xs">
+          <tbody class="divide-y divide-ep-border">
+            <tr
+              v-for="cand in magasinCandidat.candidatsFiltres"
+              :key="cand.id"
+              class="hover:bg-slate-50/60 transition-colors cursor-pointer"
+              @click="ouvrirFicheCandidat(cand)"
+            >
+              <td class="p-3 font-semibold text-ep-text flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center font-bold text-ep-primary text-xs">
                   {{ cand.prenom[0] }}{{ cand.nom[0] }}
                 </div>
                 <span>{{ cand.prenom }} {{ cand.nom }}</span>
               </td>
               <td class="p-3">
-                <div class="text-texte-principal font-mono text-[11px]">{{ cand.email }}</div>
-                <div class="text-texte-secondaire text-[10px]">{{ cand.telephone }}</div>
+                <div class="text-ep-text font-mono text-[11px]">{{ cand.email }}</div>
+                <div class="text-ep-muted text-[10px]">{{ cand.telephone }}</div>
               </td>
-              <td class="p-3 text-texte-secondaire font-medium">{{ cand.poste }}</td>
+              <td class="p-3 text-ep-muted font-medium">{{ cand.poste }}</td>
               <td class="p-3">
                 <BadgesStatut :statut="cand.statutInvitation" />
               </td>
@@ -75,18 +76,19 @@
               </td>
               <td class="p-3 font-mono font-bold">
                 <span v-if="cand.noteGlobale !== null" class="text-emerald-600">{{ cand.noteGlobale }} / 100</span>
-                <span v-else class="text-texte-muet">—</span>
+                <span v-else class="text-ep-muted">—</span>
               </td>
-              <td class="p-3 text-right">
-                <button 
+              <td class="p-3 text-right" @click.stop>
+                <EpButton
                   v-if="cand.statutInvitation === 'non_envoyee'"
-                  @click="magasinCandidat.envoyerInvitation(cand.id)"
-                  class="px-3 py-1 rounded-lg bg-bleu-600 hover:bg-bleu-700 text-white text-xs font-semibold shadow-carte transition-colors cursor-pointer flex items-center space-x-1 ml-auto"
+                  variant="primary"
+                  size="sm"
+                  iconLeft="send"
+                  @click="inviterCandidat(cand)"
                 >
-                  <span class="material-symbols-outlined text-sm">send</span>
-                  <span>Envoyer Invitation</span>
-                </button>
-                <span v-else class="text-texte-muet text-[11px]">Lien déjà transmis</span>
+                  Inviter
+                </EpButton>
+                <span v-else class="text-ep-muted text-[11px]">Invitation envoyée</span>
               </td>
             </tr>
           </tbody>
@@ -94,12 +96,71 @@
       </div>
     </div>
 
-    <!-- Modale Importation Massif si activée -->
-    <div v-if="afficherModalImport" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
-      <div class="max-w-2xl w-full">
-        <ImporteurMassif @fermer="afficherModalImport = false" />
+    <!-- État vide -->
+    <EpEmptyState
+      v-else
+      title="Aucun candidat trouvé"
+      description="Aucun candidat ne correspond à votre recherche."
+      icon="group"
+    />
+
+    <!-- Modale Importation Massif -->
+    <EpModal v-model="afficherModalImport" title="Importation Massives de Candidats" icon="upload_file" size="lg">
+      <ImporteurMassif @fermer="afficherModalImport = false" @importe="onImporte" />
+    </EpModal>
+
+    <!-- Drawer Fiche Candidat -->
+    <EpDrawer v-model="afficherFiche" :title="candidatSelectionne ? candidatSelectionne.prenom + ' ' + candidatSelectionne.nom : 'Fiche Candidat'" icon="person" width="lg">
+      <div v-if="candidatSelectionne" class="space-y-6 text-xs text-ep-text">
+        <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-xl border border-ep-border">
+          <div class="w-12 h-12 rounded-full bg-ep-primary text-white font-bold flex items-center justify-center text-lg">
+            {{ candidatSelectionne.prenom[0] }}{{ candidatSelectionne.nom[0] }}
+          </div>
+          <div>
+            <h4 class="text-base font-bold text-ep-text">{{ candidatSelectionne.prenom }} {{ candidatSelectionne.nom }}</h4>
+            <p class="text-xs text-ep-muted">{{ candidatSelectionne.poste }}</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h5 class="font-bold text-ep-text uppercase text-[10px] tracking-wider text-ep-muted">Coordonnées</h5>
+          <div class="grid grid-cols-2 gap-3 bg-white p-3 rounded-lg border border-ep-border">
+            <div>
+              <span class="text-ep-muted block">Email</span>
+              <span class="font-mono font-semibold">{{ candidatSelectionne.email }}</span>
+            </div>
+            <div>
+              <span class="text-ep-muted block">Téléphone</span>
+              <span class="font-mono font-semibold">{{ candidatSelectionne.telephone }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h5 class="font-bold text-ep-text uppercase text-[10px] tracking-wider text-ep-muted">Statut & Évaluation</h5>
+          <div class="grid grid-cols-2 gap-3 bg-white p-3 rounded-lg border border-ep-border">
+            <div>
+              <span class="text-ep-muted block mb-1">Invitation</span>
+              <BadgesStatut :statut="candidatSelectionne.statutInvitation" />
+            </div>
+            <div>
+              <span class="text-ep-muted block mb-1">Composition</span>
+              <BadgesStatut :statut="candidatSelectionne.statutComposition" />
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h5 class="font-bold text-ep-text uppercase text-[10px] tracking-wider text-ep-muted">Résultats</h5>
+          <div class="bg-slate-50 p-4 rounded-xl border border-ep-border text-center">
+            <span class="text-ep-muted block">Note Finale</span>
+            <span class="text-3xl font-extrabold text-emerald-600 font-mono">
+              {{ candidatSelectionne.noteGlobale !== null ? candidatSelectionne.noteGlobale + ' / 100' : 'Non évalué' }}
+            </span>
+          </div>
+        </div>
       </div>
-    </div>
+    </EpDrawer>
 
   </div>
 </template>
@@ -107,10 +168,34 @@
 <script setup>
 import { ref } from 'vue';
 import { useMagasinCandidat } from '../../magasins/candidat.store';
+import { useMagasinNotification } from '../../magasins/notification.store';
 import BadgesStatut from '../../composants/communs/BadgesStatut.vue';
 import ImporteurMassif from '../../composants/recrutement/ImporteurMassif.vue';
+import EpButton from '../../composants/systeme/EpButton.vue';
+import EpInput from '../../composants/systeme/EpInput.vue';
+import EpEmptyState from '../../composants/systeme/EpEmptyState.vue';
+import EpModal from '../../composants/systeme/EpModal.vue';
+import EpDrawer from '../../composants/systeme/EpDrawer.vue';
 
 const magasinCandidat = useMagasinCandidat();
+const magasinNotif = useMagasinNotification();
 const afficherModalImport = ref(false);
 const afficherModalNouveau = ref(false);
+const afficherFiche = ref(false);
+const candidatSelectionne = ref(null);
+
+function ouvrirFicheCandidat(cand) {
+  candidatSelectionne.value = cand;
+  afficherFiche.value = true;
+}
+
+function inviterCandidat(cand) {
+  magasinCandidat.envoyerInvitation(cand.id);
+  magasinNotif.succes(`Lien d'accès unique envoyé à ${cand.prenom} ${cand.nom}`, "Invitation Transmise");
+}
+
+function onImporte(nb) {
+  afficherModalImport.value = false;
+  magasinNotif.succes(`${nb} candidats importés avec succès !`, "Importation réussie");
+}
 </script>

@@ -1,95 +1,98 @@
 /* ================================================================
-   index.css - Feuille de style globale EvalPro
-   Thème clair professionnel, cohérent avec la maquette Figma.
-   Import des directives Tailwind + styles personnalisés.
+   index.css - Design System Global EvalPro B2B SaaS
+   Palette officielle, typographie Inter/Outfit, styles de composants
    ================================================================ */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ----------------------------------------------------------------
-   Styles de base (surcharge des défauts du navigateur)
-   ---------------------------------------------------------------- */
+:root {
+  --ep-primary: #2563EB;
+  --ep-primary-dark: #1D4ED8;
+  --ep-secondary: #7C3AED;
+  --ep-success: #10B981;
+  --ep-navy: #0F172A;
+  --ep-text: #1E293B;
+  --ep-muted: #64748B;
+  --ep-border: #E2E8F0;
+  --ep-background: #F8FAFC;
+  --ep-white: #FFFFFF;
+  --ep-warning: #F59E0B;
+  --ep-danger: #EF4444;
+}
+
 @layer base {
-  /* Corps de la page : fond clair, texte sombre, police Inter */
   body {
-    @apply bg-fond-principal text-texte-principal font-sans;
+    background-color: #F8FAFC;
+    color: #1E293B;
+    @apply font-sans antialiased;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
-  /* Titres : police Outfit pour un rendu moderne */
   h1, h2, h3, h4, h5, h6 {
+    color: #1E293B;
     @apply font-titre font-bold tracking-tight;
   }
 
-  /* Focus clavier accessible et cohérent */
   *:focus-visible {
-    @apply outline-2 outline-offset-2 outline-bleu-500;
+    @apply outline-2 outline-offset-2 outline-blue-600;
   }
 }
 
-/* ----------------------------------------------------------------
-   Composants réutilisables (utilitaires personnalisés)
-   ---------------------------------------------------------------- */
 @layer components {
-
-  /* Carte de base (fond blanc, bordure, ombre légère) */
-  .carte {
-    @apply bg-fond-carte border border-bordure rounded-carte shadow-carte;
+  /* Carte standard B2B */
+  .ep-card {
+    @apply bg-white border border-slate-200 rounded-xl shadow-sm transition-all;
   }
 
-  /* Bouton principal (CTA bleu indigo) */
+  /* Rétrocompatibilité carte */
+  .carte {
+    @apply bg-white border border-slate-200 rounded-xl shadow-sm;
+  }
+
   .btn-principal {
     @apply inline-flex items-center justify-center gap-2
-           px-4 py-2.5 rounded-xl text-sm font-semibold
-           bg-bleu-600 text-white
-           hover:bg-bleu-700
-           active:scale-95
+           px-4 py-2 rounded-lg text-sm font-semibold
+           bg-blue-600 text-white
+           hover:bg-blue-700
+           active:scale-[0.98]
            transition-all duration-150
-           shadow-sm cursor-pointer;
+           shadow-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
-  /* Bouton secondaire (contour) */
   .btn-secondaire {
     @apply inline-flex items-center justify-center gap-2
-           px-4 py-2.5 rounded-xl text-sm font-semibold
-           bg-white text-texte-principal border border-bordure
-           hover:bg-fond-secondaire
-           active:scale-95
+           px-4 py-2 rounded-lg text-sm font-semibold
+           bg-white text-slate-800 border border-slate-200
+           hover:bg-slate-50 hover:border-slate-300
+           active:scale-[0.98]
            transition-all duration-150
-           shadow-sm cursor-pointer;
+           shadow-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
-  /* Champ de formulaire standard */
   .champ-saisie {
-    @apply w-full bg-fond-principal border border-bordure rounded-xl
-           px-3.5 py-2.5 text-sm text-texte-principal
-           placeholder:text-texte-muet
-           focus:outline-none focus:ring-2 focus:ring-bleu-500/30 focus:border-bleu-500
+    @apply w-full bg-white border border-slate-200 rounded-lg
+           px-3.5 py-2 text-sm text-slate-800
+           placeholder:text-slate-400
+           focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600
            transition-colors;
   }
 
-  /* Badge de statut générique */
   .badge {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5
+    @apply inline-flex items-center gap-1.5 px-2.5 py-0.5
            rounded-full text-xs font-semibold;
   }
 
-  /* Lien de navigation actif dans la sidebar */
   .nav-lien-actif {
-    @apply bg-bleu-50 text-bleu-600 border border-bleu-200/60 font-semibold;
+    @apply bg-blue-50 text-blue-600 font-semibold border-l-4 border-blue-600;
   }
 
-  /* Lien de navigation inactif dans la sidebar */
   .nav-lien-inactif {
-    @apply text-texte-secondaire hover:bg-fond-secondaire hover:text-texte-principal;
+    @apply text-slate-400 hover:bg-slate-800/50 hover:text-white transition-colors;
   }
 }
 
-/* ----------------------------------------------------------------
-   Icônes Google Material Symbols (alignement vertical correct)
-   ---------------------------------------------------------------- */
 .material-symbols-outlined {
   font-variation-settings:
     'FILL' 0,
@@ -102,26 +105,20 @@
   user-select: none;
 }
 
-/* ----------------------------------------------------------------
-   Transitions de navigation entre les pages (Vue Router)
-   ---------------------------------------------------------------- */
 .fondu-entre-enter-active,
 .fondu-entre-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
 .fondu-entre-enter-from,
 .fondu-entre-leave-to {
   opacity: 0;
-  transform: translateY(4px);
+  transform: translateY(3px);
 }
 
-/* ----------------------------------------------------------------
-   Barre de défilement personnalisée (style clair et discret)
-   ---------------------------------------------------------------- */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {

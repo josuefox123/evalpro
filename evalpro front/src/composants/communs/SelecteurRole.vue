@@ -1,42 +1,44 @@
 <template>
   <!--
-    SelecteurRole.vue - Barre de démonstration EvalPro (Figma Dev Mode)
-    Bandeau clair en haut de l'interface permettant de basculer entre les 4 rôles.
-    Utile pour les testeurs et démonstrateurs de la maquette.
-    Masqué en production via une variable d'environnement.
+    SelecteurRole.vue - Barre de démonstration EvalPro (Optionnelle)
+    Permet de basculer facilement entre les 4 rôles lors des tests.
+    Peut être masquée d'un clic grâce au bouton de réduction.
   -->
-  <div class="bg-bleu-50 border-b border-bleu-100 px-4 py-2 text-xs">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+  <div v-if="afficheBarre" class="bg-slate-900 text-slate-300 border-b border-slate-800 px-4 py-1.5 text-xs z-50 relative transition-all">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
 
-      <!-- Libellé de la barre de demo -->
-      <div class="flex items-center space-x-2 text-bleu-700">
-        <span class="material-symbols-outlined text-sm text-bleu-600">touch_app</span>
-        <span class="font-semibold">Demonstration Roles (Maquette Figma) :</span>
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm text-ep-primary">smart_button</span>
+        <span class="font-semibold text-xs text-white hidden sm:inline">Rôles de démo :</span>
       </div>
 
-      <!-- Boutons de sélection des rôles -->
-      <div class="flex items-center space-x-1.5 overflow-x-auto py-1">
+      <div class="flex items-center gap-1.5 overflow-x-auto py-0.5">
         <button
           v-for="(infoRole, codeRole) in roles"
           :key="codeRole"
           @click="changerRole(codeRole)"
           :class="[
-            'px-3 py-1.5 rounded-full flex items-center space-x-1.5 transition-all text-xs font-medium cursor-pointer border',
+            'px-2.5 py-0.5 rounded flex items-center gap-1.5 transition-all text-xs font-medium cursor-pointer border',
             magasinAuth.roleActif === codeRole
-              ? `${infoRole.couleur} text-white shadow-sm font-semibold border-transparent`
-              : 'bg-white text-texte-secondaire border-bordure hover:border-bleu-300 hover:text-bleu-600'
+              ? 'bg-ep-primary text-white font-semibold border-ep-primary shadow-ep-subtle'
+              : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700 hover:text-white'
           ]"
           :title="infoRole.description"
         >
           <span class="material-symbols-outlined text-xs">{{ infoRole.icone }}</span>
-          <span>{{ infoRole.libelle }}</span>
+          <span class="hidden md:inline">{{ infoRole.libelle }}</span>
         </button>
       </div>
 
-      <!-- Indicateur de session active -->
-      <div class="hidden lg:flex items-center space-x-2 text-bleu-600 text-xs">
-        <span class="w-2 h-2 rounded-full bg-succes animate-pulse"></span>
-        <span>Session active : <strong>{{ magasinAuth.utilisateurConnecte.nom }}</strong></span>
+      <div class="flex items-center gap-3">
+        <div class="hidden lg:flex items-center gap-1.5 text-slate-400 text-xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span><strong class="text-white">{{ magasinAuth.utilisateurConnecte.nom }}</strong></span>
+        </div>
+
+        <button @click="afficheBarre = false" class="text-slate-400 hover:text-white transition-colors p-0.5" title="Masquer le sélecteur">
+          <span class="material-symbols-outlined text-sm">close</span>
+        </button>
       </div>
 
     </div>
@@ -44,7 +46,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMagasinAuthentification } from '../../magasins/authentification.store';
 import { ROLES_UTILISATEURS } from '../../donnees/donneesInitiales';
@@ -52,11 +54,8 @@ import { ROLES_UTILISATEURS } from '../../donnees/donneesInitiales';
 const router = useRouter();
 const magasinAuth = useMagasinAuthentification();
 const roles = computed(() => ROLES_UTILISATEURS);
+const afficheBarre = ref(true);
 
-/**
- * Change le rôle actif et redirige vers le tableau de bord correspondant.
- * @param {string} codeRole - Code du rôle sélectionné
- */
 function changerRole(codeRole) {
   magasinAuth.definirRoleActif(codeRole);
   switch (codeRole) {

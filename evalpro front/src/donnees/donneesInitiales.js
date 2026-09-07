@@ -57,6 +57,43 @@ export const ROLES_UTILISATEURS = {
   }
 };
 
+// Liste officielle et sécurisée des comptes utilisateurs autorisés
+export const COMPTES_UTILISATEURS_AUTORISES = [
+  {
+    role: 'superadmin',
+    email: 'kamel.meziane@evalpro.dz',
+    motDePasse: 'SuperAdmin2025!',
+    nom: 'Kamel Meziane',
+    entreprise: 'EvalPro HQ',
+    codeRole: 'superadmin'
+  },
+  {
+    role: 'companyadmin',
+    email: 's.hadjab@techcorp.dz',
+    motDePasse: 'AdminTech2025!',
+    nom: 'Samira Hadjab',
+    entreprise: 'TechCorp Algérie',
+    codeRole: 'companyadmin'
+  },
+  {
+    role: 'consultant',
+    email: 'k.benali@evalpro.dz',
+    motDePasse: 'Consultant2025!',
+    nom: 'Dr. Karim Benali',
+    entreprise: 'Cabinet Expert RH',
+    codeRole: 'consultant'
+  },
+  {
+    role: 'candidate',
+    email: 'amira.b@gmail.com',
+    motDePasse: 'Candidat2025!',
+    tokenSession: 'EVAL-2025-8942',
+    nom: 'Amira Belkacem',
+    entreprise: 'Postulant TechCorp',
+    codeRole: 'candidate'
+  }
+];
+
 // Liste des entreprises souscrites pour la vue Super Administrateur
 export const ENTREPRISES_INITIALES = [
   { id: 1, nom: 'TechCorp Algérie', sigle: 'TC', plan: 'Enterprise', utilisateurs: 45, campagnes: 12, candidats: 384, statut: 'actif', mrr: 4500, dateInscription: '15 Jan 2024' },

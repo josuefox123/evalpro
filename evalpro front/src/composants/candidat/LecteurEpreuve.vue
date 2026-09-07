@@ -1,65 +1,64 @@
 <template>
-  <!-- 
-    LecteurEpreuve.vue (Interface Candidat Zéro Distraction)
-    Affichage sobre et ultra-lisible des questions pendant la composition du candidat.
+  <!--
+    LecteurEpreuve.vue - Composant d'affichage des questions pour le candidat
   -->
-  <div class="bg-white border border-bordure rounded-2xl p-8 shadow-carte space-y-6">
-    
+  <div class="bg-white border border-ep-border rounded-xl p-6 sm:p-8 shadow-ep-card space-y-6">
+
     <!-- En-tête de la Question -->
-    <div class="flex items-center justify-between pb-4 border-b border-bordure">
-      <div class="flex items-center space-x-3">
-        <span class="px-3 py-1 rounded-full bg-bleu-50 text-bleu-600 border border-bleu-100 text-xs font-bold font-mono">
+    <div class="flex items-center justify-between pb-4 border-b border-ep-border">
+      <div class="flex items-center gap-3">
+        <span class="px-3 py-1 rounded-full bg-blue-50 text-ep-primary border border-blue-100 text-xs font-bold font-mono">
           QUESTION {{ indexQuestion + 1 }} / {{ nombreTotal }}
         </span>
-        <span class="text-xs text-texte-secondaire font-medium">Bareme : {{ question.points }} Points</span>
+        <span class="text-xs text-ep-muted font-medium">Barème : {{ question.points }} Points</span>
       </div>
 
-      <button 
-        @click="$emit('marquerQuestion', question.id)" 
+      <button
+        @click="$emit('marquerQuestion', question.id)"
         :class="[
-          'flex items-center space-x-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer border',
+          'flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer border',
           question.estMarqueePourVerification
             ? 'bg-amber-50 text-amber-700 border-amber-200'
-            : 'bg-fond-principal text-texte-secondaire border-bordure hover:text-texte-principal'
+            : 'bg-slate-50 text-ep-muted border-ep-border hover:text-ep-text'
         ]"
       >
         <span class="material-symbols-outlined text-sm">bookmark</span>
-        <span>{{ question.estMarqueePourVerification ? 'Marquée pour relecture' : 'Marquer cette question' }}</span>
+        <span>{{ question.estMarqueePourVerification ? 'Marquée' : 'Marquer' }}</span>
       </button>
     </div>
 
     <!-- Énoncé de la question -->
     <div class="py-2 space-y-3">
-      <h3 class="text-xl font-bold text-texte-principal leading-snug">{{ question.titre }}</h3>
-      <p class="text-texte-secondaire text-sm leading-relaxed whitespace-pre-line">{{ question.enonce }}</p>
+      <h3 class="text-lg font-bold text-ep-text font-titre leading-snug">{{ question.titre }}</h3>
+      <p class="text-slate-600 text-sm leading-relaxed whitespace-pre-line">{{ question.enonce }}</p>
     </div>
 
     <!-- Choix de Réponses -->
     <div class="pt-2">
-      
-      <!-- Option 1 : QCM Choix Unique -->
+
+      <!-- QCM -->
       <div v-if="question.type === 'qcm' || question.type === 'qcm_multiple'" class="space-y-3">
-        <label 
-          v-for="option in question.options" 
+        <label
+          v-for="option in question.options"
           :key="option.id"
           :class="[
             'flex items-center p-4 rounded-xl border transition-all cursor-pointer',
-            reponseLocale === option.id 
-              ? 'bg-bleu-50 border-bleu-600 text-bleu-900 shadow-sm font-semibold' 
-              : 'bg-white border-bordure text-texte-principal hover:bg-fond-principal hover:border-slate-300'
+            reponseLocale === option.id
+              ? 'bg-blue-50/60 border-ep-primary text-ep-text font-semibold shadow-ep-subtle'
+              : 'bg-white border-ep-border text-ep-text hover:bg-slate-50 hover:border-slate-300'
           ]"
         >
-          <input 
-            type="radio" 
-            :name="'question_' + question.id" 
-            :value="option.id" 
+          <input
+            type="radio"
+            :name="'question_' + question.id"
+            :value="option.id"
             v-model="reponseLocale"
             @change="sauvegarderReponse"
             class="hidden"
           />
           <div :class="[
             'w-6 h-6 rounded-full border mr-3 flex items-center justify-center text-xs font-bold font-mono transition-colors',
-            reponseLocale === option.id ? 'border-bleu-600 bg-bleu-600 text-white' : 'border-bordure bg-fond-principal text-texte-secondaire'
+            reponseLocale === option.id ? 'border-ep-primary bg-ep-primary text-white' : 'border-ep-border bg-slate-100 text-ep-muted'
           ]">
             {{ option.id.toUpperCase() }}
           </div>
@@ -67,27 +66,27 @@
         </label>
       </div>
 
-      <!-- Option 2 : Réponse Courte / Texte -->
+      <!-- Réponse Courte / Texte -->
       <div v-else-if="question.type === 'reponse_courte'" class="space-y-2">
-        <textarea 
+        <textarea
           v-model="reponseLocale"
           @input="sauvegarderReponse"
           rows="5"
           placeholder="Rédigez votre réponse ici..."
-          class="w-full bg-fond-principal border border-bordure rounded-xl p-4 text-sm text-texte-principal placeholder-texte-muet focus:outline-none focus:border-bleu-600 transition-colors"
+          class="w-full bg-white border border-ep-border rounded-xl p-4 text-sm text-ep-text placeholder:text-ep-muted focus:outline-none focus:ring-2 focus:ring-ep-primary/20 focus:border-ep-primary transition-colors"
         ></textarea>
       </div>
 
-      <!-- Option 3 : Code SQL / Python Sandbox -->
+      <!-- Code SQL / Python Sandbox -->
       <div v-else-if="question.type === 'sql' || question.type === 'code'" class="space-y-2">
-        <div class="flex items-center justify-between text-xs text-texte-secondaire bg-slate-900 text-slate-200 px-4 py-2 rounded-t-xl font-mono">
-          <span class="flex items-center space-x-2">
-            <span class="material-symbols-outlined text-bleu-400 text-sm">code</span>
+        <div class="flex items-center justify-between text-xs text-slate-300 bg-slate-900 px-4 py-2 rounded-t-xl font-mono">
+          <span class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-ep-primary text-sm">code</span>
             <span>Éditeur de Code Sandbox</span>
           </span>
           <span>Syntaxe contrôlée</span>
         </div>
-        <textarea 
+        <textarea
           v-model="reponseLocale"
           @input="sauvegarderReponse"
           rows="7"
@@ -98,9 +97,9 @@
 
     </div>
 
-    <!-- Sauvegarde Automatique Indicative -->
-    <div class="mt-8 pt-4 border-t border-bordure flex items-center justify-between text-xs text-texte-muet">
-      <div class="flex items-center space-x-1.5 text-emerald-600 font-medium">
+    <!-- Indicator de sauvegarde -->
+    <div class="mt-8 pt-4 border-t border-ep-border flex items-center justify-between text-xs text-ep-muted">
+      <div class="flex items-center gap-1.5 text-emerald-600 font-medium">
         <span class="material-symbols-outlined text-sm">cloud_done</span>
         <span>Sauvegarde automatique active</span>
       </div>

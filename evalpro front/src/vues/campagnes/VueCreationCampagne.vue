@@ -1,20 +1,20 @@
 <template>
-  <!-- 
-    VueCreationCampagne : Page de création d'une nouvelle campagne de recrutement.
+  <!--
+    VueCreationCampagne.vue : Création d'une nouvelle campagne de recrutement
   -->
-  <div class="max-w-3xl mx-auto px-4 py-8 space-y-6">
-    
-    <div class="flex items-center space-x-3">
-      <router-link to="/campagnes" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer">
+  <div class="max-w-3xl mx-auto px-4 py-6 space-y-6">
+
+    <div class="flex items-center gap-3">
+      <router-link to="/campagnes" class="p-2 rounded-lg bg-white border border-ep-border text-ep-muted hover:text-ep-text transition-colors cursor-pointer">
         <span class="material-symbols-outlined text-lg">arrow_back</span>
       </router-link>
       <div>
-        <h1 class="text-2xl font-extrabold text-white">Nouvelle Campagne de Recrutement</h1>
-        <p class="text-xs text-slate-400">Renseignez les détails du poste et attribuez un évaluateur.</p>
+        <h1 class="text-2xl font-extrabold text-ep-text font-titre">Nouvelle Campagne de Recrutement</h1>
+        <p class="text-xs text-ep-muted">Renseignez les détails du poste et attribuez un évaluateur.</p>
       </div>
     </div>
 
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+    <div class="bg-white border border-ep-border rounded-xl p-6 sm:p-8 shadow-ep-card">
       <FormulaireCampagne @enregistrer="onEnregistrer" @annuler="onAnnuler" />
     </div>
 
