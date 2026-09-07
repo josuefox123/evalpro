@@ -2,49 +2,54 @@
   <div class="min-h-screen bg-[#f8fafc] text-[#0f172a] font-sans overflow-x-hidden">
 
     <!-- =========================================================
-         HEADER
+         HEADER RESPONSIVE FIXE AVEC DÉFILEMENT TRANSPARENT / OPAQUE
     ========================================================== -->
     <header
-      class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 backdrop-blur"
+      class="fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300"
+      :class="estDefile ? 'bg-white/95 border-slate-200/80 shadow-sm backdrop-blur-md py-0' : 'bg-transparent border-transparent shadow-none backdrop-blur-sm py-1'"
     >
       <div
         class="max-w-7xl mx-auto h-16 sm:h-[72px] px-4 sm:px-6 lg:px-10 flex items-center justify-between"
       >
 
-        <!-- LOGO -->
+        <!-- LOGO BIEN EN ÉVIDENCE -->
         <router-link
           to="/"
-          class="flex items-center shrink-0"
+          class="flex items-center gap-2 shrink-0 group transition-transform duration-200 hover:scale-105"
           aria-label="EvalPro"
         >
           <img
             src="/logo.png"
-            alt="EvalPro"
-            class="h-9 sm:h-11 w-auto object-contain"
+            alt="EvalPro Logo"
+            class="h-9 sm:h-11 w-auto object-contain drop-shadow-sm"
           />
+          <span class="sr-only">EvalPro</span>
         </router-link>
 
 
-        <!-- NAV DESKTOP -->
+        <!-- NAV DESKTOP AVEC OFFSET SCROLL SMOOTH -->
         <nav class="hidden md:flex items-center gap-7 lg:gap-9 ml-auto mr-8">
 
           <a
             href="#fonctionnalites"
-            class="text-sm font-medium text-slate-600 hover:text-slate-950 transition-colors"
+            @click.prevent="scrollToSection('fonctionnalites')"
+            class="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
           >
             Fonctionnalités
           </a>
 
           <a
             href="#securite"
-            class="text-sm font-medium text-slate-600 hover:text-slate-950 transition-colors"
+            @click.prevent="scrollToSection('securite')"
+            class="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
           >
             Sécurité
           </a>
 
           <a
             href="#fonctionnement"
-            class="text-sm font-medium text-slate-600 hover:text-slate-950 transition-colors"
+            @click.prevent="scrollToSection('fonctionnement')"
+            class="text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors"
           >
             Fonctionnement
           </a>
@@ -57,7 +62,7 @@
           variant="primary"
           size="sm"
           @click="ouvrirDemande"
-          class="shrink-0"
+          class="shrink-0 font-semibold"
         >
           <span class="hidden sm:inline">
             Demander une démonstration
@@ -99,7 +104,7 @@
 
 
         <div
-          class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-16 lg:pt-20 pb-14 sm:pb-20"
+          class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-20 sm:pt-24 lg:pt-28 pb-14 sm:pb-20"
         >
 
           <div
@@ -924,12 +929,29 @@
 
 
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted, onUnmounted } from 'vue';
 
 import EpButton from '../composants/systeme/EpButton.vue';
 import EpModal from '../composants/systeme/EpModal.vue';
 import EpInput from '../composants/systeme/EpInput.vue';
 
+/* =========================================================
+   HEADER STICKY TRANSPARENT / OPAQUE STATE
+========================================================= */
+const estDefile = ref(false);
+
+function gererDefilement() {
+  estDefile.value = window.scrollY > 20;
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', gererDefilement, { passive: true });
+  gererDefilement();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', gererDefilement);
+});
 
 /* =========================================================
    MODAL
@@ -968,16 +990,24 @@ function soumettreDemande() {
 
 
 /* =========================================================
-   NAVIGATION
+   NAVIGATION FLUIDE AVEC DÉCALAGE HEADER
 ========================================================= */
 
-function scrollToFonctionnalites() {
-  document
-    .getElementById('fonctionnalites')
-    ?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
+function scrollToSection(id) {
+  const element = document.getElementById(id);
+  if (element) {
+    const headerOffset = 80;
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
     });
+  }
+}
+
+function scrollToFonctionnalites() {
+  scrollToSection('fonctionnalites');
 }
 
 
