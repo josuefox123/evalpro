@@ -132,9 +132,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    }
+    // Ancre spécifique dans la page (ex: /#section)
     if (to.hash) {
       return {
         el: to.hash,
@@ -142,8 +140,24 @@ const router = createRouter({
         behavior: 'smooth'
       };
     }
-    return { top: 0, left: 0, behavior: 'smooth' };
+    // Retour arrière/avant du navigateur : restaure la position
+    if (savedPosition) {
+      return savedPosition;
+    }
+    // Toute autre navigation : revenir IMMÉDIATEMENT en haut (pas de smooth pour éviter le flash)
+    return { top: 0, left: 0, behavior: 'instant' };
   },
+});
+
+// Garantie absolue : force le scroll en haut après chaque changement de route
+// Cible window ET tout éventuel conteneur scrollable interne
+router.afterEach(() => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  // Scroll aussi le conteneur principal du layout si présent
+  const conteneurPrincipal = document.getElementById('contenu-principal');
+  if (conteneurPrincipal) {
+    conteneurPrincipal.scrollTop = 0;
+  }
 });
 
 /**

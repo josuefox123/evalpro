@@ -248,7 +248,7 @@
     <!-- ================================================
          ZONE DE CONTENU PRINCIPAL
          ================================================ -->
-    <div class="flex-1 lg:ml-64 flex flex-col min-w-0">
+    <div id="contenu-principal" class="flex-1 lg:ml-64 flex flex-col min-w-0">
 
       <!-- Header Supérieur Fixe -->
       <BarreNavigation @toggle-mobile-menu="mobileMenuOuvert = !mobileMenuOuvert" />

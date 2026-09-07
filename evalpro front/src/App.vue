@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useMagasinAuthentification } from './magasins/authentification.store';
 import DispositionB2B from './composants/communs/DispositionB2B.vue';
@@ -37,6 +37,11 @@ import EpToast from './composants/systeme/EpToast.vue';
 
 const route = useRoute();
 const magasinAuth = useMagasinAuthentification();
+
+// Scroll en haut à chaque changement de route (garantie supplémentaire)
+watch(() => route.fullPath, () => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+});
 
 /**
  * Détermine rigoureusement si la route courante est un dashboard interne connecté (avec Sidebar B2B)
