@@ -26,7 +26,7 @@
             <img src="/logo.png" alt="EvalPro" class="h-20 w-auto mx-auto object-contain mb-3 drop-shadow-sm" />
             <h1 class="text-xl font-extrabold text-ep-text font-titre">Connexion Espace Entreprise</h1>
             <p class="text-xs text-ep-muted">
-              Plateforme B2B de recrutement et d'évaluation en ligne
+              Plateforme de recrutement et d'évaluation en ligne
             </p>
           </div>
 
@@ -67,7 +67,7 @@
 
     <!-- Footer minimal -->
     <footer class="py-4 text-center text-[11px] text-ep-muted border-t border-ep-border bg-white">
-      EvalPro B2B SaaS © 2025 — Tous droits réservés
+      EvalPro © 2025 — Tous droits réservés
     </footer>
 
   </div>

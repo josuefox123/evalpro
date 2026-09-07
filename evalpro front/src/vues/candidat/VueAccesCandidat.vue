@@ -59,7 +59,7 @@
               class="inline-flex items-center gap-1 text-xs font-semibold text-ep-primary hover:underline"
             >
               <span class="material-symbols-outlined text-sm">domain</span>
-              <span>Connexion Espace Entreprise & B2B</span>
+              <span>Connexion Espace Entreprise</span>
             </router-link>
           </div>
 
@@ -70,7 +70,7 @@
 
     <!-- Footer minimal -->
     <footer class="py-4 text-center text-[11px] text-ep-muted border-t border-ep-border bg-white">
-      EvalPro SaaS B2B © 2025 — Évaluation & Recrutement Sécurisé
+      EvalPro © 2025 — Évaluation & Recrutement Sécurisé
     </footer>
 
   </div>

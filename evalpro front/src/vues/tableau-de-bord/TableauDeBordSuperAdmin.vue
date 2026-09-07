@@ -9,7 +9,7 @@
       <div>
         <div class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-purple-50 text-ep-secondary border border-purple-100 mb-2">
           <span class="material-symbols-outlined text-xs">admin_panel_settings</span>
-          <span>Super Administrateur SaaS</span>
+          <span>Super Administrateur</span>
         </div>
         <h1 class="text-2xl font-extrabold text-ep-text font-titre">Supervision Globale EvalPro</h1>
         <p class="text-xs text-ep-muted mt-1">Gestion du parc clients, santé financière (MRR) et journalisation de sécurité.</p>

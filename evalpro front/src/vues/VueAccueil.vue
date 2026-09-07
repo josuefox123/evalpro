@@ -30,7 +30,7 @@
 
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-ep-primary text-xs font-semibold mb-6">
         <span class="material-symbols-outlined text-sm">rocket_launch</span>
-        <span>Plateforme B2B de Recrutement & Évaluation</span>
+        <span>Plateforme de Recrutement & Évaluation</span>
       </div>
 
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-ep-text leading-tight font-titre max-w-4xl mx-auto mb-6">
@@ -75,7 +75,7 @@
 
           <div class="text-center">
             <div class="text-3xl font-extrabold text-amber-600 font-titre">99.9%</div>
-            <div class="text-xs font-semibold text-ep-muted uppercase tracking-wider mt-1">Disponibilité SaaS</div>
+            <div class="text-xs font-semibold text-ep-muted uppercase tracking-wider mt-1">Disponibilité Plateforme</div>
           </div>
         </div>
       </div>
@@ -182,7 +182,7 @@
     <!-- Footer -->
     <footer class="bg-white border-t border-ep-border py-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-ep-muted">
-        EvalPro SaaS — Plateforme B2B de Recrutement et d'Évaluation en Ligne
+        EvalPro — Plateforme de Recrutement et d'Évaluation en Ligne
       </div>
     </footer>
 

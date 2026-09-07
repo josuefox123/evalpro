@@ -22,7 +22,7 @@
         </h2>
         <span class="text-slate-300 text-xs hidden sm:inline">|</span>
         <span class="text-xs font-semibold text-ep-primary bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100 hidden sm:inline">
-          {{ magasinAuth.utilisateurConnecte.entreprise || 'EvalPro SaaS' }}
+          {{ magasinAuth.utilisateurConnecte.entreprise || 'EvalPro' }}
         </span>
       </div>
     </div>

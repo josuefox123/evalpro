@@ -95,7 +95,7 @@
 
     <!-- Footer minimal -->
     <footer class="py-4 text-center text-[11px] text-ep-muted border-t border-ep-border bg-white">
-      EvalPro B2B SaaS © 2025 — Évaluation & Recrutement Sécurisé
+      EvalPro © 2025 — Évaluation & Recrutement Sécurisé
     </footer>
 
   </div>

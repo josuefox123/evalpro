@@ -103,7 +103,7 @@ export const useMagasinAuthentification = defineStore('authentification', {
         this.utilisateurConnecte = {
           nom: compteTrouve.nom,
           email: compteTrouve.email,
-          entreprise: compteTrouve.entreprise || 'EvalPro SaaS'
+          entreprise: compteTrouve.entreprise || 'EvalPro'
         };
         this.estAuthentifie = true;
 
